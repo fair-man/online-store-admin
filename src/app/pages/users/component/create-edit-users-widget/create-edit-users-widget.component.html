@@ -1,0 +1,223 @@
+
+<div class="grid grid--gap-32">
+    <div class="grid__box grid__box--size-5">
+        <div>
+            <span class="sub-title">Основная информация</span>
+        </div>
+        <div class="grid mt-16">
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="firstName"><span class="field__label--required">Фамилия</span></label>
+                    <input type="text" id="firstName">
+                </ui-field>
+            </div>
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="lastName"><span class="field__label--required">Имя</span></label>
+                    <input type="text" id="lastName">
+                </ui-field>
+            </div>
+        </div>
+        <div class="grid mt-8">
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="patronymicName"><span class="field__label--required">Отчество</span></label>
+                    <input type="text" id="patronymicName">
+                </ui-field>
+            </div>
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="birthDate"><span class="field__label--required">Дата рождения</span></label>
+                    <input type="text" id="birthDate">
+                </ui-field>
+            </div>
+        </div>
+        <div class="grid mt-8">
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="email"><span class="field__label--required">E-mail</span></label>
+                    <input type="text" id="email">
+                </ui-field>
+            </div>
+        </div>
+        <div class="grid grid--va-bottom mt-8">
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="phone"><span class="field__label--required">Телефон</span></label>
+                    <input type="text" id="phone">
+                </ui-field>
+            </div>
+            <div class="grid__box grid__box--size-min">
+                <button type="button" class="button">Добавить телефон</button>
+            </div>
+        </div>
+    </div>
+    <div class="grid__box grid__box--size-5">
+        <div>
+            <span class="sub-title">Роль, доступ</span>
+        </div>
+        <div class="grid mt-16">
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="role"><span class="field__label--required">Роль в системе</span></label>
+                    <input type="text" id="role">
+                </ui-field>
+            </div>
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="login"><span class="field__label--required">Логин в системе</span></label>
+                    <input type="text" id="login">
+                </ui-field>
+            </div>
+        </div>
+        <div class="grid mt-8">
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="password"><span class="field__label--required">Пароль</span></label>
+                    <input type="password" id="password">
+                </ui-field>
+            </div>
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="passwordConfirm"><span class="field__label--required">Подтверждение пароля</span></label>
+                    <input type="password" id="passwordConfirm">
+                </ui-field>
+            </div>
+        </div>
+    </div>
+    <div class="grid__box grid__box--size-2">
+        <div>
+            <span class="sub-title">Фото</span>
+        </div>
+    </div>
+</div>
+
+<div class="mt-32">
+    <div class="grid grid--gap-32 mt-16">
+        <div class="grid__box grid__box--size-5">
+            <div>
+                <span class="sub-title">Адрес регистрации</span>
+            </div>
+            <div class="grid mt-16">
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="region"><span class="field__label--required">Область</span></label>
+                        <input type="text" id="region">
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="disctrict"><span class="field__label--required">Район</span></label>
+                        <input type="text" id="disctrict">
+                    </ui-field>
+                </div>
+            </div>
+            <div class="grid mt-16">
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="city">Город</label>
+                        <input type="text" id="city">
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="street_type"><span class="field__label--required">Элемент дор. трансп. сети</span></label>
+                        <input type="text" id="street_type">
+                    </ui-field>
+                </div>
+            </div>
+            <div class="grid mt-16">
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
+                        <input type="text" id="street">
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-2">
+                    <ui-field>
+                        <label for="house"><span class="field__label--required">Дом</span></label>
+                        <input type="text" id="house">
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-2">
+                    <ui-field>
+                        <label for="building">Корпус</label>
+                        <input type="text" id="building">
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-2">
+                    <ui-field>
+                        <label for="flat">Квартира</label>
+                        <input type="text" id="flat">
+                    </ui-field>
+                </div>
+            </div>
+        </div>
+        <div class="grid__box grid__box--size-5">
+            <div>
+                <span class="sub-title">Адрес проживания</span>
+            </div>
+            <div class="grid mt-16">
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="region"><span class="field__label--required">Область</span></label>
+                        <input type="text" id="region">
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="disctrict"><span class="field__label--required">Район</span></label>
+                        <input type="text" id="disctrict">
+                    </ui-field>
+                </div>
+            </div>
+            <div class="grid mt-16">
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="city">Город</label>
+                        <input type="text" id="city">
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="street_type"><span class="field__label--required">Элемент дор. трансп. сети</span></label>
+                        <input type="text" id="street_type">
+                    </ui-field>
+                </div>
+            </div>
+            <div class="grid mt-16">
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
+                        <input type="text" id="street">
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-2">
+                    <ui-field>
+                        <label for="house"><span class="field__label--required">Дом</span></label>
+                        <input type="text" id="house">
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-2">
+                    <ui-field>
+                        <label for="building">Корпус</label>
+                        <input type="text" id="building">
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-2">
+                    <ui-field>
+                        <label for="flat">Квартира</label>
+                        <input type="text" id="flat">
+                    </ui-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-16">
+        <input type="checkbox"> Адрес регистрации совпадает с адресом регистрации
+    </div>
+</div>
+
+<div class="mt-32">
+    <button type="submit" class="button button--orange">Создать работника</button>
+</div>

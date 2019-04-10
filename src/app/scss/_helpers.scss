@@ -1,0 +1,27 @@
+@import "./colors";
+
+@each $colorName, $colorValue in $text-colors {
+  .color-#{$colorName} {
+    color: $colorValue;
+  }
+}
+
+@each $colorName, $colorValue in $text-colors {
+  .bg-color-#{$colorName} {
+    background-color: $colorValue;
+  }
+}
+
+@each $num in $nums {
+  @each $type in (padding, margin) {
+    .#{$type}-#{$num} {
+      #{$type}: #{$num}px;
+    }
+
+    @each $side in (left, right, top, bottom) {
+      .#{str-slice($type, 0, 1)}#{str-slice($side, 0, 1)}-#{$num} {
+        #{$type}-#{$side}: #{$num}px;
+      }
+    }
+  }
+}

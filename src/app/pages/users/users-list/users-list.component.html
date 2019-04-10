@@ -1,0 +1,52 @@
+<h1>Работники</h1>
+
+<div class="mt-8">
+    <a class="link link--no-underline" [routerLink]="['/' + USERS_PATHS.usersCreate]">
+        <button type="button" class="button button--orange">Создать работника</button>
+    </a>
+</div>
+
+<div class="container mt-32">
+    <ngb-tabset (tabChange)="onChangeUserTypeTab($event)">
+        <ngb-tab *ngFor="let tab of tabs" [title]="tab.title" [id]="tab.id">
+            <ng-template ngbTabContent>
+                <div class="grid">
+                    <ng-container *ngIf="tab.users && tab.users.length">
+                        <div class="grid__box grid__box--size-min" *ngFor="let user of tab.users">
+                            <ui-card>
+                                <ui-card-header>
+                                    <img class="img__user-preview" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmHNu-x-xD_Lhx8X21S7goRWsG-W5mxLhchMGcy0QtQiht8WWt" alt="Иванов Иван Иванович">
+                                </ui-card-header>
+                                <ui-card-content>
+                                    <div>{{user.first_name}} {{user.last_name}} {{user.patronymic_name}}</div>
+                                    <div class="grid mt-8">
+                                        <div class="grid__box">
+                                            Возраст:
+                                        </div>
+                                        <div class="grid__box grid__box--size-min grid__box--pull-right">
+                                            28
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="grid__box">
+                                            В компании:
+                                        </div>
+                                        <div class="grid__box grid__box--size-min grid__box--pull-right">
+                                            1 г. 10 мес.
+                                        </div>
+                                    </div>
+                                </ui-card-content>
+                                <ui-card-footer>
+                                    <a class="link link--no-underline" [routerLink]="['/', USERS_PATHS.users, user.id]">
+                                        <button type="button" class="button button--orange">Подробнее о работнике</button>
+                                    </a>
+                                </ui-card-footer>
+                            </ui-card>
+                        </div>
+                    </ng-container>
+                </div>
+                <div *ngIf="!tab.users">Нет данных для отображения.</div>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>

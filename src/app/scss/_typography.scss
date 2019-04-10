@@ -1,0 +1,15 @@
+@import "./variabless";
+@import "./colors";
+@import "./mixins";
+
+.title {
+  @include font(normal, 24px, 32px, $font-primary);
+}
+
+.sub-title {
+  @include font(normal, 15px, 24px, $font-secondary);
+}
+
+.caption {
+  @include font(normal, 12px, 16px, $font-primary);
+}

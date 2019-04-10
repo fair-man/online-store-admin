@@ -1,0 +1,32 @@
+@import "../../scss/colors";
+@import "../../scss/mixins";
+@import "../../scss/variabless";
+
+.card {
+  @include border-radius(4px);
+
+  padding: 16px;
+  border: 1px solid $clr-gray-secondary;
+
+  &--hover {
+    &:hover {
+      @include box-shadow(0, 0, 4px, -1px);
+    }
+  }
+}
+
+.card__header {
+  @include font(normal, 15px, 24px, $font-primary);
+
+  color: $clr-black;
+}
+
+.card__content {
+  @include font(normal, 13px, 20px, $font-secondary);
+
+  margin-top: 8px;
+}
+
+.card__footer {
+  margin-top: 24px;
+}

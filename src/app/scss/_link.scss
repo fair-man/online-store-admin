@@ -1,0 +1,28 @@
+@import "./colors";
+
+.link {
+  color: $clr-gray-primary;
+  text-decoration: none;
+  border-bottom: 1px solid $clr-gray-primary;
+
+  &:hover {
+    opacity: .6;
+  }
+
+  &--no-underline {
+    border-color: transparent;
+  }
+
+  @each $name, $color in $text-colors {
+    &--#{$name} {
+      color: $color;
+      border-color: $color;
+    }
+  }
+
+  @each $type in (dashed) {
+    &--#{$type} {
+      border-bottom-style: $type;
+    }
+  }
+}

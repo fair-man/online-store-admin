@@ -1,0 +1,51 @@
+@import "../../scss/colors";
+@import "../../scss/variabless";
+@import "../../scss/mixins";
+
+.field__label {
+  display: inline-block;
+
+  label {
+    cursor: pointer;
+  }
+
+  &--required {
+    &:after {
+      content: '*';
+      color: $clr-red-primary;
+      margin-left: 4px;
+    }
+  }
+}
+
+.field__input {
+  input,
+  textarea {
+    @include border-radius(4px);
+
+    font-size: 12px;
+    width: 100%;
+    height: 36px;
+    padding: 0 8px;
+    vertical-align: middle;
+    color: $clr-gray-primary;
+    outline: none;
+    border: 1px solid $clr-gray-secondary;
+
+    &:focus {
+      border-color: $clr-yellow-primary;
+    }
+
+    &:disabled {
+      opacity: .6;
+      cursor: default;
+    }
+  }
+
+  @include placeholder {
+    color: $clr-gray-secondary - 50;
+    font-style: italic;
+    font-weight: 100;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,35 @@
+$clr-black: #000000;
+$clr-white: #FFFFFF;
+
+$clr-yellow-primary: #F8AE20;
+$clr-yellow-secondary: #FBCE5D;
+
+$clr-green-primary: #308930;
+$clr-green-secondary: #82B882;
+
+$clr-red-primary: #CD1213;
+$clr-red-secondary: #E13539;
+
+$clr-blue-primary: #1BACF8;
+$clr-blue-secondary: #50CDFB;
+
+$clr-gray-primary: #2B292D;
+$clr-gray-secondary: #D2D2D2;
+
+$text-colors: (
+        'black': $clr-black,
+        'white': $clr-white,
+        'yellow': $clr-yellow-primary,
+        'green': $clr-green-primary,
+        'red': $clr-red-primary,
+        'blue': $clr-blue-primary,
+);
+
+$background-colors: (
+        'black': $clr-black,
+        'white': $clr-white,
+        'yellow': $clr-yellow-primary,
+        'green': $clr-green-primary,
+        'red': $clr-red-primary,
+        'blue': $clr-blue-primary,
+);
