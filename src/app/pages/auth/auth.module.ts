@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthRoutingModule} from './auth-routing.module';
 import {AuthService} from './auth.service';
 import {AuthComponent} from './auth/auth.component';
+import {UiModule} from '../../ui/ui.module';
 
 @NgModule({
     imports: [
@@ -12,6 +13,7 @@ import {AuthComponent} from './auth/auth.component';
         FormsModule,
         ReactiveFormsModule,
         AuthRoutingModule,
+        UiModule
     ],
     declarations: [
         AuthComponent
