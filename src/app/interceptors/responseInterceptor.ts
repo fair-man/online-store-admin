@@ -23,6 +23,7 @@ export class ResponseInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (this.authService.checkLogged() && this.authService.getCSRFToken()) {
+            console.log('X-CSRFToken => ', this.authService.getCSRFToken());
             request = request.clone({withCredentials: true, headers: request.headers.set('X-CSRFToken', this.authService.getCSRFToken())});
         }
 
