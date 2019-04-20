@@ -28,7 +28,7 @@ export class ResponseInterceptor implements HttpInterceptor {
         }
 
         request = request.clone({
-            withCredentials: true
+            withCredentials: 'include'
         });
 
         return next.handle(request).pipe(
