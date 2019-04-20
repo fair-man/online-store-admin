@@ -27,10 +27,6 @@ export class ResponseInterceptor implements HttpInterceptor {
             request = request.clone({headers: request.headers.set('X-CSRFToken', this.authService.getCSRFToken())});
         }
 
-        request = request.clone({
-            withCredentials: 'include'
-        });
-
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
                 return event;
