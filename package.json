@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start": "node server.js",
+    "start": "http-server",
     "heroku-postbuild": "ng build --prod"
   },
   "private": true,
