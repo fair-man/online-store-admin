@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/internal/operators';
 import {Observable} from 'rxjs/index';
 
@@ -12,17 +12,12 @@ export class AuthService {
     userData: User;
     isLoggedIn = false;
 
-    httpOptions = {
-    headers: new HttpHeaders({
-        withCredentials:  true
-    })
-};
 
     constructor(private http: HttpClient) {
     }
 
     login(authData): Observable<any> {
-        return this.http.post('/auth/login', authData, this.httpOptions).pipe(tap(
+        return this.http.post('/auth/login', authData, { withCredentials: true }).pipe(tap(
             (response) => {
                 this.userData = response['data'];
                 this.isLoggedIn = true;
