@@ -35,6 +35,8 @@ div.ui-date-time-picker {
     }
 
     &--invalid {
+      border-color: $clr-red-primary;
+
       &:focus {
         border-color: $clr-red-primary;
       }

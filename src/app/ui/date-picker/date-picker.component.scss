@@ -91,14 +91,19 @@
   margin-top: 2px;
   border-radius: 4px;
 
-  &--selected {
+  &:hover {
     background-color: $border-clr;
     font-weight: normal;
   }
 
-  &:hover {
+  &--selected {
     background-color: $clr-yellow-primary;
     font-weight: normal;
+    cursor: default;
+
+    &:hover {
+      background-color: $clr-yellow-primary;
+    }
   }
 
   &--now {

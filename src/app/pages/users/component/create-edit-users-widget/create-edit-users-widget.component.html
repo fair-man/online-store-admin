@@ -32,7 +32,7 @@
                             [initDate]="null"
                             [isShowTimepicker]="false"
                             (dateCallback)="onChangeBirthDate($event)"
-
+                            [checkAdult]="'18'"
                     ></ui-date-time-picker>
                 </ui-field>
             </div>
@@ -48,12 +48,15 @@
         <div class="grid grid--va-bottom mt-8">
             <div class="grid__box grid__box--size-6">
                 <ui-field>
-                    <label for="phone"><span class="field__label--required">Телефон</span></label>
-                    <input type="text" id="phone" [textMask]="{mask: phoneMask}" [(ngModel)]="myModel">
+                    <label for="phone">Дом. телефон</label>
+                    <input type="text" id="phone" [textMask]="{mask: phoneMask}">
                 </ui-field>
             </div>
-            <div class="grid__box grid__box--size-min">
-                <button type="button" class="button">Добавить телефон</button>
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="phone_dop"><span class="field__label--required">Моб. телефон</span></label>
+                    <input type="text" id="phone_dop" [textMask]="{mask: phoneMask}">
+                </ui-field>
             </div>
         </div>
     </div>
@@ -135,7 +138,15 @@
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
                         <label for="street_type"><span class="field__label--required">Элемент дор. трансп. сети</span></label>
-                        <input type="text" id="street_type">
+                        <ui-select
+                                [items]="[{role_name: 'Архитектор'}, {role_name: 'Диспетчер'}]"
+                                (callback)="onChangeRole($event)"
+                                [textKey]="'role_name'"
+                                [defaultText]="'Выберите значение'"
+                                [initBy]="roleSelected"
+                                [nullChoice]="true"
+                                [isDisabled]="false"
+                        ></ui-select>
                     </ui-field>
                 </div>
             </div>
@@ -193,8 +204,16 @@
                 </div>
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
-                        <label for="street_type"><span class="field__label--required">Элемент дор. трансп. сети</span></label>
-                        <input type="text" id="street_type">
+                        <label><span class="field__label--required">Элемент дор. трансп. сети</span></label>
+                        <ui-select
+                                [items]="[{role_name: 'Архитектор'}, {role_name: 'Диспетчер'}]"
+                                (callback)="onChangeRole($event)"
+                                [textKey]="'role_name'"
+                                [defaultText]="'Выберите значение'"
+                                [initBy]="roleSelected"
+                                [nullChoice]="true"
+                                [isDisabled]="false"
+                        ></ui-select>
                     </ui-field>
                 </div>
             </div>
