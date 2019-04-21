@@ -1,7 +1,6 @@
 <div class="ui-select" ngbDropdown>
     <div *ngIf="isDisabled" class="ui-select__disabled-wrapper"></div>
     <button class="ui-select__toggle-button"
-            [name]="fieldName"
             ngbDropdownToggle
             type="button">
         <span class="ui-select__default-text" *ngIf="!initBy">{{defaultText}}</span>
