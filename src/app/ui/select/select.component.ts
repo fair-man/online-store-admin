@@ -31,16 +31,6 @@ export class SelectComponent implements OnInit {
 
   onSelect(item) {
     if (isEqual(item, this.initBy)) { return; }
-
-    // this.initBy = item;
     this.callback.emit(item);
-  }
-
-  getSelected() {
-    if (this.textKey) {
-      return this.initBy && this.initBy[this.textKey] || this.defaultText;
-    }
-
-    return this.initBy || this.defaultText;
   }
 }
