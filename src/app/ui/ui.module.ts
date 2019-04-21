@@ -10,6 +10,7 @@ import {UITimePickerModule} from './time-picker/time-picker.module';
 
 import {CardComponent} from './card/card.component';
 import {FieldComponent} from './field/field.component';
+import {UiFieldPasswordComponent} from './field/field-password.component';
 import {SelectComponent} from './select/select.component';
 import {DateTimePickerComponent} from './date-time-picker/date-time-picker.component';
 
@@ -25,6 +26,7 @@ import {DateTimePickerComponent} from './date-time-picker/date-time-picker.compo
     declarations: [
         CardComponent,
         FieldComponent,
+        UiFieldPasswordComponent,
         SelectComponent,
         DateTimePickerComponent
     ],
@@ -34,6 +36,7 @@ import {DateTimePickerComponent} from './date-time-picker/date-time-picker.compo
         UITimePickerModule,
         CardComponent,
         FieldComponent,
+        UiFieldPasswordComponent,
         SelectComponent,
         DateTimePickerComponent
     ],
