@@ -1,3 +1,6 @@
+@import "./variabless";
+@import "./colors";
+
 @mixin font($font-style, $font-size, $lint-height, $font-family) {
   font: $font-style + ' ' + $font-size + '/' + $lint-height + ' ' + $font-family;
 }

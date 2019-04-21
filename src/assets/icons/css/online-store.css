@@ -1,72 +1,60 @@
 @font-face {
-  font-family: 'Roboto Regular';
-  src: local('Roboto'),
-       local('Roboto-Regular'),
-       url('assets/fonts/Roboto.woff2') format('woff2'),
-       url('assets/fonts/Roboto.woff') format('woff'),
-       url('assets/fonts/Roboto.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roboto Medium';
-  src: local('Roboto Medium'),
-       local('Roboto-Medium'),
-       url('assets/fonts/Robotomedium.woff2') format('woff2'),
-       url('assets/fonts/Robotomedium.woff') format('woff'),
-       url('assets/fonts/Robotomedium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
   font-family: 'online-store';
-  src: url('assets/fonts/online-store.eot?54712451');
-  src: url('assets/fonts/online-store.eot?54712451#iefix') format('embedded-opentype'),
-  url('assets/fonts/online-store.woff2?54712451') format('woff2'),
-  url('assets/fonts/online-store.woff?54712451') format('woff'),
-  url('assets/fonts/online-store.ttf?54712451') format('truetype'),
-  url('assets/fonts/online-store.svg?54712451#online-store') format('svg');
+  src: url('../font/online-store.eot?54712451');
+  src: url('../font/online-store.eot?54712451#iefix') format('embedded-opentype'),
+       url('../font/online-store.woff2?54712451') format('woff2'),
+       url('../font/online-store.woff?54712451') format('woff'),
+       url('../font/online-store.ttf?54712451') format('truetype'),
+       url('../font/online-store.svg?54712451#online-store') format('svg');
   font-weight: normal;
   font-style: normal;
 }
-
-[class^="os-"]:before, [class*=" os-"]:before {
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'online-store';
+    src: url('../font/online-store.svg?54712451#online-store') format('svg');
+  }
+}
+*/
+ 
+ [class^="os-"]:before, [class*=" os-"]:before {
   font-family: "online-store";
   font-style: normal;
   font-weight: normal;
   speak: none;
-
+ 
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
   margin-right: .2em;
   text-align: center;
   /* opacity: .8; */
-
+ 
   /* For safety - reset parent styles, that can break glyph codes*/
   font-variant: normal;
   text-transform: none;
-
+ 
   /* fix buttons height, for twitter bootstrap */
   line-height: 1em;
-
+ 
   /* Animation center compensation - margins should be symmetric */
   /* remove if not needed */
   margin-left: .2em;
-
+ 
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
-
+ 
   /* Font smoothing. That was taken from TWBS */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+ 
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
-
+ 
 .os-calendar:before { content: '\e800'; } /* '' */
 .os-eye:before { content: '\e801'; } /* '' */
 .os-eye-off:before { content: '\e802'; } /* '' */

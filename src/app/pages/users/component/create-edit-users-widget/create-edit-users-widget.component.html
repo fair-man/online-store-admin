@@ -27,8 +27,13 @@
             </div>
             <div class="grid__box grid__box--size-6">
                 <ui-field>
-                    <label for="birthDate"><span class="field__label--required">Дата рождения</span></label>
-                    <input type="text" id="birthDate">
+                    <label><span class="field__label--required">Дата рождения</span></label>
+                    <ui-date-time-picker
+                            [initDate]="null"
+                            [isShowTimepicker]="false"
+                            (dateCallback)="onChangeBirthDate($event)"
+
+                    ></ui-date-time-picker>
                 </ui-field>
             </div>
         </div>

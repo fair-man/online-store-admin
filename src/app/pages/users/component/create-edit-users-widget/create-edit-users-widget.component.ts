@@ -17,4 +17,8 @@ export class CreateEditUsersWidgetComponent implements OnInit {
     this.roleSelected = roleSelected;
   }
 
+  onChangeBirthDate(date) {
+    console.log(date);
+  }
+
 }

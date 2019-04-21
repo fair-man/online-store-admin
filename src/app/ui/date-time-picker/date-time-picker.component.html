@@ -1,0 +1,48 @@
+<div class="ui-date-time-picker" ngbDropdown #myDrop="ngbDropdown" [autoClose]="false">
+        <input type="text"
+               placeholder="{{ placeholder }}"
+               class="ui-date-time-picker__input"
+               [ngClass]="{'ui-date-time-picker__input--invalid': validationError}"
+               [(ngModel)]="parseDate"
+               maxlength="{{isShowTimepicker ? 16 : 10}}"
+               name="{{datepickerName + 'Input'}}"
+               (input)="onDateTimePickerTypedChange($event)"
+               (blur)="onDateTimePickerBlur($event)"
+        >
+        <div class="ui-date-time-picker__toggle">
+            <i class="os-calendar" ngbDropdownToggle></i>
+        </div>
+        <div *ngIf="isDisabled" class="ui-date-time-picker__disabled-wrapper"></div>
+        <ul class="dropdown-menu" style="width: 235px; overflow: hidden;" ngbDropdownMenu>
+            <li>
+                <ui-date-picker
+                        [startView]="'day'"
+                        [maxView]="'year'"
+                        [minView]="'day'"
+                        [minDate]="minDate"
+                        [maxDate]="maxDate"
+                        [(ngModel)]="initDate"
+                        (change)="onDatepickerChange($event)"
+                >
+                </ui-date-picker>
+            </li>
+            <li *ngIf="isShowTimepicker">
+                <div class="time-picker__block">
+                    <div class="time-picker__block-content">
+                        <div><b class="color-blue-dark mr-8">Время</b></div>
+                        <ui-time-picker [(ngModel)]="time" (ngModelChange)="onTimepickerChange($event)"></ui-time-picker>
+                    </div>
+                </div>
+            </li>
+            <li class="ui-date-time-picker__footer">
+                <div class="grid mt-8 mb-8 ml-2 mr-2">
+                    <div class="grid__box grid__box--size-min grid__box--pull-left">
+                        <a class="link link--dashed" (click)="setCurrent()">Сейчас</a>
+                    </div>
+                    <div class="grid__box grid__box--size-min grid__box--pull-right">
+                        <a class="link link--dashed" (click)="myDrop.close()">Закрыть</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+</div>
