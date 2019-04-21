@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TextMaskModule} from 'angular2-text-mask';
 
 import {DateTimePickerModule} from './date-time-picker/date-time-picker.module';
 import {UIDatePickerModule} from './date-picker/date-picker.module';
@@ -19,6 +20,7 @@ import {DateTimePickerComponent} from './date-time-picker/date-time-picker.compo
         CommonModule,
         FormsModule,
         NgbModule,
+        TextMaskModule,
         DateTimePickerModule,
         UIDatePickerModule,
         UITimePickerModule
@@ -31,6 +33,7 @@ import {DateTimePickerComponent} from './date-time-picker/date-time-picker.compo
         DateTimePickerComponent
     ],
     exports: [
+        TextMaskModule,
         DateTimePickerModule,
         UIDatePickerModule,
         UITimePickerModule,

@@ -1,5 +1,6 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {UiModule} from '../../ui/ui.module';
 import {SharedModule} from '../../shared/shared.module';
@@ -14,6 +15,8 @@ import { CreateEditUsersWidgetComponent } from './component/create-edit-users-wi
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         UsersRoutingModule,
         UiModule,
         SharedModule

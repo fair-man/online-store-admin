@@ -24,6 +24,7 @@
     "@angular/router": "^6.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.1.0",
     "@types/moment": "^2.13.0",
+    "angular2-text-mask": "^9.0.0",
     "core-js": "^2.5.4",
     "express": "^4.16.4",
     "lodash": "^4.17.11",

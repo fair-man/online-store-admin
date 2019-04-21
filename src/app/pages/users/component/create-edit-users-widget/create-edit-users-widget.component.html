@@ -49,7 +49,7 @@
             <div class="grid__box grid__box--size-6">
                 <ui-field>
                     <label for="phone"><span class="field__label--required">Телефон</span></label>
-                    <input type="text" id="phone">
+                    <input type="text" id="phone" [textMask]="{mask: phoneMask}" [(ngModel)]="myModel">
                 </ui-field>
             </div>
             <div class="grid__box grid__box--size-min">
