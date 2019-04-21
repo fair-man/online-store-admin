@@ -14,7 +14,8 @@ export class AuthService {
     httpOptions = {
         headers: new HttpHeaders({
             'withCredentials': 'true'
-        })
+        }),
+        withCredentials: true
     };
 
 
