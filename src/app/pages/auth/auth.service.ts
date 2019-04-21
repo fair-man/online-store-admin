@@ -22,7 +22,7 @@ export class AuthService {
     }
 
     login(authData): Observable<any> {
-        return this.http.post('/auth/login', authData, httpOptions).pipe(tap(
+        return this.http.post('/auth/login', authData, this.httpOptions).pipe(tap(
             (response) => {
                 this.userData = response['data'];
                 this.isLoggedIn = true;
