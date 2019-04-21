@@ -1,12 +1,12 @@
-@import "../../scss/colors";
-@import "../../scss/mixins";
-@import "../../scss/variabless";
+@import "../../scss/core/colors";
+@import "../../scss/core/mixins";
+@import "../../scss/core/variabless";
 
 .card {
   @include border-radius(4px);
 
   padding: 16px;
-  border: 1px solid $clr-gray-secondary;
+  border: 1px solid $border-clr;
 
   &--hover {
     &:hover {

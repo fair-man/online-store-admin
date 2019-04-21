@@ -1,6 +1,6 @@
-@import "../scss/colors";
-@import "../scss/variabless";
-@import "../scss/mixins";
+@import "../core/colors";
+@import "../core/variabless";
+@import "../core/_mixins";
 
 .button {
   @include font(normal, 13px, 20px, $font-secondary);

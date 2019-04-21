@@ -59,8 +59,16 @@
         <div class="grid mt-16">
             <div class="grid__box grid__box--size-6">
                 <ui-field>
-                    <label for="role"><span class="field__label--required">Роль в системе</span></label>
-                    <input type="text" id="role">
+                    <label><span class="field__label--required">Роль в системе</span></label>
+                    <ui-select
+                            [items]="[{role_name: 'Архитектор'}, {role_name: 'Диспетчер'}]"
+                            (callback)="onChangeRole($event)"
+                            [textKey]="'role_name'"
+                            [defaultText]="'Выберите значение'"
+                            [initBy]="roleSelected"
+                            [nullChoice]="true"
+                            [isDisabled]="false"
+                    ></ui-select>
                 </ui-field>
             </div>
             <div class="grid__box grid__box--size-6">
@@ -74,7 +82,7 @@
             <div class="grid__box grid__box--size-6">
                 <ui-field>
                     <label for="password"><span class="field__label--required">Пароль</span></label>
-                    <input type="password" id="password">
+                    <input type="password" id="password" placeholder="Введите значение">
                 </ui-field>
             </div>
             <div class="grid__box grid__box--size-6">

@@ -1,3 +1,5 @@
+@import "./colors";
+
 // fonts
 $font-primary: 'Roboto Regular', 'Arial', sans-serif;
 $font-secondary: 'Roboto Medium', 'Arial', serif;
@@ -9,4 +11,11 @@ $grid-gap-nums: (2, 4, 8, 16, 32);
 $grid-va: (flex-start, flex-end, center);
 
 // margins, paddings
-$nums: (0, 2, 4, 8, 16, 32, 64)
+$nums: (0, 2, 4, 8, 16, 32, 64);
+
+//borders
+$border-clr: $clr-gray-secondary;
+$border-radius-default: 4px;
+
+// z-index
+$zindex-dropdown:          1000 !default;

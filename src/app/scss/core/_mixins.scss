@@ -32,3 +32,8 @@
   ::-moz-placeholder          {@content}
   :-ms-input-placeholder      {@content}
 }
+
+@mixin box($w, $h: $w) {
+  width: $w;
+  height: $h;
+}

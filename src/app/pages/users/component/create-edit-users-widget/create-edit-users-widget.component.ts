@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-edit-users-widget.component.scss']
 })
 export class CreateEditUsersWidgetComponent implements OnInit {
+  roleSelected = {role_name: 'Диспетчер'};
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onChangeRole(roleSelected) {
+    this.roleSelected = roleSelected;
   }
 
 }

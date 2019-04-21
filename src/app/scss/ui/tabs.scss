@@ -1,5 +1,5 @@
-@import "../scss/colors";
-@import "../scss/mixins";
+@import "../core/colors";
+@import "../core/mixins";
 
 .nav-tabs {
   @include border-radius(4px);

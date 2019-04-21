@@ -1,6 +1,6 @@
-@import "../../scss/colors";
-@import "../../scss/variabless";
-@import "../../scss/mixins";
+@import "../../scss/core/colors";
+@import "../../scss/core/variabless";
+@import "../../scss/core/mixins";
 
 .field__label {
   display: inline-block;
@@ -30,7 +30,7 @@
     vertical-align: middle;
     color: $clr-gray-primary;
     outline: none;
-    border: 1px solid $clr-gray-secondary;
+    border: 1px solid $border-clr;
 
     &:focus {
       border-color: $clr-yellow-primary;
@@ -43,7 +43,7 @@
   }
 
   @include placeholder {
-    color: $clr-gray-secondary - 50;
+    color: $clr-gray-secondary;
     font-style: italic;
     font-weight: 100;
     font-size: 12px;
