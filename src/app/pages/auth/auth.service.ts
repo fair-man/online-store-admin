@@ -11,19 +11,19 @@ import {User} from '../../models/user';
 export class AuthService {
     userData: User;
     isLoggedIn = false;
-    httpOptions = {
-        headers: new HttpHeaders({
-            'withCredentials': 'true'
-        }),
-        withCredentials: true
-    };
+    // httpOptions = {
+    //     headers: new HttpHeaders({
+    //         'withCredentials': 'true'
+    //     }),
+    //     withCredentials: true
+    // };
 
 
     constructor(private http: HttpClient) {
     }
 
     login(authData): Observable<any> {
-        return this.http.post('/auth/login', authData, this.httpOptions).pipe(tap(
+        return this.http.post('/auth/login', authData).pipe(tap(
             (response) => {
                 this.userData = response['data'];
                 this.isLoggedIn = true;
