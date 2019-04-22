@@ -11,13 +11,6 @@ import {User} from '../../models/user';
 export class AuthService {
     userData: User;
     isLoggedIn = false;
-    // httpOptions = {
-    //     headers: new HttpHeaders({
-    //         'withCredentials': 'true'
-    //     }),
-    //     withCredentials: true
-    // };
-
 
     constructor(private http: HttpClient) {
     }
