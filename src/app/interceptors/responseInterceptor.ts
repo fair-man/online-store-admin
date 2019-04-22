@@ -8,11 +8,12 @@ import {
     HttpErrorResponse
 } from '@angular/common/http';
 
+import { isDevMode } from '@angular/core';
+
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/internal/operators';
 
 import {AuthService} from '../pages/auth/auth.service';
-import {AUTH_PATHS} from '../pages/auth/auth';
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
@@ -25,8 +26,13 @@ export class ResponseInterceptor implements HttpInterceptor {
         if (this.authService.checkLogged() && this.authService.getCSRFToken()) {
             request = request.clone({headers: request.headers.set('X-CSRFToken', this.authService.getCSRFToken())});
         }
-
-        request = request.clone({headers: request.headers.set('X-Origin-Domain', window.location.origin), withCredentials: true});
+        if (isDevMode()) {
+            request = request.clone({
+                headers: request.headers.set('X-Origin-Domain', window.location.origin), withCredentials: true
+            });
+        } else {
+            request = request.clone({withCredentials: true});
+        }
 
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
