@@ -69,7 +69,7 @@
                 <ui-field>
                     <label><span class="field__label--required">Роль в системе</span></label>
                     <ui-select
-                            [items]="[{role_name: 'Архитектор'}, {role_name: 'Диспетчер'}]"
+                            [items]="rolesList"
                             (callback)="onChangeRole($event)"
                             [textKey]="'role_name'"
                             [defaultText]="'Выберите значение'"
@@ -139,13 +139,11 @@
                     <ui-field>
                         <label for="street_type"><span class="field__label--required">Элемент дор. трансп. сети</span></label>
                         <ui-select
-                                [items]="[{role_name: 'Архитектор'}, {role_name: 'Диспетчер'}]"
+                                [items]="streetTypesList"
                                 (callback)="onChangeRole($event)"
-                                [textKey]="'role_name'"
+                                [textKey]="'name'"
                                 [defaultText]="'Выберите значение'"
-                                [initBy]="roleSelected"
-                                [nullChoice]="true"
-                                [isDisabled]="false"
+                                [initBy]="streetTypeRegistrationSelected"
                         ></ui-select>
                     </ui-field>
                 </div>
@@ -206,13 +204,11 @@
                     <ui-field>
                         <label><span class="field__label--required">Элемент дор. трансп. сети</span></label>
                         <ui-select
-                                [items]="[{role_name: 'Архитектор'}, {role_name: 'Диспетчер'}]"
+                                [items]="streetTypesList"
                                 (callback)="onChangeRole($event)"
-                                [textKey]="'role_name'"
+                                [textKey]="'name'"
                                 [defaultText]="'Выберите значение'"
-                                [initBy]="roleSelected"
-                                [nullChoice]="true"
-                                [isDisabled]="false"
+                                [initBy]="streetTypeActualSelected"
                         ></ui-select>
                     </ui-field>
                 </div>
