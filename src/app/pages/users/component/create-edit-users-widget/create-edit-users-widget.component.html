@@ -1,246 +1,250 @@
-
-<div class="grid grid--gap-32">
-    <div class="grid__box grid__box--size-5">
-        <div>
-            <span class="sub-title">Основная информация</span>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-6">
-                <ui-field>
-                    <label for="firstName"><span class="field__label--required">Фамилия</span></label>
-                    <input type="text" id="firstName">
-                </ui-field>
-            </div>
-            <div class="grid__box grid__box--size-6">
-                <ui-field>
-                    <label for="lastName"><span class="field__label--required">Имя</span></label>
-                    <input type="text" id="lastName">
-                </ui-field>
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-6">
-                <ui-field>
-                    <label for="patronymicName">Отчество</label>
-                    <input type="text" id="patronymicName">
-                </ui-field>
-            </div>
-            <div class="grid__box grid__box--size-6">
-                <ui-field>
-                    <label><span class="field__label--required">Дата рождения</span></label>
-                    <ui-date-time-picker
-                            [initDate]="null"
-                            [isShowTimepicker]="false"
-                            (dateCallback)="onChangeBirthDate($event)"
-                            [checkAdult]="'18'"
-                    ></ui-date-time-picker>
-                </ui-field>
-            </div>
-        </div>
-    </div>
-    <div class="grid__box grid__box--size-5">
-        <div class="grid mt-32">
-            <div class="grid__box grid__box--size-6">
-                <ui-field>
-                    <label><span class="field__label--required">Роль в системе</span></label>
-                    <ui-select
-                            [items]="rolesList"
-                            (callback)="onChangeRole($event)"
-                            [textKey]="'role_name'"
-                            [defaultText]="'Выберите значение'"
-                            [initBy]="roleSelected"
-                            [nullChoice]="true"
-                            [isDisabled]="false"
-                    ></ui-select>
-                </ui-field>
-            </div>
-            <div class="grid__box grid__box--size-6">
-                <ui-field>
-                    <label for="email"><span class="field__label--required">E-mail</span></label>
-                    <input type="text" id="email">
-                </ui-field>
-            </div>
-        </div>
-        <div class="grid grid--va-bottom mt-8">
-            <div class="grid__box grid__box--size-6">
-                <ui-field>
-                    <label for="phone">Дом. телефон</label>
-                    <input type="text" id="phone" [textMask]="{mask: phoneMask}">
-                </ui-field>
-            </div>
-            <div class="grid__box grid__box--size-6">
-                <ui-field>
-                    <label for="phone_dop"><span class="field__label--required">Моб. телефон</span></label>
-                    <input type="text" id="phone_dop" [textMask]="{mask: phoneMask}">
-                </ui-field>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="mt-32">
-    <div class="grid grid--gap-32 mt-16">
+<form [formGroup]="userForm" (submit)="onSaveOrEditUser()">
+    <div class="grid grid--gap-32">
         <div class="grid__box grid__box--size-5">
             <div>
-                <span class="sub-title">Адрес регистрации</span>
+                <span class="sub-title">Основная информация</span>
             </div>
             <div class="grid mt-8">
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
-                        <label for="region"><span class="field__label--required">Область</span></label>
-                        <input type="text" id="region">
+                        <label for="firstName"><span class="field__label--required">Фамилия</span></label>
+                        <input type="text" id="firstName" formControlName="first_name">
                     </ui-field>
                 </div>
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
-                        <label for="disctrict"><span class="field__label--required">Район</span></label>
-                        <input type="text" id="disctrict">
-                    </ui-field>
-                </div>
-            </div>
-            <div class="grid mt-8">
-                <div class="grid__box grid__box--size-6">
-                    <ui-field>
-                        <label for="city">Город</label>
-                        <input type="text" id="city">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-6">
-                    <ui-field>
-                        <label for="street_type"><span class="field__label--required">Элемент дор. трансп. сети</span></label>
-                        <ui-select
-                                [items]="streetTypesList"
-                                (callback)="onChangeRole($event)"
-                                [textKey]="'name'"
-                                [defaultText]="'Выберите значение'"
-                                [initBy]="streetTypeRegistrationSelected"
-                        ></ui-select>
+                        <label for="lastName"><span class="field__label--required">Имя</span></label>
+                        <input type="text" id="lastName" formControlName="last_name">
                     </ui-field>
                 </div>
             </div>
             <div class="grid mt-8">
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
-                        <label for="street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
-                        <input type="text" id="street">
+                        <label for="patronymicName">Отчество</label>
+                        <input type="text" id="patronymicName" formControlName="patronymic_name">
                     </ui-field>
                 </div>
-                <div class="grid__box grid__box--size-2">
+                <div class="grid__box grid__box--size-6">
+                    <input type="hidden" formControlName="birth_date">
                     <ui-field>
-                        <label for="house"><span class="field__label--required">Дом</span></label>
-                        <input type="text" id="house">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-2">
-                    <ui-field>
-                        <label for="building">Корпус</label>
-                        <input type="text" id="building">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-2">
-                    <ui-field>
-                        <label for="flat">Квартира</label>
-                        <input type="text" id="flat">
+                        <label><span class="field__label--required">Дата рождения</span></label>
+                        <ui-date-time-picker
+                                [initDate]="null"
+                                [isShowTimepicker]="false"
+                                (dateCallback)="onChangeBirthDate($event)"
+                                [checkAdult]="'18'"
+                        ></ui-date-time-picker>
                     </ui-field>
                 </div>
             </div>
         </div>
         <div class="grid__box grid__box--size-5">
-            <div>
-                <span class="sub-title">Адрес проживания</span>
-            </div>
-            <div class="grid mt-8">
-                <div class="grid__box grid__box--size-6">
-                    <ui-field>
-                        <label for="region"><span class="field__label--required">Область</span></label>
-                        <input type="text" id="region">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-6">
-                    <ui-field>
-                        <label for="disctrict"><span class="field__label--required">Район</span></label>
-                        <input type="text" id="disctrict">
-                    </ui-field>
-                </div>
-            </div>
-            <div class="grid mt-8">
-                <div class="grid__box grid__box--size-6">
-                    <ui-field>
-                        <label for="city">Город</label>
-                        <input type="text" id="city">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-6">
-                    <ui-field>
-                        <label><span class="field__label--required">Элемент дор. трансп. сети</span></label>
-                        <ui-select
-                                [items]="streetTypesList"
-                                (callback)="onChangeRole($event)"
-                                [textKey]="'name'"
-                                [defaultText]="'Выберите значение'"
-                                [initBy]="streetTypeActualSelected"
-                        ></ui-select>
-                    </ui-field>
-                </div>
-            </div>
-            <div class="grid mt-8">
-                <div class="grid__box grid__box--size-6">
-                    <ui-field>
-                        <label for="street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
-                        <input type="text" id="street">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-2">
-                    <ui-field>
-                        <label for="house"><span class="field__label--required">Дом</span></label>
-                        <input type="text" id="house">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-2">
-                    <ui-field>
-                        <label for="building">Корпус</label>
-                        <input type="text" id="building">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-2">
-                    <ui-field>
-                        <label for="flat">Квартира</label>
-                        <input type="text" id="flat">
-                    </ui-field>
-                </div>
-            </div>
-        </div>
-        <div class="grid__box grid__box--size-2">
             <div class="grid mt-32">
-                <div class="grid__box grid__box--size-12 mt-16">
-                    <div class="user-photo__block">
-                        <label for="userPhoto" class="user-photo__block-label" *ngIf="!base64preview">
-                            <span class="link link--dashed link--black">Добавить<br> фото</span>
-                        </label>
-                        <input type="file"
-                               class="user-photo__block-input"
-                               id="userPhoto"
-                               *ngIf="!base64preview"
-                               (change)="onChangeAddUserPhoto($event)">
-                        <img *ngIf="base64preview"
-                             class="user-photo__block-image"
-                             src="{{base64preview}}"
-                             alt="Фотография пользователя">
+                <div class="grid__box grid__box--size-6">
+                    <input type="hidden" formControlName="role">
+                    <ui-field>
+                        <label><span class="field__label--required">Роль в системе</span></label>
+                        <ui-select
+                                [items]="rolesList"
+                                (callback)="onChangeRole($event)"
+                                [textKey]="'role_name'"
+                                [defaultText]="'Выберите значение'"
+                                [initBy]="roleSelected"
+                                [isDisabled]="false"
+                        ></ui-select>
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="email"><span class="field__label--required">E-mail</span></label>
+                        <input type="text" id="email" formControlName="email">
+                    </ui-field>
+                </div>
+            </div>
+            <div class="grid grid--va-bottom mt-8">
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="phone">Дом. телефон</label>
+                        <input type="text" id="phone" [textMask]="{mask: phoneMask}" formControlName="phone_house">
+                    </ui-field>
+                </div>
+                <div class="grid__box grid__box--size-6">
+                    <ui-field>
+                        <label for="phone_dop"><span class="field__label--required">Моб. телефон</span></label>
+                        <input type="text" id="phone_dop" [textMask]="{mask: phoneMask}" formControlName="phone_mobile">
+                    </ui-field>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-32">
+        <div class="grid grid--gap-32 mt-16">
+            <div class="grid__box grid__box--size-5" formGroupName="user_data_address_registration">
+                <div>
+                    <span class="sub-title">Адрес регистрации</span>
+                </div>
+                <div class="grid mt-8">
+                    <div class="grid__box grid__box--size-6">
+                        <ui-field>
+                            <label for="registration_region"><span class="field__label--required">Область</span></label>
+                            <input type="text" id="registration_region" formControlName="region">
+                        </ui-field>
+                    </div>
+                    <div class="grid__box grid__box--size-6">
+                        <ui-field>
+                            <label for="registration_disctrict"><span class="field__label--required">Район</span></label>
+                            <input type="text" id="registration_disctrict" formControlName="district">
+                        </ui-field>
+                    </div>
+                </div>
+                <div class="grid mt-8">
+                    <div class="grid__box grid__box--size-6">
+                        <ui-field>
+                            <label for="registration_city">Город</label>
+                            <input type="text" id="registration_city" formControlName="city">
+                        </ui-field>
+                    </div>
+                    <div class="grid__box grid__box--size-6">
+                        <input type="hidden" formControlName="street_type">
+                        <ui-field>
+                            <label><span class="field__label--required">Элемент дор. трансп. сети</span></label>
+                            <ui-select
+                                    [items]="streetTypesList"
+                                    (callback)="onChangeRegistrationStreetType($event)"
+                                    [textKey]="'name'"
+                                    [defaultText]="'Выберите значение'"
+                                    [initBy]="streetTypeRegistrationSelected"
+                            ></ui-select>
+                        </ui-field>
+                    </div>
+                </div>
+                <div class="grid mt-8">
+                    <div class="grid__box grid__box--size-6">
+                        <ui-field>
+                            <label for="registration_street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
+                            <input type="text" id="registration_street" formControlName="street">
+                        </ui-field>
+                    </div>
+                    <div class="grid__box grid__box--size-2">
+                        <ui-field>
+                            <label for="registration_house"><span class="field__label--required">Дом</span></label>
+                            <input type="text" id="registration_house" formControlName="house">
+                        </ui-field>
+                    </div>
+                    <div class="grid__box grid__box--size-2">
+                        <ui-field>
+                            <label for="registration_building">Корпус</label>
+                            <input type="text" id="registration_building" formControlName="building">
+                        </ui-field>
+                    </div>
+                    <div class="grid__box grid__box--size-2">
+                        <ui-field>
+                            <label for="registration_flat">Квартира</label>
+                            <input type="text" id="registration_flat" formControlName="flat">
+                        </ui-field>
                     </div>
                 </div>
             </div>
-            <div class="grid mt-4" *ngIf="base64preview">
-                <div class="grid__box grid__box--size-7 ta--center">
-                    <span class="link link--dashed link--red ml-4" (click)="onResetUserPhoto()">Удалить</span>
+            <div class="grid__box grid__box--size-5" formGroupName="user_data_address_actual">
+                <div>
+                    <span class="sub-title">Адрес проживания</span>
+                </div>
+                <div class="grid mt-8">
+                    <div class="grid__box grid__box--size-6">
+                        <ui-field>
+                            <label for="actual_region"><span class="field__label--required">Область</span></label>
+                            <input type="text" id="actual_region" formControlName="region">
+                        </ui-field>
+                    </div>
+                    <div class="grid__box grid__box--size-6">
+                        <ui-field>
+                            <label for="actual_disctrict"><span class="field__label--required">Район</span></label>
+                            <input type="text" id="actual_disctrict" formControlName="district">
+                        </ui-field>
+                    </div>
+                </div>
+                <div class="grid mt-8">
+                    <div class="grid__box grid__box--size-6">
+                        <ui-field>
+                            <label for="actual_city">Город</label>
+                            <input type="text" id="actual_city" formControlName="city">
+                        </ui-field>
+                    </div>
+                    <div class="grid__box grid__box--size-6">
+                        <input type="hidden" formControlName="street_type">
+                        <ui-field>
+                            <label><span class="field__label--required">Элемент дор. трансп. сети</span></label>
+                            <ui-select
+                                    [items]="streetTypesList"
+                                    (callback)="onChangeActualStreetType($event)"
+                                    [textKey]="'name'"
+                                    [defaultText]="'Выберите значение'"
+                                    [initBy]="streetTypeActualSelected"
+                            ></ui-select>
+                        </ui-field>
+                    </div>
+                </div>
+                <div class="grid mt-8">
+                    <div class="grid__box grid__box--size-6">
+                        <ui-field>
+                            <label for="actual_street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
+                            <input type="text" id="actual_street" formControlName="street">
+                        </ui-field>
+                    </div>
+                    <div class="grid__box grid__box--size-2">
+                        <ui-field>
+                            <label for="actual_house"><span class="field__label--required">Дом</span></label>
+                            <input type="text" id="actual_house" formControlName="house">
+                        </ui-field>
+                    </div>
+                    <div class="grid__box grid__box--size-2">
+                        <ui-field>
+                            <label for="actual_building">Корпус</label>
+                            <input type="text" id="actual_building" formControlName="building">
+                        </ui-field>
+                    </div>
+                    <div class="grid__box grid__box--size-2">
+                        <ui-field>
+                            <label for="actual_flat">Квартира</label>
+                            <input type="text" id="actual_flat" formControlName="flat">
+                        </ui-field>
+                    </div>
+                </div>
+            </div>
+            <div class="grid__box grid__box--size-2">
+                <div class="grid mt-32">
+                    <div class="grid__box grid__box--size-12 mt-16">
+                        <div class="user-photo__block">
+                            <label for="userPhoto" class="user-photo__block-label" *ngIf="!base64preview">
+                                <span class="link link--dashed link--black">Добавить<br> фото</span>
+                            </label>
+                            <input type="file"
+                                   class="user-photo__block-input"
+                                   id="userPhoto"
+                                   *ngIf="!base64preview"
+                                   (change)="onChangeAddUserPhoto($event)">
+                            <img *ngIf="base64preview"
+                                 class="user-photo__block-image"
+                                 src="{{base64preview}}"
+                                 alt="Фотография пользователя">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid mt-4" *ngIf="base64preview">
+                    <div class="grid__box grid__box--size-7 ta--center">
+                        <span class="link link--dashed link--red ml-4" (click)="onResetUserPhoto()">Удалить</span>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="mt-16">
+            <input type="checkbox" formControlName="actual_registration_address"> Адрес регистрации совпадает с адресом регистрации
+        </div>
     </div>
-    <div class="mt-16">
-        <input type="checkbox"> Адрес регистрации совпадает с адресом регистрации
-    </div>
-</div>
 
-<div class="mt-32">
-    <button type="submit" class="button button--orange">Создать работника</button>
-</div>
+    <div class="mt-32">
+        <button type="submit" class="button button--orange">Создать работника</button>
+    </div>
+</form>
