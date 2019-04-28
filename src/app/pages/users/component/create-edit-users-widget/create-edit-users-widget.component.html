@@ -39,10 +39,7 @@
         </div>
     </div>
     <div class="grid__box grid__box--size-5">
-        <div>
-            <span class="sub-title">Роль, доступ</span>
-        </div>
-        <div class="grid mt-8">
+        <div class="grid mt-32">
             <div class="grid__box grid__box--size-6">
                 <ui-field>
                     <label><span class="field__label--required">Роль в системе</span></label>
@@ -217,16 +214,24 @@
             <div class="grid mt-32">
                 <div class="grid__box grid__box--size-12 mt-16">
                     <div class="user-photo__block">
-                        <label for="userPhoto" class="user-photo__block-label">
+                        <label for="userPhoto" class="user-photo__block-label" *ngIf="!base64preview">
                             <span class="link link--dashed link--black">Добавить<br> фото</span>
                         </label>
-                        <input type="file" class="user-photo__block-input" id="userPhoto">
+                        <input type="file"
+                               class="user-photo__block-input"
+                               id="userPhoto"
+                               *ngIf="!base64preview"
+                               (change)="onChangeAddUserPhoto($event)">
+                        <img *ngIf="base64preview"
+                             class="user-photo__block-image"
+                             src="{{base64preview}}"
+                             alt="Фотография пользователя">
                     </div>
                 </div>
             </div>
-            <div class="grid">
+            <div class="grid mt-4" *ngIf="base64preview">
                 <div class="grid__box grid__box--size-7 ta--center">
-                    <span class="link link--dashed link--red ml-4">Удалить</span>
+                    <span class="link link--dashed link--red ml-4" (click)="onResetUserPhoto()">Удалить</span>
                 </div>
             </div>
         </div>

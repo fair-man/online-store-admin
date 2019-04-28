@@ -17,7 +17,7 @@ export class CreateEditUsersWidgetComponent implements OnInit {
     streetTypeActualSelected: StreetTypes | null;
     streetTypeRegistrationSelected: StreetTypes | null;
     streetTypesList: StreetTypes[] | null;
-    myModel;
+    base64preview = null;
 
     constructor(private usersService: UsersService) {
     }
@@ -46,4 +46,17 @@ export class CreateEditUsersWidgetComponent implements OnInit {
         console.log(date);
     }
 
+    onChangeAddUserPhoto($event): void {
+        const file: File = $event.target.files[0];
+        const myReader: FileReader = new FileReader();
+
+        myReader.onloadend = (e) => {
+            this.base64preview = myReader.result;
+        };
+        myReader.readAsDataURL(file);
+    }
+
+    onResetUserPhoto() {
+        this.base64preview = null;
+    }
 }

@@ -1,6 +1,7 @@
 <div class="ui-select" ngbDropdown #myDrop="ngbDropdown">
     <div *ngIf="isDisabled" class="ui-select__disabled-wrapper"></div>
     <button class="ui-select__toggle-button"
+            [ngClass]="{'ui-select__toggle-button--highlight': myDrop.isOpen()}"
             ngbDropdownToggle
             type="button">
         <span class="ui-select__default-text" *ngIf="!initBy">{{defaultText}}</span>

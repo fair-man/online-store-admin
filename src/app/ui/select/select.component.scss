@@ -39,6 +39,10 @@
     right: 14px;
     top: 14px;
   }
+
+  &--highlight {
+    border-color: $clr-yellow-primary;
+  }
 }
 
 .ui-select__disabled-wrapper {
