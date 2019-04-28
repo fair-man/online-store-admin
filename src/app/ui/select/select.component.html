@@ -1,4 +1,4 @@
-<div class="ui-select" ngbDropdown>
+<div class="ui-select" ngbDropdown #myDrop="ngbDropdown">
     <div *ngIf="isDisabled" class="ui-select__disabled-wrapper"></div>
     <button class="ui-select__toggle-button"
             ngbDropdownToggle
@@ -6,12 +6,22 @@
         <span class="ui-select__default-text" *ngIf="!initBy">{{defaultText}}</span>
         <span *ngIf="initBy">{{initBy[textKey]}}</span>
     </button>
-    <ul ngbDropdownMenu>
-        <li role="menuitem" *ngIf="nullChoice" class="ui-select__reset-text">
-            <a href="javascript://" (click)="onReset()"><i>{{defaultText}}</i></a>
-        </li>
-        <li role="menuitem" *ngFor="let item of items">
-            <a href="javascript://" (click)="onSelect(item)">{{item[textKey] || item}}</a>
-        </li>
-    </ul>
+    <div ngbDropdownMenu>
+        <button ngbDropdownItem
+                type="button"
+                *ngIf="nullChoice"
+                class="ui-select__menu-item ui-select__reset-text"
+                (click)="onReset();$event.stopPropagation();myDrop.close();"
+        >
+            <i>{{defaultText}}</i>
+        </button>
+        <button ngbDropdownItem
+                type="button"
+                *ngFor="let item of items"
+                class="ui-select__menu-item"
+                (click)="onSelect(item);$event.stopPropagation();myDrop.close();"
+        >
+            {{item[textKey] || item}}
+        </button>
+    </div>
 </div>

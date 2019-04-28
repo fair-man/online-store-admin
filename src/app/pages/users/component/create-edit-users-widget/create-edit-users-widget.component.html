@@ -21,7 +21,7 @@
         <div class="grid mt-8">
             <div class="grid__box grid__box--size-6">
                 <ui-field>
-                    <label for="patronymicName"><span class="field__label--required">Отчество</span></label>
+                    <label for="patronymicName">Отчество</label>
                     <input type="text" id="patronymicName">
                 </ui-field>
             </div>
@@ -34,28 +34,6 @@
                             (dateCallback)="onChangeBirthDate($event)"
                             [checkAdult]="'18'"
                     ></ui-date-time-picker>
-                </ui-field>
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-6">
-                <ui-field>
-                    <label for="email"><span class="field__label--required">E-mail</span></label>
-                    <input type="text" id="email">
-                </ui-field>
-            </div>
-        </div>
-        <div class="grid grid--va-bottom mt-8">
-            <div class="grid__box grid__box--size-6">
-                <ui-field>
-                    <label for="phone">Дом. телефон</label>
-                    <input type="text" id="phone" [textMask]="{mask: phoneMask}">
-                </ui-field>
-            </div>
-            <div class="grid__box grid__box--size-6">
-                <ui-field>
-                    <label for="phone_dop"><span class="field__label--required">Моб. телефон</span></label>
-                    <input type="text" id="phone_dop" [textMask]="{mask: phoneMask}">
                 </ui-field>
             </div>
         </div>
@@ -81,23 +59,23 @@
             </div>
             <div class="grid__box grid__box--size-6">
                 <ui-field>
-                    <label for="login"><span class="field__label--required">Логин в системе</span></label>
-                    <input type="text" id="login">
+                    <label for="email"><span class="field__label--required">E-mail</span></label>
+                    <input type="text" id="email">
                 </ui-field>
             </div>
         </div>
-        <div class="grid mt-8">
+        <div class="grid grid--va-bottom mt-8">
             <div class="grid__box grid__box--size-6">
-                <ui-field-password>
-                    <label for="password"><span class="field__label--required">Пароль</span></label>
-                    <input type="password" id="password">
-                </ui-field-password>
+                <ui-field>
+                    <label for="phone">Дом. телефон</label>
+                    <input type="text" id="phone" [textMask]="{mask: phoneMask}">
+                </ui-field>
             </div>
             <div class="grid__box grid__box--size-6">
-                <ui-field-password>
-                    <label for="passwordConfirm"><span class="field__label--required">Подтверждение пароля</span></label>
-                    <input type="password" id="passwordConfirm">
-                </ui-field-password>
+                <ui-field>
+                    <label for="phone_dop"><span class="field__label--required">Моб. телефон</span></label>
+                    <input type="text" id="phone_dop" [textMask]="{mask: phoneMask}">
+                </ui-field>
             </div>
         </div>
     </div>
@@ -114,7 +92,7 @@
             <div>
                 <span class="sub-title">Адрес регистрации</span>
             </div>
-            <div class="grid mt-16">
+            <div class="grid mt-8">
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
                         <label for="region"><span class="field__label--required">Область</span></label>
@@ -128,7 +106,7 @@
                     </ui-field>
                 </div>
             </div>
-            <div class="grid mt-16">
+            <div class="grid mt-8">
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
                         <label for="city">Город</label>
@@ -148,7 +126,7 @@
                     </ui-field>
                 </div>
             </div>
-            <div class="grid mt-16">
+            <div class="grid mt-8">
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
                         <label for="street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
@@ -179,7 +157,7 @@
             <div>
                 <span class="sub-title">Адрес проживания</span>
             </div>
-            <div class="grid mt-16">
+            <div class="grid mt-8">
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
                         <label for="region"><span class="field__label--required">Область</span></label>
@@ -193,7 +171,7 @@
                     </ui-field>
                 </div>
             </div>
-            <div class="grid mt-16">
+            <div class="grid mt-8">
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
                         <label for="city">Город</label>
@@ -213,7 +191,7 @@
                     </ui-field>
                 </div>
             </div>
-            <div class="grid mt-16">
+            <div class="grid mt-8">
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
                         <label for="street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>

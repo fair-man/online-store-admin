@@ -60,3 +60,20 @@
   font-weight: 100;
   font-size: 12px;
 }
+
+.ui-select__menu-item {
+  display: block;
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 6px 8px;
+  font-size: 12px;
+  background-color: transparent;
+  text-align: left;
+
+  &:focus,
+  &:hover {
+    background-color: $clr-gray-secondary;
+    cursor: pointer;
+  }
+}
