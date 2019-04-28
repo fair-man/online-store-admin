@@ -25,3 +25,9 @@
     }
   }
 }
+
+@each $ta in (left, center, right) {
+  .ta--#{$ta} {
+    text-align: $ta;
+  }
+}

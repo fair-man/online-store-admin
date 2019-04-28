@@ -4,7 +4,7 @@
         <div>
             <span class="sub-title">Основная информация</span>
         </div>
-        <div class="grid mt-16">
+        <div class="grid mt-8">
             <div class="grid__box grid__box--size-6">
                 <ui-field>
                     <label for="firstName"><span class="field__label--required">Фамилия</span></label>
@@ -42,7 +42,7 @@
         <div>
             <span class="sub-title">Роль, доступ</span>
         </div>
-        <div class="grid mt-16">
+        <div class="grid mt-8">
             <div class="grid__box grid__box--size-6">
                 <ui-field>
                     <label><span class="field__label--required">Роль в системе</span></label>
@@ -77,11 +77,6 @@
                     <input type="text" id="phone_dop" [textMask]="{mask: phoneMask}">
                 </ui-field>
             </div>
-        </div>
-    </div>
-    <div class="grid__box grid__box--size-2">
-        <div>
-            <span class="sub-title">Фото</span>
         </div>
     </div>
 </div>
@@ -215,6 +210,23 @@
                         <label for="flat">Квартира</label>
                         <input type="text" id="flat">
                     </ui-field>
+                </div>
+            </div>
+        </div>
+        <div class="grid__box grid__box--size-2">
+            <div class="grid mt-32">
+                <div class="grid__box grid__box--size-12 mt-16">
+                    <div class="user-photo__block">
+                        <label for="userPhoto" class="user-photo__block-label">
+                            <span class="link link--dashed link--black">Добавить<br> фото</span>
+                        </label>
+                        <input type="file" class="user-photo__block-input" id="userPhoto">
+                    </div>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="grid__box grid__box--size-7 ta--center">
+                    <span class="link link--dashed link--red ml-4">Удалить</span>
                 </div>
             </div>
         </div>

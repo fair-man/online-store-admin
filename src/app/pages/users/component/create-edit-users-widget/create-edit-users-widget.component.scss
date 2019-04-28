@@ -1,0 +1,28 @@
+@import "../../../../scss/core/colors";
+@import "../../../../scss/core/mixins";
+
+.user-photo__block {
+    @include border-radius(4px);
+
+    margin-top: 4px;
+    width: 100px;
+    height: 140px;
+    position: relative;
+    background-color: $clr-gray-secondary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-photo__block-label {
+  text-align: center;
+}
+
+.user-photo__block-input {
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
