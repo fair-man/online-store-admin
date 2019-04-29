@@ -66,13 +66,20 @@
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
                         <label for="phone">Дом. телефон</label>
-                        <input type="text" id="phone" [textMask]="{mask: phoneMask}" formControlName="phone_house">
+                        <input type="text"
+                               id="phone" [textMask]="{mask: phoneMask}"
+                               formControlName="phone_house"
+                               (blur)="onBlurPhoneHouse()">
                     </ui-field>
                 </div>
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
                         <label for="phone_dop"><span class="field__label--required">Моб. телефон</span></label>
-                        <input type="text" id="phone_dop" [textMask]="{mask: phoneMask}" formControlName="phone_mobile">
+                        <input type="text"
+                               id="phone_dop"
+                               [textMask]="{mask: phoneMask}"
+                               formControlName="phone_mobile"
+                               (blur)="onBlurPhoneMobile()">
                     </ui-field>
                 </div>
             </div>
@@ -240,7 +247,10 @@
             </div>
         </div>
         <div class="mt-16">
-            <input type="checkbox" formControlName="actual_registration_address"> Адрес регистрации совпадает с адресом регистрации
+            <ui-checkbox>
+                <input type="checkbox" formControlName="actual_registration_address">
+                <checkbox-text>Адрес регистрации совпадает с адресом регистрации</checkbox-text>
+            </ui-checkbox>
         </div>
     </div>
 

@@ -6,6 +6,7 @@ import {UsersService} from '../../users.service';
 import {Role} from '../../../../models/role';
 import {StreetTypes} from '../../../../models/address';
 import {DateTimePickerDateObj} from '../../../../models/moment';
+import {MaskReplace} from '../../../../utils/mask-replace';
 
 @Component({
     selector: 'app-create-edit-users-widget',
@@ -80,6 +81,18 @@ export class CreateEditUsersWidgetComponent implements OnInit {
     onChangeRole(roleSelected: Role): void {
         this.roleSelected = roleSelected;
         this.userForm.get('role').setValue(roleSelected.id || null);
+    }
+
+    onBlurPhoneHouse() {
+        const phoneVal = MaskReplace.replace(this.userForm.value.phone_house, 'phone');
+
+        this.userForm.get('phone_house').setValue(phoneVal.length < 12 ? '' : phoneVal);
+    }
+
+    onBlurPhoneMobile() {
+        const phoneVal = MaskReplace.replace(this.userForm.value.phone_mobile, 'phone');
+
+        this.userForm.get('phone_mobile').setValue(phoneVal.length < 12 ? '' : phoneVal);
     }
 
     onChangeBirthDate(date: DateTimePickerDateObj): void {
