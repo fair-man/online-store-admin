@@ -1,5 +1,5 @@
 const maskRegexp = {
-    phone: new RegExp(/(\+7\s)|([\s\-_])/, 'gi')
+    phone: new RegExp(/([()\s\-_])/, 'gi')
 };
 
 export const MaskReplace = {

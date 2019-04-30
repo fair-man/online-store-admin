@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 
+import {cloneDeep} from 'lodash';
+
 import {Enums} from '../../../../configs/Enums';
 import {UsersService} from '../../users.service';
 import {Role} from '../../../../models/role';
@@ -23,6 +25,7 @@ export class CreateEditUsersWidgetComponent implements OnInit {
     streetTypesList: StreetTypes[] | null;
     base64preview = null;
     selectedFile = null;
+    isActualRegistration = true;
     userForm = new FormGroup({
         first_name: new FormControl('', Validators.required),
         last_name: new FormControl('', Validators.required),
@@ -64,7 +67,34 @@ export class CreateEditUsersWidgetComponent implements OnInit {
 
     ngOnInit() {
         this.getCreateUnionData();
+        this.userForm.get('actual_registration_address').valueChanges.subscribe((val) => {
+            this.updateFieldsValidators(val);
+        });
+
+        this.updateFieldsValidators(true);
     }
+
+    updateFieldsValidators(isChecked) {
+        const validatorsField = [
+            'region', 'district', 'city', 'street',
+            'street_type', 'building', 'house',
+            'flat', 'actual', 'registration'
+        ];
+
+        this.isActualRegistration = isChecked;
+
+        validatorsField.forEach((field) => {
+            if (isChecked) {
+                this.userForm.get('user_data_address_actual').get(field).disable();
+                this.userForm.get('user_data_address_actual').get(field).clearValidators();
+                this.userForm.get('user_data_address_actual').get(field).updateValueAndValidity();
+            } else {
+                this.userForm.get('user_data_address_actual').get(field).enable();
+                this.userForm.get('user_data_address_actual').get(field).updateValueAndValidity();
+            }
+        });
+    }
+
     getCreateUnionData(): void {
         this.usersService.getCreateUnionData()
             .subscribe(
@@ -83,16 +113,10 @@ export class CreateEditUsersWidgetComponent implements OnInit {
         this.userForm.get('role').setValue(roleSelected.id || null);
     }
 
-    onBlurPhoneHouse() {
-        const phoneVal = MaskReplace.replace(this.userForm.value.phone_house, 'phone');
-
-        this.userForm.get('phone_house').setValue(phoneVal.length < 12 ? '' : phoneVal);
-    }
-
     onBlurPhoneMobile() {
         const phoneVal = MaskReplace.replace(this.userForm.value.phone_mobile, 'phone');
 
-        this.userForm.get('phone_mobile').setValue(phoneVal.length < 12 ? '' : phoneVal);
+        this.userForm.get('phone_mobile').setValue(phoneVal.length < 9 ? '' : phoneVal);
     }
 
     onChangeBirthDate(date: DateTimePickerDateObj): void {
@@ -125,6 +149,36 @@ export class CreateEditUsersWidgetComponent implements OnInit {
     }
 
     onSaveOrEditUser(): void {
-        console.log(this.userForm);
+        const userForm = this.userForm.value;
+        const requestObj = {
+            user_data: {
+                first_name: userForm.first_name,
+                last_name: userForm.last_name,
+                patronymic_name: userForm.patronymic_name,
+                birth_date: userForm.birth_date,
+                email: userForm.email,
+                actual_registration_address: +this.isActualRegistration,
+                role: userForm.role
+            },
+            user_data_address_registration: userForm.user_data_address_registration,
+            user_data_address_actual: this.isActualRegistration ?
+                cloneDeep(userForm.user_data_address_registration) : userForm.user_data_address_actual,
+            user_data_phones: [{phone: userForm.phone_mobile, type: 2}]
+        };
+
+        if (this.isActualRegistration) {
+            requestObj.user_data_address_actual.actual = 1;
+            requestObj.user_data_address_actual.registration = 0;
+        }
+
+        this.usersService.createUser({user_json: requestObj})
+            .subscribe(
+                (response) => {
+                    console.log(response);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
     }
 }

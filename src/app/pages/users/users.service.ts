@@ -28,4 +28,7 @@ export class UsersService {
         const streetTypes = this.getStreetTypes();
         return forkJoin([roles, streetTypes]);
     }
+    createUser(data) {
+        return this.http.post(`/users`, data);
+    }
 }
