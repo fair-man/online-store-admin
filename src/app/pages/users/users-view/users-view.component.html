@@ -4,201 +4,212 @@
     <div class="sub-title">Основные данные:</div>
     <div class="mt-16">
         <div class="grid">
-            <div class="grid__box grid__box--size-3">
-                ФИО
+            <div class="grid__box grid__box--size-6">
+                <div class="grid">
+                    <div class="grid__box grid__box--size-4">
+                        ФИО
+                    </div>
+                    <div class="grid__box grid__box--size-8">
+                        {{userData && userData.user_data && userData.user_data.first_name}}
+                        {{userData && userData.user_data && userData.user_data.last_name}}
+                        {{userData && userData.user_data && userData.user_data.patronymic_name}}
+                    </div>
+                </div>
+                <div class="grid mt-8">
+                    <div class="grid__box grid__box--size-4">
+                        Дата рождения
+                    </div>
+                    <div class="grid__box grid__box--size-8">
+                        {{userData && userData.user_data && userData.user_data.birth_date}}
+                    </div>
+                </div>
+                <div class="grid mt-8">
+                    <div class="grid__box grid__box--size-4">
+                        Роль в системе
+                    </div>
+                    <div class="grid__box grid__box--size-8">
+                        {{userData && userData.user_data && userData.user_data.role.role_name}}
+                    </div>
+                </div>
+                <div class="grid mt-8">
+                    <div class="grid__box grid__box--size-4">
+                        E-mail
+                    </div>
+                    <div class="grid__box grid__box--size-8">
+                        {{userData && userData.user_data && userData.user_data.email}}
+                    </div>
+                </div>
+                <div class="grid mt-8">
+                    <div class="grid__box grid__box--size-4">
+                        Телефон
+                    </div>
+                    <div class="grid__box grid__box--size-8">
+                        <div *ngFor="let phone of userData && userData.user_data_phones">{{phone.phone}}</div>
+                    </div>
+                </div>
             </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data && userData.user_data.first_name}}
-                {{userData && userData.user_data && userData.user_data.last_name}}
-                {{userData && userData.user_data && userData.user_data.patronymic_name}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Дата рождения
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data && userData.user_data.birth_date}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Роль в системе
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data && userData.user_data.role.role_name}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                E-mail
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data && userData.user_data.email}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Телефон
-            </div>
-            <div class="grid__box grid__box--size-9">
-                <div *ngFor="let phone of userData && userData.user_data_phones">{{phone.phone}}</div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="mt-32">
-    <div class="sub-title">Адрес регистрации:</div>
-    <div class="mt-16">
-        <div class="grid">
-            <div class="grid__box grid__box--size-3">
-                Область
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_registration
-                && userData.user_data_address_registration.region}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Район
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_registration
-                && userData.user_data_address_registration.district}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Город
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_registration
-                && userData.user_data_address_registration.city}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Тип эл. дор. трансп. сети
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_registration
-                && userData.user_data_address_registration.street_type
-                && userData.user_data_address_registration.street_type.name}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Название эл. дор. трансп. сети
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_registration
-                && userData.user_data_address_registration.street}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Дом
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_registration
-                && userData.user_data_address_registration.house}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Корпус
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_registration
-                && userData.user_data_address_registration.building}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Корпус
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_registration
-                && userData.user_data_address_registration.flat}}
-            </div>
+            <div class="grid__box grid__box--size-6"></div>
         </div>
     </div>
 </div>
 <div class="mt-32">
-    <div class="sub-title">Адрес проживания:</div>
     <div class="mt-16">
         <div class="grid">
-            <div class="grid__box grid__box--size-3">
-                Область
+            <div class="grid__box grid__box--size-6">
+                <div class="sub-title">Адрес регистрации:</div>
+                <div class="mt-16">
+                    <div class="grid">
+                        <div class="grid__box grid__box--size-4">
+                            Область
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_registration
+                            && userData.user_data_address_registration.region}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Район
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_registration
+                            && userData.user_data_address_registration.district}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Город
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_registration
+                            && userData.user_data_address_registration.city}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Тип эл. дор. трансп. сети
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_registration
+                            && userData.user_data_address_registration.street_type
+                            && userData.user_data_address_registration.street_type.name}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Назв. эл. дор. трансп. сети
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_registration
+                            && userData.user_data_address_registration.street}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Дом
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_registration
+                            && userData.user_data_address_registration.house}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Корпус
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_registration
+                            && userData.user_data_address_registration.building}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Корпус
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_registration
+                            && userData.user_data_address_registration.flat}}
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_actual
-                && userData.user_data_address_actual.region}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Район
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_actual
-                && userData.user_data_address_actual.district}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Город
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_actual
-                && userData.user_data_address_actual.city}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Тип эл. дор. трансп. сети
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_actual
-                && userData.user_data_address_actual.street_type
-                && userData.user_data_address_actual.street_type.name}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Название эл. дор. трансп. сети
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_actual
-                && userData.user_data_address_actual.street}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Дом
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_actual
-                && userData.user_data_address_actual.house}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Корпус
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_actual
-                && userData.user_data_address_actual.building}}
-            </div>
-        </div>
-        <div class="grid mt-8">
-            <div class="grid__box grid__box--size-3">
-                Корпус
-            </div>
-            <div class="grid__box grid__box--size-9">
-                {{userData && userData.user_data_address_actual
-                && userData.user_data_address_actual.flat}}
+            <div class="grid__box grid__box--size-6">
+                <div class="sub-title">Адрес проживания:</div>
+                <div class="mt-16">
+                    <div class="grid">
+                        <div class="grid__box grid__box--size-4">
+                            Область
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_actual
+                            && userData.user_data_address_actual.region}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Район
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_actual
+                            && userData.user_data_address_actual.district}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Город
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_actual
+                            && userData.user_data_address_actual.city}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Тип эл. дор. трансп. сети
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_actual
+                            && userData.user_data_address_actual.street_type
+                            && userData.user_data_address_actual.street_type.name}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Назв. эл. дор. трансп. сети
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_actual
+                            && userData.user_data_address_actual.street}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Дом
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_actual
+                            && userData.user_data_address_actual.house}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Корпус
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_actual
+                            && userData.user_data_address_actual.building}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Корпус
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{userData && userData.user_data_address_actual
+                            && userData.user_data_address_actual.flat}}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
