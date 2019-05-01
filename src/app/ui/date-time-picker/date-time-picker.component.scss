@@ -41,6 +41,10 @@ div.ui-date-time-picker {
         border-color: $clr-red-primary;
       }
     }
+
+    &--highlight {
+      border-color: $clr-yellow-primary;
+    }
   }
 
   // Перебитие style от js
@@ -68,6 +72,12 @@ div.ui-date-time-picker {
   &:hover {
     cursor: pointer;
     opacity: .6;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
   }
 }
 

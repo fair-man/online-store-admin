@@ -36,13 +36,6 @@ export class DateTimePickerComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
-    Moment.updateLocale('ru', {
-      months: [
-        'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль',
-        'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-      ]
-    });
-
     this.placeholder = this.placeholder || 'Укажите дату';
     this.minDate = (this.options && this.options.minDate) || null;
     this.maxDate = (this.options && this.options.maxDate) || null;

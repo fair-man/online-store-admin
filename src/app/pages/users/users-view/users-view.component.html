@@ -20,7 +20,7 @@
                         Дата рождения
                     </div>
                     <div class="grid__box grid__box--size-8">
-                        {{userData && userData.user_data && userData.user_data.birth_date}}
+                        {{userData && userData.user_data && userData.user_data.birth_date | dateFormat: 'DD MMMM YYYY года'}}
                     </div>
                 </div>
                 <div class="grid mt-8">

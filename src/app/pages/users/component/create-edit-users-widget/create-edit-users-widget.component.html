@@ -30,13 +30,14 @@
                 <div class="grid__box grid__box--size-6">
                     <input type="hidden" formControlName="birth_date">
                     <ui-field>
-                        <label><span class="field__label--required">Дата рождения</span></label>
+                        <label for="birthDate"><span class="field__label--required">Дата рождения</span></label>
                         <ui-date-time-picker
                                 [placeholder]="'01.04.1990'"
                                 [initDate]="birthDate"
                                 [isShowTimepicker]="false"
                                 (dateCallback)="onChangeBirthDate($event)"
                                 [checkAdult]="'18'"
+                                [datepickerName]="'birthDate'"
                         ></ui-date-time-picker>
                     </ui-field>
                 </div>

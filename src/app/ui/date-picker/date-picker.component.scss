@@ -7,6 +7,12 @@
   outline: none;
 }
 
+.capitalize {
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}
+
 .datepicker__custom-title {
   text-transform: capitalize;
 }

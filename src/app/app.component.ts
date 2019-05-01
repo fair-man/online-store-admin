@@ -9,5 +9,7 @@ import * as moment from 'moment';
 })
 export class AppComponent {
     constructor() {
+        moment.updateLocale('ru',
+            ['Январь', 'Февраль', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']);
     }
 }
