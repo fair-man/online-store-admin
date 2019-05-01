@@ -281,6 +281,8 @@ export class CreateEditUsersWidgetComponent implements OnInit {
         }
 
         if (this.userId) {
+            requestObj.user_data_address_registration.id = this.userData.user_data_address_registration.id;
+            requestObj.user_data_address_actual.id = this.userData.user_data_address_actual.id;
             this.editUser(this.userId, requestObj);
         } else {
             this.createUser(requestObj);
@@ -300,8 +302,6 @@ export class CreateEditUsersWidgetComponent implements OnInit {
     }
 
     editUser(userId, requestObj) {
-        console.log(requestObj);
-        return false;
         this.usersService.editUser(userId, {user_json: requestObj})
             .subscribe(
                 (response) => {

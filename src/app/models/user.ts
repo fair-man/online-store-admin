@@ -19,6 +19,7 @@ export interface UserData {
 }
 
 export interface UserAddress {
+    id: number | null;
     region: string;
     district: string;
     city: string;
