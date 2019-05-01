@@ -15,6 +15,7 @@ import {UiFieldPasswordComponent} from './field/field-password.component';
 import {SelectComponent} from './select/select.component';
 import {DateTimePickerComponent} from './date-time-picker/date-time-picker.component';
 import {CheckboxComponent} from './checkbox/checkbox.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import {CheckboxComponent} from './checkbox/checkbox.component';
         UiFieldPasswordComponent,
         SelectComponent,
         DateTimePickerComponent,
-        CheckboxComponent
+        CheckboxComponent,
+        LoaderComponent
     ],
     exports: [
         TextMaskModule,
@@ -44,7 +46,8 @@ import {CheckboxComponent} from './checkbox/checkbox.component';
         UiFieldPasswordComponent,
         SelectComponent,
         DateTimePickerComponent,
-        CheckboxComponent
+        CheckboxComponent,
+        LoaderComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

@@ -1,5 +1,3 @@
-<div *ngIf="dataLoading">Loading...</div>
-
 <form *ngIf="!dataLoading" [formGroup]="userForm" (submit)="onSaveOrEditUser()">
     <div class="grid grid--gap-32">
         <div class="grid__box grid__box--size-5">

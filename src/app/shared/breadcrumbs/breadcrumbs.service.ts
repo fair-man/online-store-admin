@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs/index';
+import {BehaviorSubject} from 'rxjs/index';
 
 import {Breadcrumb} from '../../models/breadcrumbs';
 

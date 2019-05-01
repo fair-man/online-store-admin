@@ -14,12 +14,14 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/internal/operators';
 
 import {AuthService} from '../pages/auth/auth.service';
+import {LoaderService} from '../ui/loader/loader.service';
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
 
     constructor(
-        private authService: AuthService
+        private authService: AuthService,
+        private loaderService: LoaderService
     ) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -34,13 +36,19 @@ export class ResponseInterceptor implements HttpInterceptor {
             request = request.clone({withCredentials: true});
         }
 
+        this.loaderService.updateLoadingState(true);
+
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
+                if (event && event.type === 4) {
+                    this.loaderService.updateLoadingState(false);
+                }
+
                 return event;
             }),
             catchError((error: HttpErrorResponse) => {
                 // this.checkResponseCode(error);
-
+                this.loaderService.updateLoadingState(false);
                 return throwError(error);
             }));
     }
