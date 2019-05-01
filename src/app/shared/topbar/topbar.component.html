@@ -1,8 +1,11 @@
-<div class="grid grid--va-middle">
-    <div class="grid__box grid__box--size-min mt-2">
-        <a routerLink="/" class="link link--no-underline">
+<div class="grid grid--va-middle mt-4">
+    <div class="grid__box grid__box--size-min">
+        <a routerLink="/" class="link link--no-underline link--logotype">
             <img src="assets/images/logotype.png" alt="onlinestore">
         </a>
+    </div>
+    <div class="grid__box grid__box--size-min">
+        <app-breadcrumbs></app-breadcrumbs>
     </div>
     <div class="grid__box grid__box--size-min grid__box--pull-right" *ngIf="userData">
         <div class="grid">

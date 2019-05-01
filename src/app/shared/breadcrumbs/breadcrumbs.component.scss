@@ -1,0 +1,12 @@
+.breadcrumbs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 16px;
+}
+
+.breadcrumbs__item {
+  font-style: italic;
+}

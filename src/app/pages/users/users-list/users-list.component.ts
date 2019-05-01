@@ -4,6 +4,9 @@ import {UsersService} from '../users.service';
 import {UserData} from '../../../models/user';
 import {USERS_PATHS} from '../users';
 
+import {Breadcrumb} from '../../../models/breadcrumbs';
+import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
+
 @Component({
     selector: 'app-users-list',
     templateUrl: './users-list.component.html',
@@ -18,12 +21,16 @@ export class UsersListComponent implements OnInit {
         {id: 2, title: 'Менеджеры', users: null},
         {id: 3, title: 'Курьеры', users: null}
     ];
+    breadcrumbs: Breadcrumb[] = [{text: 'Работники системы', url: null}];
 
-    constructor(private usersService: UsersService) {
-    }
+    constructor(
+        private usersService: UsersService,
+        private breadcrumbsService: BreadcrumbsService
+    ) {}
 
     ngOnInit() {
         this.getUsers(1);
+        this.breadcrumbsService.updateBreadcrumbs(this.breadcrumbs);
     }
     getUsers(roleId) {
         this.isUsersLoading = true;
