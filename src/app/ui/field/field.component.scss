@@ -39,6 +39,7 @@
     &:disabled {
       opacity: .6;
       cursor: default;
+      background-color: $clr-white;
     }
   }
 

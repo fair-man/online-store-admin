@@ -1,12 +1,5 @@
-export interface Role {
-    id: number;
-    role_name: string;
-}
-
-export interface StreetType {
-    id: number;
-    name: string;
-}
+import {StreetType} from './address';
+import {Role} from './role';
 
 export interface Phone {
     id: number;

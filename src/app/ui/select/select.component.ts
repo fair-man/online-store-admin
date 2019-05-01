@@ -17,6 +17,7 @@ export class SelectComponent implements OnInit {
   @Input() defaultText;
   @Input() nullChoice;
   @Input() isDisabled;
+  @Input() name;
 
   constructor() {}
 

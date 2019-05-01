@@ -1,14 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 import {cloneDeep} from 'lodash';
 
 import {Enums} from '../../../../configs/Enums';
 import {UsersService} from '../../users.service';
 import {Role} from '../../../../models/role';
-import {StreetTypes} from '../../../../models/address';
+import {StreetType} from '../../../../models/address';
 import {DateTimePickerDateObj} from '../../../../models/moment';
 import {MaskReplace} from '../../../../utils/mask-replace';
+import {User} from '../../../../models/user';
 
 @Component({
     selector: 'app-create-edit-users-widget',
@@ -16,62 +18,176 @@ import {MaskReplace} from '../../../../utils/mask-replace';
     styleUrls: ['./create-edit-users-widget.component.scss']
 })
 export class CreateEditUsersWidgetComponent implements OnInit {
+    userId: string;
+    userData: User;
     moment = require('moment');
     phoneMask = Enums.masks.phoneMask;
+    birthDate: Date;
     roleSelected: Role | null;
     rolesList: Role[] | null;
-    streetTypeActualSelected: StreetTypes | null;
-    streetTypeRegistrationSelected: StreetTypes | null;
-    streetTypesList: StreetTypes[] | null;
+    streetTypeActualSelected: StreetType | null;
+    streetTypeRegistrationSelected: StreetType | null;
+    streetTypesList: StreetType[] | null;
     base64preview = null;
     selectedFile = null;
     isActualRegistration = true;
-    userForm = new FormGroup({
-        first_name: new FormControl('', Validators.required),
-        last_name: new FormControl('', Validators.required),
-        patronymic_name: new FormControl(''),
-        birth_date: new FormControl('', Validators.required),
-        email: new FormControl('', Validators.required),
-        actual_registration_address: new FormControl(0, Validators.required),
-        role: new FormControl('', Validators.required),
-        phone_house: new FormControl(''),
-        phone_mobile: new FormControl('', Validators.required),
-        user_data_address_registration: new FormGroup({
-            region: new FormControl('', Validators.required),
-            district: new FormControl('', Validators.required),
-            city: new FormControl(''),
-            street: new FormControl('', Validators.required),
-            street_type: new FormControl('', Validators.required),
-            building: new FormControl(''),
-            house: new FormControl('', Validators.required),
-            flat: new FormControl(''),
-            actual: new FormControl(0),
-            registration: new FormControl(1),
-        }),
-        user_data_address_actual: new FormGroup({
-            region: new FormControl('', Validators.required),
-            district: new FormControl('', Validators.required),
-            city: new FormControl(''),
-            street: new FormControl('', Validators.required),
-            street_type: new FormControl('', Validators.required),
-            building: new FormControl(''),
-            house: new FormControl('', Validators.required),
-            flat: new FormControl(''),
-            actual: new FormControl(1),
-            registration: new FormControl(0),
-        })
-    });
+    userForm: FormGroup;
+    dataLoading = false;
+    saveOrUpdateLoading = false;
 
-    constructor(private usersService: UsersService) {
-    }
+    constructor(
+        private usersService: UsersService,
+        private route: ActivatedRoute
+    ) {}
 
     ngOnInit() {
-        this.getCreateUnionData();
-        this.userForm.get('actual_registration_address').valueChanges.subscribe((val) => {
-            this.updateFieldsValidators(val);
-        });
+        this.route.params.subscribe((routeParams) => {
+            const id = routeParams.id;
 
-        this.updateFieldsValidators(true);
+            this.userId = id;
+
+            if (id) {
+                this.getEditUnionData(id);
+            } else {
+                this.getCreateUnionData();
+            }
+        });
+    }
+
+    getCreateUnionData(): void {
+        this.dataLoading = true;
+        this.usersService.getCreateUnionData()
+            .subscribe(
+                (response) => {
+                    this.rolesList = response[0]['data'].roles;
+                    this.streetTypesList = response[1]['data'].street_types;
+                    this.makeCreateUserForm();
+                    this.initUiData();
+                    this.dataLoading = false;
+                },
+                (error) => {
+                    console.error(error);
+                    this.dataLoading = false;
+                }
+            );
+    }
+
+    getEditUnionData(id): void {
+        this.dataLoading = true;
+        this.usersService.getEditUnionData(id)
+            .subscribe(
+                (response) => {
+                    this.rolesList = response[0]['data'].roles;
+                    this.streetTypesList = response[1]['data'].street_types;
+                    this.userData = response[2]['data'];
+                    this.makeEditUserForm();
+                    this.initUiData();
+                    this.dataLoading = false;
+                },
+                (error) => {
+                    console.error(error);
+                    this.dataLoading = false;
+                }
+            );
+    }
+
+    makeCreateUserForm() {
+        this.userForm = new FormGroup({
+            first_name: new FormControl('', Validators.required),
+            last_name: new FormControl('', Validators.required),
+            patronymic_name: new FormControl(''),
+            birth_date: new FormControl('', Validators.required),
+            email: new FormControl('', Validators.required),
+            actual_registration_address: new FormControl(0, Validators.required),
+            role: new FormControl('', Validators.required),
+            phone_house: new FormControl(''),
+            phone_mobile: new FormControl('', Validators.required),
+            user_data_address_registration: new FormGroup({
+                region: new FormControl('', Validators.required),
+                district: new FormControl('', Validators.required),
+                city: new FormControl(''),
+                street: new FormControl('', Validators.required),
+                street_type: new FormControl('', Validators.required),
+                building: new FormControl(''),
+                house: new FormControl('', Validators.required),
+                flat: new FormControl(''),
+                actual: new FormControl(0),
+                registration: new FormControl(1),
+            }),
+            user_data_address_actual: new FormGroup({
+                region: new FormControl('', Validators.required),
+                district: new FormControl('', Validators.required),
+                city: new FormControl(''),
+                street: new FormControl('', Validators.required),
+                street_type: new FormControl('', Validators.required),
+                building: new FormControl(''),
+                house: new FormControl('', Validators.required),
+                flat: new FormControl(''),
+                actual: new FormControl(1),
+                registration: new FormControl(0),
+            })
+        });
+    }
+
+    makeEditUserForm() {
+        const userData = this.userData.user_data;
+        const registrationAddress = this.userData.user_data_address_registration;
+        const actualAddress = this.userData.user_data_address_actual;
+        const phones = this.userData.user_data_phones;
+
+        this.userForm = new FormGroup({
+            first_name: new FormControl(userData.first_name, Validators.required),
+            last_name: new FormControl(userData.last_name, Validators.required),
+            patronymic_name: new FormControl(userData.patronymic_name),
+            birth_date: new FormControl(userData.birth_date, Validators.required),
+            email: new FormControl(userData.email, Validators.required),
+            actual_registration_address: new FormControl('', Validators.required),
+            role: new FormControl('', Validators.required),
+            phone_house: new FormControl(''),
+            phone_mobile: new FormControl(phones && phones.length ? phones[0].phone : '', Validators.required),
+            user_data_address_registration: new FormGroup({
+                region: new FormControl(registrationAddress.region, Validators.required),
+                district: new FormControl(registrationAddress.district, Validators.required),
+                city: new FormControl(registrationAddress.city),
+                street: new FormControl(registrationAddress.street, Validators.required),
+                street_type: new FormControl('', Validators.required),
+                building: new FormControl(registrationAddress.building),
+                house: new FormControl(registrationAddress.house, Validators.required),
+                flat: new FormControl(registrationAddress.flat),
+                actual: new FormControl(0),
+                registration: new FormControl(1),
+            }),
+            user_data_address_actual: new FormGroup({
+                region: new FormControl(actualAddress.region, Validators.required),
+                district: new FormControl(actualAddress.district, Validators.required),
+                city: new FormControl(actualAddress.city),
+                street: new FormControl(actualAddress.street, Validators.required),
+                street_type: new FormControl('', Validators.required),
+                building: new FormControl(actualAddress.building),
+                house: new FormControl(actualAddress.house, Validators.required),
+                flat: new FormControl(actualAddress.flat),
+                actual: new FormControl(1),
+                registration: new FormControl(0),
+            })
+        });
+    }
+
+    initUiData() {
+        if (this.userId) {
+            const userData = this.userData.user_data;
+            const actualAddress = this.userData.user_data_address_actual;
+            const registrationAddress = this.userData.user_data_address_registration;
+
+            this.onChangeRole(userData.role);
+            this.onChangeActualStreetType(actualAddress.street_type);
+            this.onChangeRegistrationStreetType(registrationAddress.street_type);
+            this.birthDate = new Date(userData.birth_date);
+            this.updateFieldsValidators(userData.actual_registration_address);
+            this.subscribeDataChanges();
+        } else {
+            this.updateFieldsValidators(true);
+            this.subscribeDataChanges();
+        }
     }
 
     updateFieldsValidators(isChecked) {
@@ -81,7 +197,7 @@ export class CreateEditUsersWidgetComponent implements OnInit {
             'flat', 'actual', 'registration'
         ];
 
-        this.isActualRegistration = isChecked;
+        this.isActualRegistration = !!isChecked;
 
         validatorsField.forEach((field) => {
             if (isChecked) {
@@ -95,17 +211,10 @@ export class CreateEditUsersWidgetComponent implements OnInit {
         });
     }
 
-    getCreateUnionData(): void {
-        this.usersService.getCreateUnionData()
-            .subscribe(
-                (response) => {
-                    this.rolesList = response[0]['data'].roles;
-                    this.streetTypesList = response[1]['data'].street_types;
-                },
-                (error) => {
-                    console.error(error);
-                }
-            );
+    subscribeDataChanges() {
+        this.userForm.get('actual_registration_address').valueChanges.subscribe((val) => {
+            this.updateFieldsValidators(val);
+        });
     }
 
     onChangeRole(roleSelected: Role): void {
@@ -138,12 +247,12 @@ export class CreateEditUsersWidgetComponent implements OnInit {
         this.base64preview = null;
     }
 
-    onChangeRegistrationStreetType(streetType: StreetTypes): void {
+    onChangeRegistrationStreetType(streetType: StreetType): void {
         this.streetTypeRegistrationSelected = streetType;
         this.userForm.get('user_data_address_registration').get('street_type').setValue(streetType.id || null);
     }
 
-    onChangeActualStreetType(streetType: StreetTypes): void {
+    onChangeActualStreetType(streetType: StreetType): void {
         this.streetTypeActualSelected = streetType;
         this.userForm.get('user_data_address_actual').get('street_type').setValue(streetType.id || null);
     }
@@ -171,7 +280,29 @@ export class CreateEditUsersWidgetComponent implements OnInit {
             requestObj.user_data_address_actual.registration = 0;
         }
 
+        if (this.userId) {
+            this.editUser(this.userId, requestObj);
+        } else {
+            this.createUser(requestObj);
+        }
+    }
+
+    createUser(requestObj) {
         this.usersService.createUser({user_json: requestObj})
+            .subscribe(
+                (response) => {
+                    console.log(response);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+    }
+
+    editUser(userId, requestObj) {
+        console.log(requestObj);
+        return false;
+        this.usersService.editUser(userId, {user_json: requestObj})
             .subscribe(
                 (response) => {
                     console.log(response);

@@ -1,4 +1,6 @@
-<form [formGroup]="userForm" (submit)="onSaveOrEditUser()">
+<div *ngIf="dataLoading">Loading...</div>
+
+<form *ngIf="!dataLoading" [formGroup]="userForm" (submit)="onSaveOrEditUser()">
     <div class="grid grid--gap-32">
         <div class="grid__box grid__box--size-5">
             <div>
@@ -30,7 +32,8 @@
                     <ui-field>
                         <label><span class="field__label--required">Дата рождения</span></label>
                         <ui-date-time-picker
-                                [initDate]="null"
+                                [placeholder]="'01.04.1990'"
+                                [initDate]="birthDate"
                                 [isShowTimepicker]="false"
                                 (dateCallback)="onChangeBirthDate($event)"
                                 [checkAdult]="'18'"
@@ -44,7 +47,7 @@
                 <div class="grid__box grid__box--size-6">
                     <input type="hidden" formControlName="role">
                     <ui-field>
-                        <label><span class="field__label--required">Роль в системе</span></label>
+                        <label for="rolesList"><span class="field__label--required">Роль в системе</span></label>
                         <ui-select
                                 [items]="rolesList"
                                 (callback)="onChangeRole($event)"
@@ -52,6 +55,7 @@
                                 [defaultText]="'Выберите значение'"
                                 [initBy]="roleSelected"
                                 [isDisabled]="false"
+                                [name]="'rolesList'"
                         ></ui-select>
                     </ui-field>
                 </div>
@@ -116,13 +120,16 @@
                     <div class="grid__box grid__box--size-6">
                         <input type="hidden" formControlName="street_type">
                         <ui-field>
-                            <label><span class="field__label--required">Элемент дор. трансп. сети</span></label>
+                            <label for="streetTypeRegistration"><span class="field__label--required">
+                                Элемент дор. трансп. сети
+                            </span></label>
                             <ui-select
                                     [items]="streetTypesList"
                                     (callback)="onChangeRegistrationStreetType($event)"
                                     [textKey]="'name'"
                                     [defaultText]="'Выберите значение'"
                                     [initBy]="streetTypeRegistrationSelected"
+                                    [name]="'streetTypeRegistration'"
                             ></ui-select>
                         </ui-field>
                     </div>
@@ -182,7 +189,7 @@
                     <div class="grid__box grid__box--size-6">
                         <input type="hidden" formControlName="street_type">
                         <ui-field>
-                            <label><span class="field__label--required">Элемент дор. трансп. сети</span></label>
+                            <label for="streetTypeActual"><span class="field__label--required">Элемент дор. трансп. сети</span></label>
                             <ui-select
                                     [items]="streetTypesList"
                                     (callback)="onChangeActualStreetType($event)"
@@ -190,6 +197,7 @@
                                     [defaultText]="'Выберите значение'"
                                     [initBy]="streetTypeActualSelected"
                                     [isDisabled]="isActualRegistration"
+                                    [name]="'streetTypeActual'"
                             ></ui-select>
                         </ui-field>
                     </div>
@@ -256,6 +264,7 @@
     </div>
 
     <div class="mt-32">
-        <button type="submit" class="button button--orange">Создать работника</button>
+        <button *ngIf="!userId" type="submit" class="button button--orange">Создать</button>
+        <button *ngIf="userId" type="submit" class="button button--orange">Редактировать</button>
     </div>
 </form>

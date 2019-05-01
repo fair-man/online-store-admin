@@ -13,7 +13,9 @@ import {USERS_PATHS} from '../users';
     styleUrls: ['./users-view.component.scss']
 })
 export class UsersViewComponent implements OnInit {
+    USERS_PATHS = USERS_PATHS;
     userData: User;
+    userId: string;
     breadcrumbs: Breadcrumb[] = [
         {text: 'Работники системы', url: USERS_PATHS.usersList},
         {text: 'Данные работника', url: null}
@@ -27,7 +29,10 @@ export class UsersViewComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe((routeParams) => {
-            this.getUserInfo(routeParams.id);
+            const id = routeParams.id;
+
+            this.userId = id;
+            this.getUserInfo(id);
         });
         this.breadcrumbsService.updateBreadcrumbs(this.breadcrumbs);
     }

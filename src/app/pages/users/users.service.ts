@@ -27,6 +27,9 @@ export class UsersService {
     createUser(data): Observable<CustomHttpResponse<User>> {
         return this.http.post<CustomHttpResponse<User>>(`/users`, data);
     }
+    editUser(u_id, data): Observable<CustomHttpResponse<User>> {
+        return this.http.put<CustomHttpResponse<User>>(`/users/${u_id}`, data);
+    }
     getUserInfo(id): Observable<CustomHttpResponse<User>> {
         return this.http.get<CustomHttpResponse<User>>(`/users/${id}`);
     }
@@ -34,5 +37,11 @@ export class UsersService {
         const roles = this.getRoles();
         const streetTypes = this.getStreetTypes();
         return forkJoin([roles, streetTypes]);
+    }
+    getEditUnionData(id) {
+        const roles = this.getRoles();
+        const streetTypes = this.getStreetTypes();
+        const userData = this.getUserInfo(id);
+        return forkJoin([roles, streetTypes, userData]);
     }
 }
