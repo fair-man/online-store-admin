@@ -3,19 +3,19 @@
                placeholder="{{ placeholder }}"
                class="ui-date-time-picker__input"
                [ngClass]="{
-                    'ui-date-time-picker__input--invalid': validationError,
-                    'ui-date-time-picker__input--highlight': myDrop.isOpen()
+                   'ui-date-time-picker__input--highlight': myDrop.isOpen(),
+                   'ui-date-time-picker__input--invalid': validationError
                }"
                [(ngModel)]="parseDate"
                maxlength="{{isShowTimepicker ? 16 : 10}}"
                name="{{datepickerName}}"
                (input)="onDateTimePickerTypedChange($event)"
                (blur)="onDateTimePickerBlur($event)"
+               [disabled]="isDisabled"
         >
         <div class="ui-date-time-picker__toggle">
-            <button type="button" id="{{datepickerName}}" class="os-calendar" ngbDropdownToggle></button>
+            <button type="button" id="{{datepickerName}}" [disabled]="isDisabled" class="os-calendar" ngbDropdownToggle></button>
         </div>
-        <div *ngIf="isDisabled" class="ui-date-time-picker__disabled-wrapper"></div>
         <ul class="dropdown-menu" style="width: 235px; overflow: hidden;" ngbDropdownMenu>
             <li>
                 <ui-date-picker

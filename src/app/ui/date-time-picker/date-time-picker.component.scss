@@ -25,6 +25,7 @@ div.ui-date-time-picker {
     &:disabled {
       opacity: .6;
       cursor: default;
+      background-color: $clr-white;
     }
 
     @include placeholder {
@@ -34,16 +35,16 @@ div.ui-date-time-picker {
       font-size: 12px;
     }
 
+    &--highlight {
+      border-color: $clr-yellow-primary;
+    }
+
     &--invalid {
       border-color: $clr-red-primary;
 
       &:focus {
         border-color: $clr-red-primary;
       }
-    }
-
-    &--highlight {
-      border-color: $clr-yellow-primary;
     }
   }
 
@@ -69,28 +70,25 @@ div.ui-date-time-picker {
   right: 0;
   background: transparent;
 
-  &:hover {
-    cursor: pointer;
-    opacity: .6;
-  }
-
   button {
     background-color: transparent;
     border: none;
     outline: none;
-  }
-}
 
-.ui-date-time-picker__disabled-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, $clr-white 0%, $clr-gray-secondary 100%);
-  opacity: .6;
-  cursor: default;
-  z-index: 2;
+    &:disabled {
+      opacity: .6;
+      cursor: default;
+
+      &:hover {
+        cursor: default;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      opacity: .6;
+    }
+  }
 }
 
 .ui-date-time-picker__footer {
