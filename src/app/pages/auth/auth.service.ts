@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs/internal/operators';
-import {Observable} from 'rxjs/index';
+import {BehaviorSubject, Observable} from 'rxjs/index';
 
 import {User} from '../../models/user';
 
@@ -9,10 +9,16 @@ import {User} from '../../models/user';
     providedIn: 'root'
 })
 export class AuthService {
+    private _userData: BehaviorSubject<User>;
     userData: User;
     isLoggedIn = false;
 
     constructor(private http: HttpClient) {
+        this._userData = <BehaviorSubject<User>>new BehaviorSubject(null);
+    }
+
+    get userState() {
+        return this._userData.asObservable();
     }
 
     login(authData): Observable<any> {
@@ -20,6 +26,17 @@ export class AuthService {
             (response) => {
                 this.userData = response['data'];
                 this.isLoggedIn = true;
+                this._userData.next(Object.assign({}, response['data']));
+            }
+        ));
+    }
+
+    logout(): Observable<any> {
+        return this.http.post(`/auth/logout`, {}).pipe(tap(
+            (response) => {
+                this.userData = null;
+                this.isLoggedIn = false;
+                this._userData.next(null);
             }
         ));
     }
@@ -37,6 +54,7 @@ export class AuthService {
             (response) => {
                 this.userData = response['data'];
                 this.isLoggedIn = true;
+                this._userData.next(Object.assign({}, response['data']));
             }
         ));
     }

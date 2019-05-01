@@ -1,0 +1,17 @@
+<div class="grid grid--va-middle">
+    <div class="grid__box grid__box--size-min mt-2">
+        <a routerLink="/" class="link link--no-underline">
+            <img src="assets/images/logotype.png" alt="onlinestore">
+        </a>
+    </div>
+    <div class="grid__box grid__box--size-min grid__box--pull-right" *ngIf="userData">
+        <div class="grid">
+            <div class="grid__box grid__box--size-min">
+                {{userData.user_data.first_name}}
+                {{userData.user_data.last_name}}
+                {{userData.user_data.patronymic_name}}
+            </div>
+            <div class="grid__box"><a class="link" (click)="onLogout()">Выйти</a></div>
+        </div>
+    </div>
+</div>

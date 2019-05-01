@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 
 import {AuthRoutingModule} from './app-routing.component';
@@ -25,7 +25,10 @@ import {httpInterceptorProviders} from './interceptors/httpInterceptorProviders'
     providers: [
         httpInterceptorProviders
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+    ]
 })
 export class AppModule {
 }
