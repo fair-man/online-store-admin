@@ -10,7 +10,8 @@ import {UsersCreateComponent} from './users-create/users-create.component';
 import {UsersEditComponent} from './users-edit/users-edit.component';
 
 import {UsersService} from './users.service';
-import { CreateEditUsersWidgetComponent } from './component/create-edit-users-widget/create-edit-users-widget.component';
+import {CreateEditUsersWidgetComponent} from './component/create-edit-users-widget/create-edit-users-widget.component';
+import {UsersViewComponent} from './users-view/users-view.component';
 
 @NgModule({
     imports: [
@@ -25,12 +26,14 @@ import { CreateEditUsersWidgetComponent } from './component/create-edit-users-wi
         UsersListComponent,
         UsersCreateComponent,
         UsersEditComponent,
-        CreateEditUsersWidgetComponent
+        CreateEditUsersWidgetComponent,
+        UsersViewComponent
     ],
     exports: [
         UsersListComponent,
         UsersCreateComponent,
-        UsersEditComponent
+        UsersEditComponent,
+        UsersViewComponent
     ],
     providers: [
         UsersService

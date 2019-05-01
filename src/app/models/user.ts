@@ -10,7 +10,8 @@ export interface StreetType {
 
 export interface Phone {
     id: number;
-    phone: number;
+    phone: string;
+    type: number;
 }
 
 export interface UserData {
@@ -20,7 +21,6 @@ export interface UserData {
     patronymic_name: string | null;
     birth_date: string;
     email: string;
-    login: string;
     actual_registration_address: number;
     role: Role;
 }
@@ -44,4 +44,8 @@ export interface User {
     user_data_address_registration: UserAddress;
     user_data_address_actual: UserAddress;
     user_data_phones: Phone[];
+}
+
+export interface Users {
+    users: UserData[];
 }

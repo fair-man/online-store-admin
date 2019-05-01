@@ -1,5 +1,6 @@
 export const USERS_PATHS = {
-    users: 'users',
+    usersList: 'users',
     usersCreate: 'users/create',
-    usersEdit: 'users/:id'
-}
+    usersEdit: 'users/edit/:id',
+    usersView: 'users/:id',
+};

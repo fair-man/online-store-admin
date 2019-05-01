@@ -3,6 +3,6 @@ export interface Role {
     role_name: string;
 }
 
-export interface RolesHttpInterface {
+export interface Roles {
     roles: Role[];
 }

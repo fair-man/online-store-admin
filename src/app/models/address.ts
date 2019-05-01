@@ -3,6 +3,6 @@ export interface StreetTypes {
     name: string;
 }
 
-export interface StreetTypesHttpInterface {
+export interface StreetTypes {
     street_types: StreetTypes[];
 }
