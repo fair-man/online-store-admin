@@ -1,6 +1,20 @@
 @import "../../../scss/core/colors";
 
 .img__user-preview {
-  width: 195px;
-  height: 260px;
+  width: 259px;
+  height: 290px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  &--not-exist {
+    border: 1px solid #D2D2D2;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
 }

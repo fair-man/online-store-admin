@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 import {cloneDeep} from 'lodash';
 
@@ -11,6 +11,7 @@ import {StreetType} from '../../../../models/address';
 import {DateTimePickerDateObj} from '../../../../models/moment';
 import {MaskReplace} from '../../../../utils/mask-replace';
 import {User} from '../../../../models/user';
+import {USERS_PATHS} from '../../users';
 
 @Component({
     selector: 'app-create-edit-users-widget',
@@ -30,14 +31,15 @@ export class CreateEditUsersWidgetComponent implements OnInit {
     streetTypesList: StreetType[] | null;
     base64preview = null;
     selectedFile = null;
+    isSelectedFile = false;
     isActualRegistration = true;
     userForm: FormGroup;
     dataLoading = false;
-    saveOrUpdateLoading = false;
 
     constructor(
         private usersService: UsersService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -184,6 +186,10 @@ export class CreateEditUsersWidgetComponent implements OnInit {
             this.birthDate = new Date(userData.birth_date);
             this.updateFieldsValidators(userData.actual_registration_address);
             this.subscribeDataChanges();
+
+            if (userData && userData.photo_src) {
+                this.isSelectedFile = true;
+            }
         } else {
             this.updateFieldsValidators(true);
             this.subscribeDataChanges();
@@ -238,18 +244,15 @@ export class CreateEditUsersWidgetComponent implements OnInit {
         const myReader: FileReader = new FileReader();
 
         this.selectedFile = file;
+        this.isSelectedFile = true;
         myReader.onloadend = (e) => { this.base64preview = myReader.result; };
         myReader.readAsDataURL(file);
-
-        let formData = new FormData();
-        formData.append('file_upload', file);
-        this.usersService.userPhotoUpload(this.userData.user_data.id, formData)
-            .subscribe((response) => {}, (error) => {});
     }
 
     onResetUserPhoto(): void {
         this.selectedFile = null;
         this.base64preview = null;
+        this.isSelectedFile = false;
     }
 
     onChangeRegistrationStreetType(streetType: StreetType): void {
@@ -298,7 +301,7 @@ export class CreateEditUsersWidgetComponent implements OnInit {
         this.usersService.createUser({user_json: requestObj})
             .subscribe(
                 (response) => {
-                    console.log(response);
+                    this.checkUploadPhotoAvatar(response['data']);
                 },
                 (error) => {
                     console.log(error);
@@ -310,11 +313,40 @@ export class CreateEditUsersWidgetComponent implements OnInit {
         this.usersService.editUser(userId, {user_json: requestObj})
             .subscribe(
                 (response) => {
-                    console.log(response);
+                    this.checkUploadPhotoAvatar(response['data']);
                 },
                 (error) => {
                     console.log(error);
                 }
             );
+    }
+
+    checkUploadPhotoAvatar(userData) {
+        const userId = userData.user_data.id;
+
+        if (this.selectedFile) {
+            this.uploadUserAvatar(userId);
+        } else {
+            this.redirectToPreviewPage(userId);
+        }
+    }
+
+    uploadUserAvatar(userId) {
+        const formData = new FormData();
+        formData.append('file_upload', this.selectedFile);
+
+        this.usersService.userPhotoUpload(userId, formData)
+            .subscribe(
+                (response) => {
+                    this.redirectToPreviewPage(userId);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+    }
+
+    redirectToPreviewPage(userId) {
+        this.router.navigate(['/', USERS_PATHS.usersList, userId]);
     }
 }

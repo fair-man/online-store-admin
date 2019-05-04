@@ -16,6 +16,7 @@ export interface UserData {
     email: string;
     actual_registration_address: number;
     role: Role;
+    photo_src: string | null;
 }
 
 export interface UserAddress {

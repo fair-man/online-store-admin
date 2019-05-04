@@ -1,7 +1,6 @@
 <form *ngIf="!dataLoading" [formGroup]="userForm" (submit)="onSaveOrEditUser()">
     <div class="grid grid--gap-32">
         <div class="grid__box grid__box--size-5">
-            <img src="https://online-store-crm-api.herokuapp.com/user_19.jpg" alt="">
             <div>
                 <span class="sub-title">Основная информация</span>
             </div>
@@ -233,7 +232,7 @@
                 <div class="grid mt-32">
                     <div class="grid__box grid__box--size-12 mt-16">
                         <div class="user-photo__block">
-                            <label for="userPhoto" class="user-photo__block-label" *ngIf="!base64preview">
+                            <label for="userPhoto" class="user-photo__block-label" *ngIf="!isSelectedFile">
                                 <span class="link link--dashed link--black">Добавить<br> фото</span>
                             </label>
                             <input type="file"
@@ -241,14 +240,12 @@
                                    id="userPhoto"
                                    *ngIf="!base64preview"
                                    (change)="onChangeAddUserPhoto($event)">
-                            <img *ngIf="base64preview"
-                                 class="user-photo__block-image"
-                                 src="{{base64preview}}"
-                                 alt="Фотография пользователя">
+                            <img *ngIf="isSelectedFile" class="user-photo__block-image"
+                                 src="{{base64preview || userData && userData.user_data && userData.user_data.photo_src}}">
                         </div>
                     </div>
                 </div>
-                <div class="grid mt-4" *ngIf="base64preview">
+                <div class="grid mt-4" *ngIf="isSelectedFile">
                     <div class="grid__box grid__box--size-7 ta--center">
                         <span class="link link--dashed link--red ml-4" (click)="onResetUserPhoto()">Удалить</span>
                     </div>

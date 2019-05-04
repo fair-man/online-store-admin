@@ -15,10 +15,17 @@
                         <div class="grid__box grid__box--size-min" *ngFor="let user of tab.users">
                             <ui-card>
                                 <ui-card-header>
-                                    <img class="img__user-preview" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmHNu-x-xD_Lhx8X21S7goRWsG-W5mxLhchMGcy0QtQiht8WWt" alt="Иванов Иван Иванович">
+                                    <div class="img__user-preview" [ngClass]="{'img__user-preview--not-exist': !user.photo_src}">
+                                        <img *ngIf="user.photo_src" src="{{user.photo_src}}" alt="Иванов Иван Иванович">
+                                        <span *ngIf="!user.photo_src">Нет фото</span>
+                                    </div>
                                 </ui-card-header>
                                 <ui-card-content>
-                                    <div>{{user.first_name}} {{user.last_name}} {{user.patronymic_name}}</div>
+                                    <div>
+                                        <span>
+                                            {{user.first_name}} {{user.last_name}} {{user.patronymic_name}}
+                                        </span>
+                                    </div>
                                     <div class="grid mt-8">
                                         <div class="grid__box">
                                             Возраст:
