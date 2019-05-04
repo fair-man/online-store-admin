@@ -240,6 +240,11 @@ export class CreateEditUsersWidgetComponent implements OnInit {
         this.selectedFile = file;
         myReader.onloadend = (e) => { this.base64preview = myReader.result; };
         myReader.readAsDataURL(file);
+
+        let formData = new FormData();
+        formData.append('file_upload', file);
+        this.usersService.userPhotoUpload(this.userData.user_data.id, formData)
+            .subscribe((response) => {}, (error) => {});
     }
 
     onResetUserPhoto(): void {

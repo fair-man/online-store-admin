@@ -44,4 +44,7 @@ export class UsersService {
         const userData = this.getUserInfo(id);
         return forkJoin([roles, streetTypes, userData]);
     }
+    userPhotoUpload(id, data) {
+        return this.http.post(`/users/user_file_upload/${id}`, data);
+    }
 }
