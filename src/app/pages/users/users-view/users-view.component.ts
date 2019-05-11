@@ -10,7 +10,7 @@ import {USERS_PATHS} from '../users';
 @Component({
     selector: 'app-users-view',
     templateUrl: './users-view.component.html',
-    styleUrls: ['./users-view.component.scss']
+    styleUrls: ['./users-view.component.scss'],
 })
 export class UsersViewComponent implements OnInit {
     USERS_PATHS = USERS_PATHS;
