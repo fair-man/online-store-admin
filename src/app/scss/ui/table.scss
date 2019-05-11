@@ -1,0 +1,31 @@
+@import "../core/colors";
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    border-bottom: 2px solid $clr-gray-secondary;
+
+    th {
+      text-align: left;
+      color: $clr-gray-primary;
+      padding: 10px 40px 10px 0;
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+
+  tbody {
+    td {
+      color: $clr-black;
+      padding: 10px 40px 10px 0;
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+}

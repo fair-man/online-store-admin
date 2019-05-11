@@ -7,6 +7,8 @@ import {USERS_PATHS} from '../users';
 import {Breadcrumb} from '../../../models/breadcrumbs';
 import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
 
+const {forEach} = {forEach: require('lodash/forEach')};
+
 @Component({
     selector: 'app-users-list',
     templateUrl: './users-list.component.html',
@@ -47,6 +49,8 @@ export class UsersListComponent implements OnInit {
             );
     }
     onChangeUserTypeTab(event) {
+        forEach(this.tabs, (tab) => tab.users = null);
+
         this.getUsers(event.nextId);
     }
     addUsersToGroup(roleId, users) {

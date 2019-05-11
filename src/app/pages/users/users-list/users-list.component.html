@@ -10,48 +10,40 @@
     <ngb-tabset (tabChange)="onChangeUserTypeTab($event)">
         <ngb-tab *ngFor="let tab of tabs" [title]="tab.title" [id]="tab.id">
             <ng-template ngbTabContent>
-                <div class="grid">
-                    <ng-container *ngIf="tab.users && tab.users.length">
-                        <div class="grid__box grid__box--size-min" *ngFor="let user of tab.users">
-                            <ui-card>
-                                <ui-card-header>
-                                    <div class="img__user-preview" [ngClass]="{'img__user-preview--not-exist': !user.photo_src}">
-                                        <img *ngIf="user.photo_src" src="{{user.photo_src}}" alt="Иванов Иван Иванович">
-                                        <span *ngIf="!user.photo_src">Нет фото</span>
-                                    </div>
-                                </ui-card-header>
-                                <ui-card-content>
-                                    <div>
-                                        <span>
-                                            {{user.first_name}} {{user.last_name}} {{user.patronymic_name}}
-                                        </span>
-                                    </div>
-                                    <div class="grid mt-8">
-                                        <div class="grid__box">
-                                            Возраст:
-                                        </div>
-                                        <div class="grid__box grid__box--size-min grid__box--pull-right">
-                                            28
-                                        </div>
-                                    </div>
-                                    <div class="grid">
-                                        <div class="grid__box">
-                                            В компании:
-                                        </div>
-                                        <div class="grid__box grid__box--size-min grid__box--pull-right">
-                                            1 г. 10 мес.
-                                        </div>
-                                    </div>
-                                </ui-card-content>
-                                <ui-card-footer>
-                                    <a class="link link--no-underline link--button" [routerLink]="['/', USERS_PATHS.usersList, user.id]">
-                                        <button type="button" class="button button--orange">Подробнее о работнике</button>
+                <ng-container *ngIf="tab.users && tab.users.length">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>ФИО</th>
+                                <th>Возраст</th>
+                                <th>Работает в компании</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of tab.users;">
+                                <td>
+                                    {{user.id}}
+                                </td>
+                                <td>
+                                    <a class="link link--yellow link--no-underline"
+                                       [routerLink]="['/', USERS_PATHS.usersList,'edit', user.id]">
+                                        <i class="os-pencil"></i>
                                     </a>
-                                </ui-card-footer>
-                            </ui-card>
-                        </div>
-                    </ng-container>
-                </div>
+                                    <a class="link" [routerLink]="['/', USERS_PATHS.usersList, user.id]">
+                                        {{user.first_name}} {{user.last_name}} {{user.patronymic_name}}
+                                    </a>
+                                </td>
+                                <td>
+                                    28
+                                </td>
+                                <td>
+                                    1 год 2 мес.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-container>
                 <div *ngIf="!tab.users">Нет данных для отображения.</div>
             </ng-template>
         </ngb-tab>

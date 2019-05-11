@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-let moment = require('moment');
+const moment = require('moment');
 
 @Pipe({ name: 'dateFormat' })
 export class MomentPipe implements PipeTransform {
