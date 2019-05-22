@@ -3,10 +3,12 @@ import {CommonModule} from '@angular/common';
 
 import {MomentPipe} from './dateFormatter';
 import {DateRangePipe} from './dateRangeFormatter';
+import {DateYearsPipe} from './dateYearsFormatter';
 
 const pipes = [
     MomentPipe,
-    DateRangePipe
+    DateRangePipe,
+    DateYearsPipe
 ];
 
 @NgModule({

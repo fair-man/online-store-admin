@@ -26,4 +26,3 @@ export class DateRangePipe implements PipeTransform {
         return dateRange.range || '';
     }
 }
-
