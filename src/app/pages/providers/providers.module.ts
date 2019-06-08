@@ -8,6 +8,7 @@ import {ProvidersListComponent} from './providers-list/providers-list.component'
 import {UiModule} from '../../ui/ui.module';
 import {SharedModule} from '../../shared/shared.module';
 import { ProvidersCreateComponent } from './providers-create/providers-create.component';
+import { CreateEditProvidersWidgetComponent } from './components/create-edit-providers-widget/create-edit-providers-widget.component';
 
 @NgModule({
     imports: [
@@ -18,8 +19,16 @@ import { ProvidersCreateComponent } from './providers-create/providers-create.co
         SharedModule,
         ProvidersRoutingModule
     ],
-    exports: [ProvidersListComponent],
-    declarations: [ProvidersListComponent, ProvidersCreateComponent],
+    exports: [
+        ProvidersListComponent,
+        ProvidersCreateComponent,
+        CreateEditProvidersWidgetComponent
+    ],
+    declarations: [
+        ProvidersListComponent,
+        ProvidersCreateComponent,
+        CreateEditProvidersWidgetComponent
+    ],
     providers: [
         ProvidersService
     ],
