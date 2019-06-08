@@ -245,10 +245,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid mt-4" *ngIf="isSelectedFile">
-                    <div class="grid__box grid__box--size-7 ta--center">
-                        <span class="link link--dashed link--red ml-4" (click)="onResetUserPhoto()">Удалить</span>
-                    </div>
+                <div class="mt-4" *ngIf="isSelectedFile">
+                    <span class="user-photo__block-remove" (click)="onResetUserPhoto()">Удалить</span>
                 </div>
             </div>
         </div>
