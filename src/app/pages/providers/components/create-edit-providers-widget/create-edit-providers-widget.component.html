@@ -54,10 +54,10 @@
                 <div class="grid__box grid__box--size-2">
                     <input type="hidden" formControlName="start_date">
                     <ui-field>
-                        <label for="startDate"><span class="field__label--required">Начало контракта</span></label>
+                        <label for="contractStartDate"><span class="field__label--required">Начало контракта</span></label>
                         <ui-date-time-picker
-                                [placeholder]="'01.04.1990'"
-                                [initDate]="startDate"
+                                [placeholder]="'01.04.2019'"
+                                [initDate]="contractStartDate.initDate"
                                 [isShowTimepicker]="false"
                                 (dateCallback)="onChangeContractStartDate($event)"
                                 [datepickerName]="'startDate'"
@@ -67,13 +67,14 @@
                 <div class="grid__box grid__box--size-2">
                     <input type="hidden" formControlName="end_date">
                     <ui-field>
-                        <label for="endDate"><span class="field__label--required">Окончание контракта</span></label>
+                        <label for="contractEndDate"><span class="field__label--required">Окончание контракта</span></label>
                         <ui-date-time-picker
-                                [placeholder]="'01.04.1990'"
-                                [initDate]="endDate"
+                                [placeholder]="'01.04.2029'"
+                                [initDate]="contractEndDate.initDate"
                                 [isShowTimepicker]="false"
                                 (dateCallback)="onChangeContractEndDate($event)"
                                 [datepickerName]="'endDate'"
+                                [options]="contractEndDate.options"
                         ></ui-date-time-picker>
                     </ui-field>
                 </div>
@@ -153,7 +154,7 @@
             </div>
             <div class="grid__box grid__box--size-5" formGroupName="provider_data_address_actual">
                 <div>
-                    <span class="sub-title">Фактический</span>
+                    <span class="sub-title">Фактический адрес</span>
                 </div>
                 <div class="grid mt-8">
                     <div class="grid__box grid__box--size-6">
@@ -186,7 +187,7 @@
                                     [textKey]="'name'"
                                     [defaultText]="'Выберите значение'"
                                     [initBy]="streetTypeActualSelected"
-                                    [isDisabled]="isActualRegistration"
+                                    [isDisabled]="isActualLegal"
                                     [name]="'streetTypeActual'"
                             ></ui-select>
                         </ui-field>
@@ -225,6 +226,10 @@
                 <input type="checkbox" formControlName="actual_legal_address" [checked]="isActualLegal">
                 <checkbox-text>Фактический адрес совпадает с юредическим</checkbox-text>
             </ui-checkbox>
+        </div>
+        <div class="mt-32">
+            <button *ngIf="!providerId" type="submit" class="button button--orange" [disabled]="providersCreateEditForm.invalid">Создать</button>
+            <button *ngIf="providerId" type="submit" class="button button--orange" [disabled]="providersCreateEditForm.invalid">Редактировать</button>
         </div>
     </div>
 </form>

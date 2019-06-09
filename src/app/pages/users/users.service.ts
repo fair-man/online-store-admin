@@ -7,19 +7,20 @@ import {StreetTypes} from '../../models/address';
 import {User, Users} from '../../models/user';
 
 import {CustomHttpResponse} from '../../classes/http';
+import {AddressService} from '../../services/address.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UsersService {
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private addressService: AddressService) {
     }
     getRoles(): Observable<CustomHttpResponse<Roles>> {
         return this.http.get<CustomHttpResponse<Roles>>(`/roles/`);
     }
     getStreetTypes(): Observable<CustomHttpResponse<StreetTypes>> {
-        return this.http.get<CustomHttpResponse<StreetTypes>>(`/address/street_types`);
+        return this.addressService.getStreetTypes();
     }
     getUsersByRole(roleId): Observable<CustomHttpResponse<Users>> {
         return this.http.get<CustomHttpResponse<Users>>(`/users/by_role/${roleId}`);
