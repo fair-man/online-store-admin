@@ -26,11 +26,11 @@
                                     {{user.id}}
                                 </td>
                                 <td>
-                                    <a class="link link--yellow link--no-underline"
+                                    <a class="link link--yellow link--no-underline" title="Редактировать"
                                        [routerLink]="['/', USERS_PATHS.usersList,'edit', user.id]">
                                         <i class="os-pencil"></i>
                                     </a>
-                                    <a class="link" [routerLink]="['/', USERS_PATHS.usersList, user.id]">
+                                    <a class="link" [routerLink]="['/', USERS_PATHS.usersList, user.id]" title="Подробная информация">
                                         {{user.first_name}} {{user.last_name}} {{user.patronymic_name}}
                                     </a>
                                 </td>
