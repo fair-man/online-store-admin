@@ -1,13 +1,8 @@
-import {StreetType} from './address';
+import {Address} from './address';
 import {Role} from './role';
+import {Phone} from './phone';
 
-export interface Phone {
-    id: number;
-    phone: string;
-    type: number;
-}
-
-export interface UserData {
+export interface User {
     id: number;
     first_name: string;
     last_name: string;
@@ -19,28 +14,14 @@ export interface UserData {
     photo_src: string | null;
 }
 
-export interface UserAddress {
-    id: number | null;
-    region: string;
-    district: string;
-    city: string;
-    street: string;
-    street_type: StreetType;
-    building: string | null;
-    house: string;
-    flat: string;
-    actual: number;
-    registration: number;
-}
-
 export interface User {
     csrf_token: string;
-    user_data: UserData;
-    user_data_address_registration: UserAddress;
-    user_data_address_actual: UserAddress;
+    user_data: User;
+    user_data_address_registration: Address;
+    user_data_address_actual: Address;
     user_data_phones: Phone[];
 }
 
 export interface Users {
-    users: UserData[];
+    users: User[];
 }

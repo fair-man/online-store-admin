@@ -35,8 +35,9 @@
     @include border-radius(4px);
 
     color: $clr-black;
-    border-color: $clr-yellow-primary;
+    // border-color: $clr-yellow-primary;
     opacity: 1;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
   }
 
   &.disabled {

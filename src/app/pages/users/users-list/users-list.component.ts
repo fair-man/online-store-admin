@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {UsersService} from '../users.service';
-import {UserData} from '../../../models/user';
+import {User} from '../../../models/user';
 import {USERS_PATHS} from '../users';
 
 import {Breadcrumb} from '../../../models/breadcrumbs';
@@ -16,7 +16,7 @@ const {forEach} = {forEach: require('lodash/forEach')};
 })
 export class UsersListComponent implements OnInit {
     USERS_PATHS = USERS_PATHS;
-    users: UserData[] | null = null;
+    users: User[] | null = null;
     isUsersLoading = false;
     tabs = [
         {id: 1, title: 'Руководство', users: null},
