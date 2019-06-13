@@ -228,8 +228,10 @@
             </ui-checkbox>
         </div>
         <div class="mt-32">
-            <button *ngIf="!providerId" type="submit" class="button button--orange" [disabled]="providersCreateEditForm.invalid">Создать</button>
-            <button *ngIf="providerId" type="submit" class="button button--orange" [disabled]="providersCreateEditForm.invalid">Редактировать</button>
+            <button *ngIf="!providerId" type="button" class="button button--orange"
+                    [disabled]="providersCreateEditForm.invalid" (click)="onSaveOrEditProvider()">Создать</button>
+            <button *ngIf="providerId" type="button" class="button button--orange"
+                    [disabled]="providersCreateEditForm.invalid" (click)="onSaveOrEditProvider()">Редактировать</button>
         </div>
     </div>
 </form>

@@ -5,6 +5,7 @@ import {forkJoin, Observable} from 'rxjs/index';
 import {AddressService} from '../../services/address.service';
 import {StreetTypes} from '../../models/address';
 import {CustomHttpResponse} from '../../classes/http';
+import {Provider} from '../../models/provider';
 
 @Injectable({
     providedIn: 'root'
@@ -23,5 +24,9 @@ export class ProvidersService {
     getCreateUnionData() {
         const streetTypes = this.getStreetTypes();
         return forkJoin([streetTypes]);
+    }
+
+    createProvider(providerJson): Observable<CustomHttpResponse<Provider>> {
+        return this.http.post<CustomHttpResponse<Provider>>(`/providers`, providerJson);
     }
 }

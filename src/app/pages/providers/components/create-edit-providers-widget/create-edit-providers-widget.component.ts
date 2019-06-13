@@ -28,7 +28,7 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
         phone_house: new FormControl(''),
         phone_mobile: new FormControl('', Validators.required),
         provider_data_contract: new FormGroup({
-            c_number: new FormControl('', Validators.required),
+            c_number: new FormControl(null, Validators.required),
             start_date: new FormControl('', Validators.required),
             end_date: new FormControl('', Validators.required),
         }),
@@ -144,18 +144,26 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
 
     onSaveOrEditProvider() {
         const form = this.providersCreateEditForm.value;
-        const requestObj = {
+        const requestObj = {provider_json: {
             provider_data: {name: form.name, email: form.email},
             provider_data_address_registration: form.provider_data_address_registration,
             provider_data_address_actual: form.provider_data_address_actual,
             provider_data_contract: form.provider_data_contract,
             provider_data_phones: [{phone: form.phone_mobile, type: 2}]
-        };
+        }};
 
         if (this.isActualLegal) {
-            requestObj.provider_data_address_actual = form.provider_data_address_registration;
+            requestObj.provider_json.provider_data_address_actual = form.provider_data_address_registration;
         }
 
-        console.log(requestObj);
+        this.providersService.createProvider(requestObj)
+            .subscribe(
+                (response) => {
+                    console.log(response);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
     }
 }
