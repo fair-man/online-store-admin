@@ -2,12 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 
+import {PROVIDERS_PATHS} from '../../providers';
 import {StreetType} from '../../../../models/address';
 import {ProviderFull} from '../../../../models/provider';
-import {DateTimePickerDateObj} from '../../../../models/moment';
 import {MaskReplace} from '../../../../utils/mask-replace';
 import {Enums} from '../../../../configs/Enums';
 import {ProvidersService} from '../../providers.service';
+
+import {cloneDeep} from 'lodash';
 
 @Component({
     selector: 'app-create-edit-providers-widget',
@@ -16,16 +18,16 @@ import {ProvidersService} from '../../providers.service';
 })
 export class CreateEditProvidersWidgetComponent implements OnInit {
     moment = require('moment');
+    loading: boolean;
     providerId: number;
     providerData: ProviderFull;
     phoneMask = Enums.masks.phoneMask;
-    isActualLegal: boolean;
-    contractStartDate = {initDate: null, dateObj: null, options: null};
-    contractEndDate = {initDate: null, dateObj: null, options: null};
+    isActualLegal: boolean | number;
     streetTypeActualSelected: StreetType | null;
     streetTypeRegistrationSelected: StreetType | null;
     streetTypesList: StreetType[] | null;
     providersCreateEditForm: FormGroup;
+    providerError: string | null;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -45,6 +47,7 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
     }
 
     getEditUnionData() {
+        this.loading = true;
         this.providersService.getEditUnionData(this.providerId)
             .subscribe(
                 (response) => {
@@ -52,6 +55,7 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
                     this.providerData = response[1]['data'];
                     this.createProviderEditForm();
                     this.subscribeDataChanges();
+                    this.loading = false;
                 }
             );
     }
@@ -66,11 +70,6 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
             email: new FormControl(providerData.email),
             phone_house: new FormControl(''),
             phone_mobile: new FormControl(this.providerData.provider_data_phones[0].phone, Validators.required),
-            provider_data_contract: new FormGroup({
-                c_number: new FormControl(null, Validators.required),
-                start_date: new FormControl('', Validators.required),
-                end_date: new FormControl('', Validators.required),
-            }),
             provider_data_address_registration: new FormGroup({
                 region: new FormControl(providerDataAddressRegistration.region, Validators.required),
                 district: new FormControl(providerDataAddressRegistration.district, Validators.required),
@@ -97,15 +96,25 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
             }),
             actual_legal_address: new FormControl(0, Validators.required),
         });
+
+        this.initUiData();
+    }
+
+    initUiData() {
+        this.onChangeRegistrationStreetType(this.providerData.provider_data_address_registration.street_type);
+        this.onChangeActualStreetType(this.providerData.provider_data_address_actual.street_type);
+        this.isActualLegal = this.providerData.provider_data.actual_registration_address;
     }
 
     getCreateUnionData() {
+        this.loading = true;
         this.providersService.getCreateUnionData()
             .subscribe(
                 (response) => {
                     this.streetTypesList = response[0]['data'].street_types;
                     this.createProviderCreateForm();
                     this.subscribeDataChanges();
+                    this.loading = false;
                 },
                 (error) => {}
             );
@@ -117,11 +126,6 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
             email: new FormControl(''),
             phone_house: new FormControl(''),
             phone_mobile: new FormControl('', Validators.required),
-            provider_data_contract: new FormGroup({
-                c_number: new FormControl(null, Validators.required),
-                start_date: new FormControl('', Validators.required),
-                end_date: new FormControl('', Validators.required),
-            }),
             provider_data_address_registration: new FormGroup({
                 region: new FormControl('', Validators.required),
                 district: new FormControl('', Validators.required),
@@ -181,23 +185,6 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
         });
     }
 
-    onChangeContractStartDate(dateObj: DateTimePickerDateObj) {
-        const d = dateObj && dateObj.dateMillis ? this.moment(dateObj.dateMillis).format('YYYY-MM-DD HH:mm:ss') : null;
-        this.contractStartDate.dateObj = dateObj;
-
-        if (dateObj.dateMillis) {
-            this.contractEndDate.options = {minDate: this.moment(dateObj.dateMillis).add(1, 'day')._d};
-        }
-
-        this.providersCreateEditForm.get('provider_data_contract').get('start_date').setValue(d);
-    }
-
-    onChangeContractEndDate(dateObj: DateTimePickerDateObj) {
-        const d = dateObj && dateObj.dateMillis ? this.moment(dateObj.dateMillis).format('YYYY-MM-DD HH:mm:ss') : null;
-        this.contractEndDate.dateObj = dateObj;
-        this.providersCreateEditForm.get('provider_data_contract').get('end_date').setValue(d);
-    }
-
     onBlurPhoneMobile() {
         const phoneVal = MaskReplace.replace(this.providersCreateEditForm.value.phone_mobile, 'phone');
         this.providersCreateEditForm.get('phone_mobile').setValue(phoneVal.length < 9 ? '' : phoneVal);
@@ -218,24 +205,55 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
     onSaveOrEditProvider() {
         const form = this.providersCreateEditForm.value;
         const requestObj = {provider_json: {
-            provider_data: {name: form.name, email: form.email},
+            provider_data: {
+                id: +this.providerId || null,
+                name: form.name,
+                email: form.email,
+                status: 1,
+                actual_registration_address: +this.isActualLegal
+            },
             provider_data_address_registration: form.provider_data_address_registration,
             provider_data_address_actual: form.provider_data_address_actual,
-            provider_data_contract: form.provider_data_contract,
             provider_data_phones: [{phone: form.phone_mobile, type: 2}]
         }};
 
         if (this.isActualLegal) {
-            requestObj.provider_json.provider_data_address_actual = form.provider_data_address_registration;
+            requestObj.provider_json.provider_data_address_actual = cloneDeep(form.provider_data_address_registration);
+            requestObj.provider_json.provider_data_address_actual.actual = 1;
+            requestObj.provider_json.provider_data_address_actual.registration = 0;
         }
 
-        this.providersService.createProvider(requestObj)
+        if (this.providerId) {
+            requestObj.provider_json.provider_data_address_registration.id =
+                this.providerData.provider_data_address_registration.id;
+            requestObj.provider_json.provider_data_address_actual.id =
+                this.providerData.provider_data_address_actual.id;
+            this.editProvider(requestObj);
+        } else {
+            this.createProvider(requestObj);
+        }
+    }
+
+    createProvider(data) {
+        this.providersService.createProvider(data)
             .subscribe(
                 (response) => {
-                    console.log(response);
+                    this.router.navigate([PROVIDERS_PATHS.providersList]);
                 },
                 (error) => {
-                    console.log(error);
+                    this.providerError = 'Ошибка при создании поставщика.';
+                }
+            );
+    }
+
+    editProvider(data) {
+        this.providersService.editProvider(this.providerId, data)
+            .subscribe(
+                (response) => {
+                    this.router.navigate([PROVIDERS_PATHS.providersList]);
+                },
+                (error) => {
+                    this.providerError = 'Ошибка при обновлении поставщика.';
                 }
             );
     }

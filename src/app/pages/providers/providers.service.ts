@@ -43,4 +43,8 @@ export class ProvidersService {
     createProvider(providerJson): Observable<CustomHttpResponse<ProviderFull>> {
         return this.http.post<CustomHttpResponse<ProviderFull>>(`/providers`, providerJson);
     }
+
+    editProvider(providerId, providerJson): Observable<CustomHttpResponse<ProviderFull>> {
+        return this.http.put<CustomHttpResponse<ProviderFull>>(`/providers/${providerId}`, providerJson);
+    }
 }

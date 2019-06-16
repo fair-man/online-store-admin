@@ -7,6 +7,8 @@ export interface Provider {
     name: string;
     email: string;
     created_date: string;
+    actual_registration_address: number;
+    status: number;
 }
 
 export interface Providers {

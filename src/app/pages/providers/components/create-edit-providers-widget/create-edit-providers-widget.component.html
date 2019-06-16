@@ -1,237 +1,200 @@
-<form [formGroup]="providersCreateEditForm" (submit)="onSaveOrEditProvider()">
-    <div class="grid grid--gap-32">
-        <div class="grid__box grid__box--size-12">
-            <div>
-                <span class="sub-title">Основная информация</span>
-            </div>
-            <div class="grid mt-8">
-                <div class="grid__box grid__box--size-2">
-                    <ui-field>
-                        <label for="name"><span class="field__label--required">Назв. компании поставщика</span></label>
-                        <input type="text" id="name" formControlName="name">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-2">
-                    <ui-field>
-                        <label for="email"><span class="field__label--required">Email</span></label>
-                        <input type="text" id="email" formControlName="email">
-                    </ui-field>
-                </div>
-                <!--<div class="grid__box grid__box&#45;&#45;size-2">-->
-                <!--<ui-field>-->
-                <!--<label for="phone">Дом. телефон</label>-->
-                <!--<input type="text"-->
-                <!--disabled-->
-                <!--id="phone" [textMask]="{mask: phoneMask}"-->
-                <!--formControlName="phone_house">-->
-                <!--</ui-field>-->
-                <!--</div>-->
-                <div class="grid__box grid__box--size-2">
-                    <ui-field>
-                        <label for="phone_dop"><span class="field__label--required">Моб. телефон</span></label>
-                        <input type="text"
-                               id="phone_dop"
-                               [textMask]="{mask: phoneMask}"
-                               formControlName="phone_mobile"
-                               (blur)="onBlurPhoneMobile()">
-                    </ui-field>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="grid grid--gap-32 mt-32">
-        <div class="grid__box grid__box--size-12" formGroupName="provider_data_contract">
-            <div>
-                <span class="sub-title">Контракт</span>
-            </div>
-            <div class="grid mt-8">
-                <div class="grid__box grid__box--size-2">
-                    <ui-field>
-                        <label for="c_number"><span class="field__label--required">Номер контракта</span></label>
-                        <input type="text" id="c_number" formControlName="c_number">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-2">
-                    <input type="hidden" formControlName="start_date">
-                    <ui-field>
-                        <label for="contractStartDate"><span class="field__label--required">Начало контракта</span></label>
-                        <ui-date-time-picker
-                                [placeholder]="'01.04.2019'"
-                                [initDate]="contractStartDate.initDate"
-                                [isShowTimepicker]="false"
-                                (dateCallback)="onChangeContractStartDate($event)"
-                                [datepickerName]="'startDate'"
-                        ></ui-date-time-picker>
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-2">
-                    <input type="hidden" formControlName="end_date">
-                    <ui-field>
-                        <label for="contractEndDate"><span class="field__label--required">Окончание контракта</span></label>
-                        <ui-date-time-picker
-                                [placeholder]="'01.04.2029'"
-                                [initDate]="contractEndDate.initDate"
-                                [isShowTimepicker]="false"
-                                (dateCallback)="onChangeContractEndDate($event)"
-                                [datepickerName]="'endDate'"
-                                [options]="contractEndDate.options"
-                        ></ui-date-time-picker>
-                    </ui-field>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mt-32">
-        <div class="grid grid--gap-32 mt-16">
-            <div class="grid__box grid__box--size-5" formGroupName="provider_data_address_registration">
+<ng-container *ngIf="!loading">
+    <form [formGroup]="providersCreateEditForm" (submit)="onSaveOrEditProvider()">
+        <div class="grid grid--gap-32">
+            <div class="grid__box grid__box--size-5">
                 <div>
-                    <span class="sub-title">Юредический адрес</span>
+                    <span class="sub-title">Основная информация</span>
                 </div>
                 <div class="grid mt-8">
                     <div class="grid__box grid__box--size-6">
                         <ui-field>
-                            <label for="registration_region"><span class="field__label--required">Область</span></label>
-                            <input type="text" id="registration_region" formControlName="region">
+                            <label for="name"><span class="field__label--required">Назв. компании поставщика</span></label>
+                            <input type="text" id="name" formControlName="name">
                         </ui-field>
                     </div>
                     <div class="grid__box grid__box--size-6">
                         <ui-field>
-                            <label for="registration_disctrict"><span class="field__label--required">Район</span></label>
-                            <input type="text" id="registration_disctrict" formControlName="district">
+                            <label for="email"><span class="field__label--required">Email</span></label>
+                            <input type="text" id="email" formControlName="email">
                         </ui-field>
                     </div>
-                </div>
-                <div class="grid mt-8">
-                    <div class="grid__box grid__box--size-6">
+                    <!--<div class="grid__box grid__box&#45;&#45;size-2">-->
+                    <!--<ui-field>-->
+                    <!--<label for="phone">Дом. телефон</label>-->
+                    <!--<input type="text"-->
+                    <!--disabled-->
+                    <!--id="phone" [textMask]="{mask: phoneMask}"-->
+                    <!--formControlName="phone_house">-->
+                    <!--</ui-field>-->
+                    <!--</div>-->
+                    <div class="grid__box grid__box--size-6 mt-8">
                         <ui-field>
-                            <label for="registration_city">Город</label>
-                            <input type="text" id="registration_city" formControlName="city">
-                        </ui-field>
-                    </div>
-                    <div class="grid__box grid__box--size-6">
-                        <input type="hidden" formControlName="street_type">
-                        <ui-field>
-                            <label for="streetTypeRegistration"><span class="field__label--required">
-                                Элемент дор. трансп. сети
-                            </span></label>
-                            <ui-select
-                                    [items]="streetTypesList"
-                                    (callback)="onChangeRegistrationStreetType($event)"
-                                    [textKey]="'name'"
-                                    [defaultText]="'Выберите значение'"
-                                    [initBy]="streetTypeRegistrationSelected"
-                                    [name]="'streetTypeRegistration'"
-                            ></ui-select>
-                        </ui-field>
-                    </div>
-                </div>
-                <div class="grid mt-8">
-                    <div class="grid__box grid__box--size-6">
-                        <ui-field>
-                            <label for="registration_street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
-                            <input type="text" id="registration_street" formControlName="street">
-                        </ui-field>
-                    </div>
-                    <div class="grid__box grid__box--size-2">
-                        <ui-field>
-                            <label for="registration_house"><span class="field__label--required">Дом</span></label>
-                            <input type="text" id="registration_house" formControlName="house">
-                        </ui-field>
-                    </div>
-                    <div class="grid__box grid__box--size-2">
-                        <ui-field>
-                            <label for="registration_building">Корпус</label>
-                            <input type="text" id="registration_building" formControlName="building">
-                        </ui-field>
-                    </div>
-                    <div class="grid__box grid__box--size-2">
-                        <ui-field>
-                            <label for="registration_flat">Квартира</label>
-                            <input type="text" id="registration_flat" formControlName="flat">
+                            <label for="phone_dop"><span class="field__label--required">Моб. телефон</span></label>
+                            <input type="text"
+                                   id="phone_dop"
+                                   [textMask]="{mask: phoneMask}"
+                                   formControlName="phone_mobile"
+                                   (blur)="onBlurPhoneMobile()">
                         </ui-field>
                     </div>
                 </div>
             </div>
-            <div class="grid__box grid__box--size-5" formGroupName="provider_data_address_actual">
-                <div>
-                    <span class="sub-title">Фактический адрес</span>
-                </div>
-                <div class="grid mt-8">
-                    <div class="grid__box grid__box--size-6">
-                        <ui-field>
-                            <label for="actual_region"><span class="field__label--required">Область</span></label>
-                            <input type="text" id="actual_region" formControlName="region">
-                        </ui-field>
-                    </div>
-                    <div class="grid__box grid__box--size-6">
-                        <ui-field>
-                            <label for="actual_disctrict"><span class="field__label--required">Район</span></label>
-                            <input type="text" id="actual_disctrict" formControlName="district">
-                        </ui-field>
-                    </div>
-                </div>
-                <div class="grid mt-8">
-                    <div class="grid__box grid__box--size-6">
-                        <ui-field>
-                            <label for="actual_city">Город</label>
-                            <input type="text" id="actual_city" formControlName="city">
-                        </ui-field>
-                    </div>
-                    <div class="grid__box grid__box--size-6">
-                        <input type="hidden" formControlName="street_type">
-                        <ui-field>
-                            <label for="streetTypeActual"><span class="field__label--required">Элемент дор. трансп. сети</span></label>
-                            <ui-select
-                                    [items]="streetTypesList"
-                                    (callback)="onChangeActualStreetType($event)"
-                                    [textKey]="'name'"
-                                    [defaultText]="'Выберите значение'"
-                                    [initBy]="streetTypeActualSelected"
-                                    [isDisabled]="isActualLegal"
-                                    [name]="'streetTypeActual'"
-                            ></ui-select>
-                        </ui-field>
-                    </div>
-                </div>
-                <div class="grid mt-8">
-                    <div class="grid__box grid__box--size-6">
-                        <ui-field>
-                            <label for="actual_street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
-                            <input type="text" id="actual_street" formControlName="street">
-                        </ui-field>
-                    </div>
-                    <div class="grid__box grid__box--size-2">
-                        <ui-field>
-                            <label for="actual_house"><span class="field__label--required">Дом</span></label>
-                            <input type="text" id="actual_house" formControlName="house">
-                        </ui-field>
-                    </div>
-                    <div class="grid__box grid__box--size-2">
-                        <ui-field>
-                            <label for="actual_building">Корпус</label>
-                            <input type="text" id="actual_building" formControlName="building">
-                        </ui-field>
-                    </div>
-                    <div class="grid__box grid__box--size-2">
-                        <ui-field>
-                            <label for="actual_flat">Квартира</label>
-                            <input type="text" id="actual_flat" formControlName="flat">
-                        </ui-field>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mt-16">
-            <ui-checkbox>
-                <input type="checkbox" formControlName="actual_legal_address" [checked]="isActualLegal">
-                <checkbox-text>Фактический адрес совпадает с юредическим</checkbox-text>
-            </ui-checkbox>
         </div>
         <div class="mt-32">
-            <button *ngIf="!providerId" type="button" class="button button--orange"
-                    [disabled]="providersCreateEditForm.invalid" (click)="onSaveOrEditProvider()">Создать</button>
-            <button *ngIf="providerId" type="button" class="button button--orange"
-                    [disabled]="providersCreateEditForm.invalid" (click)="onSaveOrEditProvider()">Редактировать</button>
+            <div class="grid grid--gap-32 mt-16">
+                <div class="grid__box grid__box--size-5" formGroupName="provider_data_address_registration">
+                    <div>
+                        <span class="sub-title">Юредический адрес</span>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-6">
+                            <ui-field>
+                                <label for="registration_region"><span class="field__label--required">Область</span></label>
+                                <input type="text" id="registration_region" formControlName="region">
+                            </ui-field>
+                        </div>
+                        <div class="grid__box grid__box--size-6">
+                            <ui-field>
+                                <label for="registration_disctrict"><span class="field__label--required">Район</span></label>
+                                <input type="text" id="registration_disctrict" formControlName="district">
+                            </ui-field>
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-6">
+                            <ui-field>
+                                <label for="registration_city">Город</label>
+                                <input type="text" id="registration_city" formControlName="city">
+                            </ui-field>
+                        </div>
+                        <div class="grid__box grid__box--size-6">
+                            <input type="hidden" formControlName="street_type">
+                            <ui-field>
+                                <label for="streetTypeRegistration"><span class="field__label--required">
+                                Элемент дор. трансп. сети
+                            </span></label>
+                                <ui-select
+                                        [items]="streetTypesList"
+                                        (callback)="onChangeRegistrationStreetType($event)"
+                                        [textKey]="'name'"
+                                        [defaultText]="'Выберите значение'"
+                                        [initBy]="streetTypeRegistrationSelected"
+                                        [name]="'streetTypeRegistration'"
+                                ></ui-select>
+                            </ui-field>
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-6">
+                            <ui-field>
+                                <label for="registration_street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
+                                <input type="text" id="registration_street" formControlName="street">
+                            </ui-field>
+                        </div>
+                        <div class="grid__box grid__box--size-2">
+                            <ui-field>
+                                <label for="registration_house"><span class="field__label--required">Дом</span></label>
+                                <input type="text" id="registration_house" formControlName="house">
+                            </ui-field>
+                        </div>
+                        <div class="grid__box grid__box--size-2">
+                            <ui-field>
+                                <label for="registration_building">Корпус</label>
+                                <input type="text" id="registration_building" formControlName="building">
+                            </ui-field>
+                        </div>
+                        <div class="grid__box grid__box--size-2">
+                            <ui-field>
+                                <label for="registration_flat">Офис</label>
+                                <input type="text" id="registration_flat" formControlName="flat">
+                            </ui-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid__box grid__box--size-5" formGroupName="provider_data_address_actual">
+                    <div>
+                        <span class="sub-title">Фактический адрес</span>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-6">
+                            <ui-field>
+                                <label for="actual_region"><span class="field__label--required">Область</span></label>
+                                <input type="text" id="actual_region" formControlName="region">
+                            </ui-field>
+                        </div>
+                        <div class="grid__box grid__box--size-6">
+                            <ui-field>
+                                <label for="actual_disctrict"><span class="field__label--required">Район</span></label>
+                                <input type="text" id="actual_disctrict" formControlName="district">
+                            </ui-field>
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-6">
+                            <ui-field>
+                                <label for="actual_city">Город</label>
+                                <input type="text" id="actual_city" formControlName="city">
+                            </ui-field>
+                        </div>
+                        <div class="grid__box grid__box--size-6">
+                            <input type="hidden" formControlName="street_type">
+                            <ui-field>
+                                <label for="streetTypeActual"><span class="field__label--required">Элемент дор. трансп. сети</span></label>
+                                <ui-select
+                                        [items]="streetTypesList"
+                                        (callback)="onChangeActualStreetType($event)"
+                                        [textKey]="'name'"
+                                        [defaultText]="'Выберите значение'"
+                                        [initBy]="streetTypeActualSelected"
+                                        [isDisabled]="isActualLegal"
+                                        [name]="'streetTypeActual'"
+                                ></ui-select>
+                            </ui-field>
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-6">
+                            <ui-field>
+                                <label for="actual_street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
+                                <input type="text" id="actual_street" formControlName="street">
+                            </ui-field>
+                        </div>
+                        <div class="grid__box grid__box--size-2">
+                            <ui-field>
+                                <label for="actual_house"><span class="field__label--required">Дом</span></label>
+                                <input type="text" id="actual_house" formControlName="house">
+                            </ui-field>
+                        </div>
+                        <div class="grid__box grid__box--size-2">
+                            <ui-field>
+                                <label for="actual_building">Корпус</label>
+                                <input type="text" id="actual_building" formControlName="building">
+                            </ui-field>
+                        </div>
+                        <div class="grid__box grid__box--size-2">
+                            <ui-field>
+                                <label for="actual_flat">Офис</label>
+                                <input type="text" id="actual_flat" formControlName="flat">
+                            </ui-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-16">
+                <ui-checkbox>
+                    <input type="checkbox" formControlName="actual_legal_address" [checked]="isActualLegal">
+                    <checkbox-text>Фактический адрес совпадает с юредическим</checkbox-text>
+                </ui-checkbox>
+            </div>
+            <div class="mt-16" *ngIf="providerError">
+                <span class="color-red">{{providerError}}</span>
+            </div>
+            <div class="mt-32">
+                <button *ngIf="!providerId" type="button" class="button button--orange"
+                        [disabled]="providersCreateEditForm.invalid" (click)="onSaveOrEditProvider()">Создать</button>
+                <button *ngIf="providerId" type="button" class="button button--orange"
+                        [disabled]="providersCreateEditForm.invalid" (click)="onSaveOrEditProvider()">Редактировать</button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</ng-container>
