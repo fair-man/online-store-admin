@@ -5,3 +5,35 @@
         <button type="button" class="button button--orange">Создать поставщика</button>
     </a>
 </div>
+
+<div class="mt-32">
+    <ng-container *ngIf="providers && providers.length">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Название компании</th>
+                <th>Email</th>
+                <th>Дата создания</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let provider of providers;">
+                <td>
+                    {{provider.id}}
+                </td>
+                <td>
+                    {{provider.name}}
+                </td>
+                <td>
+                    {{provider.email}}
+                </td>
+                <td>
+                    {{provider.created_date | dateFormat:'DD MMMM YYYY г.'}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </ng-container>
+    <div *ngIf="!providers">Нет данных для отображения.</div>
+</div>
