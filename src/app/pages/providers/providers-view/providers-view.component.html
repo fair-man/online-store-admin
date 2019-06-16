@@ -1,3 +1,227 @@
-<p>
-  providers-view works!
-</p>
+<div *ngIf="providerData">
+    <h1>Поставщик {{providerData.provider_data.name}}</h1>
+
+    <div class="mt-32">
+        <div class="sub-title">Основные данные:</div>
+        <div class="mt-16">
+            <div class="grid">
+                <div class="grid__box grid__box--size-6">
+                    <div class="grid">
+                        <div class="grid__box grid__box--size-4">
+                            Имя компании
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{providerData.provider_data && providerData.provider_data.name}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Дата создания
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{providerData.provider_data
+                            && providerData.provider_data.created_date | dateFormat: 'DD MMMM YYYY года'}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Статус
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            <span *ngIf="providerData.provider_data && providerData.provider_data.status">
+                                Работает</span>
+                            <span *ngIf="providerData.provider_data && !providerData.provider_data.status">
+                                Не работает</span>
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            E-mail
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            {{providerData.provider_data && providerData.provider_data.email}}
+                        </div>
+                    </div>
+                    <div class="grid mt-8">
+                        <div class="grid__box grid__box--size-4">
+                            Телефон
+                        </div>
+                        <div class="grid__box grid__box--size-8">
+                            <div *ngFor="let phone of providerData.provider_data && providerData.provider_data_phones">
+                                {{phone.phone}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid__box grid__box--size-6"></div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-32">
+        <div class="mt-16">
+            <div class="grid">
+                <div class="grid__box grid__box--size-6">
+                    <div class="sub-title">Адрес регистрации:</div>
+                    <div class="mt-16">
+                        <div class="grid">
+                            <div class="grid__box grid__box--size-4">
+                                Область
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_registration
+                                && providerData.provider_data_address_registration.region}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Район
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_registration
+                                && providerData.provider_data_address_registration.district}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Город
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_registration
+                                && providerData.provider_data_address_registration.city}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Тип эл. дор. трансп. сети
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_registration
+                                && providerData.provider_data_address_registration.street_type
+                                && providerData.provider_data_address_registration.street_type.name}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Назв. эл. дор. трансп. сети
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_registration
+                                && providerData.provider_data_address_registration.street}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Дом
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_registration
+                                && providerData.provider_data_address_registration.house}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Корпус
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_registration
+                                && providerData.provider_data_address_registration.building}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Корпус
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_registration
+                                && providerData.provider_data_address_registration.flat}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid__box grid__box--size-6">
+                    <div class="sub-title">Адрес проживания:</div>
+                    <div class="mt-16">
+                        <div class="grid">
+                            <div class="grid__box grid__box--size-4">
+                                Область
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_actual
+                                && providerData.provider_data_address_actual.region}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Район
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_actual
+                                && providerData.provider_data_address_actual.district}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Город
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_actual
+                                && providerData.provider_data_address_actual.city}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Тип эл. дор. трансп. сети
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_actual
+                                && providerData.provider_data_address_actual.street_type
+                                && providerData.provider_data_address_actual.street_type.name}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Назв. эл. дор. трансп. сети
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_actual
+                                && providerData.provider_data_address_actual.street}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Дом
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_actual
+                                && providerData.provider_data_address_actual.house}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Корпус
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_actual
+                                && providerData.provider_data_address_actual.building}}
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                Корпус
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                {{providerData.provider_data_address_actual
+                                && providerData.provider_data_address_actual.flat}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-32">
+            <a class="link link--no-underline link--button" [routerLink]="['/', PROVIDERS_PATHS.providersList, 'edit', providerId]">
+                <button type="button" class="button button--orange">Редактировать</button>
+            </a>
+        </div>
+    </div>
+</div>

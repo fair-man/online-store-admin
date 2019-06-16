@@ -13,6 +13,8 @@ import {ProvidersService} from '../providers.service';
     styleUrls: ['./providers-view.component.scss']
 })
 export class ProvidersViewComponent implements OnInit {
+    PROVIDERS_PATHS = PROVIDERS_PATHS;
+    providerId: number;
     providerData: ProviderFull;
     breadcrumbs: Breadcrumb[] = [{text: 'Поставщики', url: PROVIDERS_PATHS.providersList}];
 
