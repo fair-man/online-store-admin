@@ -10,6 +10,7 @@ import {SharedModule} from '../../shared/shared.module';
 import { ProvidersCreateComponent } from './providers-create/providers-create.component';
 import { CreateEditProvidersWidgetComponent } from './components/create-edit-providers-widget/create-edit-providers-widget.component';
 import { ProvidersEditComponent } from './providers-edit/providers-edit.component';
+import { ProvidersViewComponent } from './providers-view/providers-view.component';
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ import { ProvidersEditComponent } from './providers-edit/providers-edit.componen
         ProvidersListComponent,
         ProvidersCreateComponent,
         CreateEditProvidersWidgetComponent,
-        ProvidersEditComponent
+        ProvidersEditComponent,
+        ProvidersViewComponent
     ],
     providers: [
         ProvidersService

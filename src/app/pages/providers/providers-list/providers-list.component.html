@@ -23,7 +23,11 @@
                     {{provider.id}}
                 </td>
                 <td>
-                    <a class="link" [routerLink]="['/' + PROVIDERS_PATHS.providersList, 'edit', provider.id]">
+                    <a class="link link--yellow link--no-underline" title="Редактировать"
+                       [routerLink]="['/' + PROVIDERS_PATHS.providersList, 'edit', provider.id]">
+                        <i class="os-pencil"></i>
+                    </a>
+                    <a class="link" [routerLink]="['/', PROVIDERS_PATHS.providersList, provider.id]" title="Подробная информация">
                         {{provider.name}}
                     </a>
                 </td>
