@@ -9,6 +9,7 @@ import {UiModule} from '../../ui/ui.module';
 import {SharedModule} from '../../shared/shared.module';
 import { ProvidersCreateComponent } from './providers-create/providers-create.component';
 import { CreateEditProvidersWidgetComponent } from './components/create-edit-providers-widget/create-edit-providers-widget.component';
+import { ProvidersEditComponent } from './providers-edit/providers-edit.component';
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import { CreateEditProvidersWidgetComponent } from './components/create-edit-pro
     declarations: [
         ProvidersListComponent,
         ProvidersCreateComponent,
-        CreateEditProvidersWidgetComponent
+        CreateEditProvidersWidgetComponent,
+        ProvidersEditComponent
     ],
     providers: [
         ProvidersService

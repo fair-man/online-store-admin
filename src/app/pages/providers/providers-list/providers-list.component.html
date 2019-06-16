@@ -23,7 +23,9 @@
                     {{provider.id}}
                 </td>
                 <td>
-                    {{provider.name}}
+                    <a class="link" [routerLink]="['/' + PROVIDERS_PATHS.providersList, 'edit', provider.id]">
+                        {{provider.name}}
+                    </a>
                 </td>
                 <td>
                     {{provider.email}}
