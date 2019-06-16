@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {Router, ActivatedRoute} from '@angular/router';
 
 import {StreetType} from '../../../../models/address';
+import {ProviderFull} from '../../../../models/provider';
 import {DateTimePickerDateObj} from '../../../../models/moment';
 import {MaskReplace} from '../../../../utils/mask-replace';
 import {Enums} from '../../../../configs/Enums';
@@ -15,6 +17,7 @@ import {ProvidersService} from '../../providers.service';
 export class CreateEditProvidersWidgetComponent implements OnInit {
     moment = require('moment');
     providerId: number;
+    providerData: ProviderFull;
     phoneMask = Enums.masks.phoneMask;
     isActualLegal: boolean;
     contractStartDate = {initDate: null, dateObj: null, options: null};
@@ -22,48 +25,78 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
     streetTypeActualSelected: StreetType | null;
     streetTypeRegistrationSelected: StreetType | null;
     streetTypesList: StreetType[] | null;
-    providersCreateEditForm = new FormGroup({
-        name: new FormControl(''),
-        email: new FormControl(''),
-        phone_house: new FormControl(''),
-        phone_mobile: new FormControl('', Validators.required),
-        provider_data_contract: new FormGroup({
-            c_number: new FormControl(null, Validators.required),
-            start_date: new FormControl('', Validators.required),
-            end_date: new FormControl('', Validators.required),
-        }),
-        provider_data_address_registration: new FormGroup({
-            region: new FormControl('', Validators.required),
-            district: new FormControl('', Validators.required),
-            city: new FormControl(''),
-            street: new FormControl('', Validators.required),
-            street_type: new FormControl('', Validators.required),
-            building: new FormControl(''),
-            house: new FormControl('', Validators.required),
-            flat: new FormControl(''),
-            actual: new FormControl(0),
-            registration: new FormControl(1),
-        }),
-        provider_data_address_actual: new FormGroup({
-            region: new FormControl('', Validators.required),
-            district: new FormControl('', Validators.required),
-            city: new FormControl(''),
-            street: new FormControl('', Validators.required),
-            street_type: new FormControl('', Validators.required),
-            building: new FormControl(''),
-            house: new FormControl('', Validators.required),
-            flat: new FormControl(''),
-            actual: new FormControl(1),
-            registration: new FormControl(0),
-        }),
-        actual_legal_address: new FormControl(0, Validators.required),
-    });
+    providersCreateEditForm: FormGroup;
 
-    constructor(private providersService: ProvidersService) {}
+    constructor(private router: Router,
+                private route: ActivatedRoute,
+                private providersService: ProvidersService) {}
 
     ngOnInit() {
         this.isActualLegal = false;
-        this.getCreateUnionData();
+        this.route.params.subscribe((routeParams) => {
+            this.providerId = routeParams.id;
+
+            if (this.providerId) {
+                this.getEditUnionData();
+            } else {
+                this.getCreateUnionData();
+            }
+        });
+    }
+
+    getEditUnionData() {
+        this.providersService.getEditUnionData(this.providerId)
+            .subscribe(
+                (response) => {
+                    this.streetTypesList = response[0]['data'].street_types;
+                    this.providerData = response[1]['data'];
+                    this.createProviderEditForm();
+                    this.subscribeDataChanges();
+                }
+            );
+    }
+
+    createProviderEditForm() {
+        const providerData = this.providerData.provider_data;
+        const providerDataAddressRegistration = this.providerData.provider_data_address_registration;
+        const providerDataAddressActual = this.providerData.provider_data_address_actual;
+
+        this.providersCreateEditForm = new FormGroup({
+            name: new FormControl(providerData.name),
+            email: new FormControl(providerData.email),
+            phone_house: new FormControl(''),
+            phone_mobile: new FormControl(this.providerData.provider_data_phones[0].phone, Validators.required),
+            provider_data_contract: new FormGroup({
+                c_number: new FormControl(null, Validators.required),
+                start_date: new FormControl('', Validators.required),
+                end_date: new FormControl('', Validators.required),
+            }),
+            provider_data_address_registration: new FormGroup({
+                region: new FormControl(providerDataAddressRegistration.region, Validators.required),
+                district: new FormControl(providerDataAddressRegistration.district, Validators.required),
+                city: new FormControl(providerDataAddressRegistration.city),
+                street: new FormControl(providerDataAddressRegistration.street, Validators.required),
+                street_type: new FormControl('', Validators.required),
+                building: new FormControl(providerDataAddressRegistration.building),
+                house: new FormControl(providerDataAddressRegistration.house, Validators.required),
+                flat: new FormControl(providerDataAddressRegistration.flat),
+                actual: new FormControl(0),
+                registration: new FormControl(1)
+            }),
+            provider_data_address_actual: new FormGroup({
+                region: new FormControl(providerDataAddressActual.region, Validators.required),
+                district: new FormControl(providerDataAddressActual.district, Validators.required),
+                city: new FormControl(providerDataAddressActual.city),
+                street: new FormControl(providerDataAddressActual.street, Validators.required),
+                street_type: new FormControl('', Validators.required),
+                building: new FormControl(providerDataAddressActual.building),
+                house: new FormControl(providerDataAddressActual.house, Validators.required),
+                flat: new FormControl(providerDataAddressActual.flat),
+                actual: new FormControl(1),
+                registration: new FormControl(0)
+            }),
+            actual_legal_address: new FormControl(0, Validators.required),
+        });
     }
 
     getCreateUnionData() {
@@ -71,10 +104,50 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
             .subscribe(
                 (response) => {
                     this.streetTypesList = response[0]['data'].street_types;
+                    this.createProviderCreateForm();
                     this.subscribeDataChanges();
                 },
                 (error) => {}
             );
+    }
+
+    createProviderCreateForm() {
+        this.providersCreateEditForm = new FormGroup({
+            name: new FormControl(''),
+            email: new FormControl(''),
+            phone_house: new FormControl(''),
+            phone_mobile: new FormControl('', Validators.required),
+            provider_data_contract: new FormGroup({
+                c_number: new FormControl(null, Validators.required),
+                start_date: new FormControl('', Validators.required),
+                end_date: new FormControl('', Validators.required),
+            }),
+            provider_data_address_registration: new FormGroup({
+                region: new FormControl('', Validators.required),
+                district: new FormControl('', Validators.required),
+                city: new FormControl(''),
+                street: new FormControl('', Validators.required),
+                street_type: new FormControl('', Validators.required),
+                building: new FormControl(''),
+                house: new FormControl('', Validators.required),
+                flat: new FormControl(''),
+                actual: new FormControl(0),
+                registration: new FormControl(1),
+            }),
+            provider_data_address_actual: new FormGroup({
+                region: new FormControl('', Validators.required),
+                district: new FormControl('', Validators.required),
+                city: new FormControl(''),
+                street: new FormControl('', Validators.required),
+                street_type: new FormControl('', Validators.required),
+                building: new FormControl(''),
+                house: new FormControl('', Validators.required),
+                flat: new FormControl(''),
+                actual: new FormControl(1),
+                registration: new FormControl(0),
+            }),
+            actual_legal_address: new FormControl(0, Validators.required),
+        });
     }
 
     subscribeDataChanges() {

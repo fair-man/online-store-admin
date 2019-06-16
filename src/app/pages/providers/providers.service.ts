@@ -26,6 +26,16 @@ export class ProvidersService {
         return forkJoin([streetTypes]);
     }
 
+    getProvider(providerId): Observable<CustomHttpResponse<ProviderFull>> {
+        return this.http.get<CustomHttpResponse<ProviderFull>>(`/providers/${providerId}`);
+    }
+
+    getEditUnionData(providerId) {
+        const streetTypes = this.getStreetTypes();
+        const provider = this.getProvider(providerId);
+        return forkJoin([streetTypes, provider]);
+    }
+
     getProviders(): Observable<CustomHttpResponse<Providers>> {
         return this.http.get<CustomHttpResponse<Providers>>('/providers');
     }
