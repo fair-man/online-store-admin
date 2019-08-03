@@ -36,8 +36,8 @@ export class ProvidersService {
         return forkJoin([streetTypes, provider]);
     }
 
-    getProviders(): Observable<CustomHttpResponse<Providers>> {
-        return this.http.get<CustomHttpResponse<Providers>>('/providers');
+    getProviders(params): Observable<CustomHttpResponse<Providers>> {
+        return this.http.get<CustomHttpResponse<Providers>>('/providers', {params: params});
     }
 
     createProvider(providerJson): Observable<CustomHttpResponse<ProviderFull>> {
