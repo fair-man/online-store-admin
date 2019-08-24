@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'ui-field',
@@ -8,7 +8,8 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 })
 export class FieldComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

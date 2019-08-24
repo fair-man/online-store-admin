@@ -1,37 +1,36 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {AuthService} from '../../pages/auth/auth.service';
+import { AuthService } from '../../pages/auth/auth.service';
 
 @Component({
-    selector: 'app-topbar',
-    templateUrl: './topbar.component.html',
-    styleUrls: ['./topbar.component.scss'],
-    encapsulation: ViewEncapsulation.None
+  selector: 'app-topbar',
+  templateUrl: './topbar.component.html',
+  styleUrls: ['./topbar.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TopbarComponent implements OnInit {
-    userData;
+  userData;
 
-    constructor(
-        private authService: AuthService,
-        private router: Router
-    ) {}
+  constructor(private authService: AuthService,
+              private router: Router) {
+  }
 
-    ngOnInit() {
-        this.authService.userState.subscribe((state) => {
-           this.userData = state;
-        });
-    }
+  ngOnInit() {
+    this.authService.userState.subscribe((state) => {
+      this.userData = state;
+    });
+  }
 
-    onLogout() {
-        this.authService.logout()
-            .subscribe(
-                (response) => {
-                    this.router.navigate(['/auth/login']);
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
-    }
+  onLogout() {
+    this.authService.logout()
+      .subscribe(
+        (response) => {
+          this.router.navigate(['/auth/login']);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
 }

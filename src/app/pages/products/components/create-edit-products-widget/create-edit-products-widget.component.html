@@ -1,1 +1,19 @@
-<p>create-edit-products-widget works!</p>
+<ui-combobox
+    [items]="[{name: 'test 1'}, {name: 'test 2'}]"
+    (callback)="onChangeComboboxItem($event)"
+    [textKey]="'name'"
+    [initBy]="comboboxSelectedItem"
+    [name]="'comboboxUniqueName'"
+    [defaultText]="'Введите текст для поиска или выберите из списка'"
+    [isDisabled]="false"
+></ui-combobox>
+
+<ui-select [items]="[{name: 'test 1'}, {name: 'test 2'}]"
+           (callback)="onChangeComboboxItem($event)"
+           [textKey]="'name'"
+           [initBy]="comboboxSelectedItem"
+           [name]="'selectUniqueName'"
+           [defaultText]="'Выберите значение'"
+           [nullChoice]="true"
+           [isDisabled]="false"
+></ui-select>

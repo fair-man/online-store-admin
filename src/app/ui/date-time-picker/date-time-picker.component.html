@@ -20,13 +20,13 @@
     <ul class="dropdown-menu" style="width: 235px; overflow: hidden;" ngbDropdownMenu>
         <li>
             <ui-date-picker
-                    [startView]="'day'"
-                    [maxView]="'year'"
-                    [minView]="'day'"
-                    [minDate]="minDate"
-                    [maxDate]="maxDate"
-                    [(ngModel)]="initDate"
-                    (change)="onDatepickerChange($event)"
+                [startView]="'day'"
+                [maxView]="'year'"
+                [minView]="'day'"
+                [minDate]="minDate"
+                [maxDate]="maxDate"
+                [(ngModel)]="initDate"
+                (change)="onDatepickerChange($event)"
             >
             </ui-date-picker>
         </li>

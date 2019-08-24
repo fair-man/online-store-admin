@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'ui-checkbox',
@@ -8,7 +8,8 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 })
 export class CheckboxComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

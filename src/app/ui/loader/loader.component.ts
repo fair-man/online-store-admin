@@ -1,24 +1,23 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import {LoaderService} from './loader.service';
+import { LoaderService } from './loader.service';
 
 @Component({
-    selector: 'ui-loader',
-    templateUrl: './loader.component.html',
-    styleUrls: ['./loader.component.scss'],
-    encapsulation: ViewEncapsulation.None
+  selector: 'ui-loader',
+  templateUrl: './loader.component.html',
+  styleUrls: ['./loader.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoaderComponent implements OnInit {
-    isLoading: boolean;
+  isLoading: boolean;
 
-    constructor(
-        private loaderService: LoaderService
-    ) {}
+  constructor(private loaderService: LoaderService) {
+  }
 
-    ngOnInit() {
-        this.loaderService.loadingState.subscribe((isLoading) => {
-            this.isLoading = isLoading;
-        });
-    }
+  ngOnInit() {
+    this.loaderService.loadingState.subscribe((isLoading) => {
+      this.isLoading = isLoading;
+    });
+  }
 
 }

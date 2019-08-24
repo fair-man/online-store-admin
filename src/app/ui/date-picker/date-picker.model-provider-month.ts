@@ -1,12 +1,13 @@
-import {UIModelProvider} from './date-picker.model-provider';
-import {UIDatePickerModel} from './date-picker.model';
-import {SimpleChanges} from '@angular/core';
+import { UIModelProvider } from './date-picker.model-provider';
+import { UIDatePickerModel } from './date-picker.model';
+import { SimpleChanges } from '@angular/core';
 
 const moment = require('moment');
 
 export class UIMonthModelProvider implements UIModelProvider {
 
-  onChanges(changes: SimpleChanges): void {}
+  onChanges(changes: SimpleChanges): void {
+  }
 
   getModel(milliseconds: number, selectedMilliseconds: number): UIDatePickerModel {
     const startDate = moment(milliseconds).startOf('year');

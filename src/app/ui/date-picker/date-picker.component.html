@@ -1,82 +1,83 @@
 <div class="text-center dl-abdtp-{{_model.viewName}}-view ">
-  <div class="datepicker__top-navigation">
-    <div class="top-navigation__item">
-      <button
-        type="button"
-        [attr.aria-label]="_model.leftButton.ariaLabel"
-        [attr.title]="_model.leftButton.ariaLabel"
-        [ngClass]="_model.leftButton.classes"
-        (click)="_onLeftClick()">
-        <i class="os-left-open"></i>
-      </button>
-    </div>
+    <div class="datepicker__top-navigation">
+        <div class="top-navigation__item">
+            <button
+                type="button"
+                [attr.aria-label]="_model.leftButton.ariaLabel"
+                [attr.title]="_model.leftButton.ariaLabel"
+                [ngClass]="_model.leftButton.classes"
+                (click)="_onLeftClick()">
+                <i class="os-left-open"></i>
+            </button>
+        </div>
 
-    <div class="top-navigation__item top-navigation__item-current"
-         *ngIf="_model.viewName === (this.maxView || 'year'); then maxViewLabel else defaultViewLabel;"
-    ></div>
+        <div class="top-navigation__item top-navigation__item-current"
+             *ngIf="_model.viewName === (this.maxView || 'year'); then maxViewLabel else defaultViewLabel;"
+        ></div>
 
-    <div class="top-navigation__item">
-      <button
-        type="button"
-        [attr.aria-label]="_model.rightButton.ariaLabel"
-        [attr.title]="_model.rightButton.ariaLabel"
-        (click)="_onRightClick()"
-        [ngClass]="_model.rightButton.classes">
-        <i class="os-right-open"></i>
-      </button>
+        <div class="top-navigation__item">
+            <button
+                type="button"
+                [attr.aria-label]="_model.rightButton.ariaLabel"
+                [attr.title]="_model.rightButton.ariaLabel"
+                (click)="_onRightClick()"
+                [ngClass]="_model.rightButton.classes">
+                <i class="os-right-open"></i>
+            </button>
+        </div>
     </div>
-  </div>
-  <div (keydown)="_handleKeyDown($event)">
-    <div *ngIf="_model.rowLabels?.length" class="datepicker__name-days-parent">
-      <div class="datepicker__name-days">
-        <div *ngFor="let label of _model.rowLabels" class="color-gray-dark">{{label}}</div>
-      </div>
-    </div>
-    <div
-         [ngClass]="{
+    <div (keydown)="_handleKeyDown($event)">
+        <div *ngIf="_model.rowLabels?.length" class="datepicker__name-days-parent">
+            <div class="datepicker__name-days">
+                <div *ngFor="let label of _model.rowLabels" class="color-gray-dark">{{label}}</div>
+            </div>
+        </div>
+        <div
+            [ngClass]="{
            'datepicker__days': _model.viewName === 'day',
            'datepicker__month': _model.viewName === 'month',
            'datepicker__year': _model.viewName === 'year'
           }">
-      <div *ngFor="let row of _model.rows"
-           [ngClass]="{
+            <div *ngFor="let row of _model.rows"
+                 [ngClass]="{
            'days-row': _model.viewName === 'day',
            'month-row': _model.viewName === 'month',
            'year-row': _model.viewName === 'year'
           }">
-        <div [ngClass]="{
+                <div [ngClass]="{
           'day': _model.viewName === 'day',
           'month': _model.viewName === 'month',
           'year': _model.viewName === 'year'
           }" *ngFor="let cell of row.cells">
-          <button
-                  type="button"
-                  class="datepicker__button datepicker__button--{{_model.viewName}} {{cell.value}}"
-                  [ngClass]="cell.classes"
-                  [attr.aria-label]="cell.ariaLabel"
-                  [attr.aria-disabled]="cell.classes['datepicker__button--disabled']"
-                  [attr.tabindex]="cell.classes['datepicker__button--active'] ? 0 : -1"
-                  (click)="_onDateClick(cell)"
-                  (keydown.space)="_onDateClick(cell)"
-                  (keydown.enter)="_onDateClick(cell)"
-                  [disabled]="_checkDisabled(cell)"
-          >{{cell.display}}</button>
+                    <button
+                        type="button"
+                        class="datepicker__button datepicker__button--{{_model.viewName}} {{cell.value}}"
+                        [ngClass]="cell.classes"
+                        [attr.aria-label]="cell.ariaLabel"
+                        [attr.aria-disabled]="cell.classes['datepicker__button--disabled']"
+                        [attr.tabindex]="cell.classes['datepicker__button--active'] ? 0 : -1"
+                        (click)="_onDateClick(cell)"
+                        (keydown.space)="_onDateClick(cell)"
+                        (keydown.enter)="_onDateClick(cell)"
+                        [disabled]="_checkDisabled(cell)"
+                    >{{cell.display}}
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <ng-template #maxViewLabel>
-  <div class="col-10 dl-abdtp-view-label"><b class="color-blue-dark">{{_model.viewLabel}}</b></div>
+    <div class="col-10 dl-abdtp-view-label"><b class="color-blue-dark">{{_model.viewLabel}}</b></div>
 </ng-template>
 <ng-template #defaultViewLabel>
-  <button class="template-navigation__button"
-          type="button"
-          [attr.aria-label]="_model.upButton.ariaLabel"
-          [attr.title]="_model.upButton.ariaLabel"
-          (click)="_onUpClick()"
-          [ngClass]="_model.upButton.classes">
-    <span class="link link--dashed capitalize">{{_model.viewLabel}}</span>
-  </button>
+    <button class="template-navigation__button"
+            type="button"
+            [attr.aria-label]="_model.upButton.ariaLabel"
+            [attr.title]="_model.upButton.ariaLabel"
+            (click)="_onUpClick()"
+            [ngClass]="_model.upButton.classes">
+        <span class="link link--dashed capitalize">{{_model.viewLabel}}</span>
+    </button>
 </ng-template>

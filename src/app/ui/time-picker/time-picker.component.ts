@@ -1,10 +1,10 @@
-import {Component, forwardRef, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { Component, forwardRef, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import {isInteger, isNumber, padNumber, toInteger} from './util/util';
-import {NgbTime} from './ngb-time';
-import {NgbTimepickerConfig} from './time-picker.config';
-import {NgbTimeAdapter} from './ngb-time-adapter';
+import { isInteger, isNumber, padNumber, toInteger } from './util/util';
+import { NgbTime } from './ngb-time';
+import { NgbTimepickerConfig } from './time-picker.config';
+import { NgbTimeAdapter } from './ngb-time-adapter';
 
 const NGB_TIMEPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -20,7 +20,7 @@ const NGB_TIMEPICKER_VALUE_ACCESSOR = {
   providers: [NGB_TIMEPICKER_VALUE_ACCESSOR]
 })
 export class UiTimePicker implements ControlValueAccessor,
-    OnChanges {
+  OnChanges {
   disabled: boolean;
   model: NgbTime;
 
@@ -31,26 +31,33 @@ export class UiTimePicker implements ControlValueAccessor,
   @Input() meridian: boolean;
   @Input() spinners: boolean;
   @Input() seconds: boolean;
+
   @Input()
   set hourStep(step: number) {
     this._hourStep = isInteger(step) ? step : this._config.hourStep;
   }
 
-  get hourStep(): number { return this._hourStep; }
+  get hourStep(): number {
+    return this._hourStep;
+  }
 
   @Input()
   set minuteStep(step: number) {
     this._minuteStep = isInteger(step) ? step : this._config.minuteStep;
   }
 
-  get minuteStep(): number { return this._minuteStep; }
+  get minuteStep(): number {
+    return this._minuteStep;
+  }
 
   @Input()
   set secondStep(step: number) {
     this._secondStep = isInteger(step) ? step : this._config.secondStep;
   }
 
-  get secondStep(): number { return this._secondStep; }
+  get secondStep(): number {
+    return this._secondStep;
+  }
 
   @Input() readonlyInputs: boolean;
   @Input() size: 'small' | 'medium' | 'large';
@@ -67,8 +74,10 @@ export class UiTimePicker implements ControlValueAccessor,
     this.size = _config.size;
   }
 
-  onChange = (_: any) => {};
-  onTouched = () => {};
+  onChange = (_: any) => {
+  };
+  onTouched = () => {
+  };
 
   writeValue(value) {
     const structValue = this._ngbTimeAdapter.fromModel(value);
@@ -78,11 +87,17 @@ export class UiTimePicker implements ControlValueAccessor,
     }
   }
 
-  registerOnChange(fn: (value: any) => any): void { this.onChange = fn; }
+  registerOnChange(fn: (value: any) => any): void {
+    this.onChange = fn;
+  }
 
-  registerOnTouched(fn: () => any): void { this.onTouched = fn; }
+  registerOnTouched(fn: () => any): void {
+    this.onTouched = fn;
+  }
 
-  setDisabledState(isDisabled: boolean) { this.disabled = isDisabled; }
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+  }
 
   changeHour(step: number) {
     this.model.changeHour(step);
@@ -138,11 +153,17 @@ export class UiTimePicker implements ControlValueAccessor,
     }
   }
 
-  formatMinSec(value: number) { return padNumber(value); }
+  formatMinSec(value: number) {
+    return padNumber(value);
+  }
 
-  get isSmallSize(): boolean { return this.size === 'small'; }
+  get isSmallSize(): boolean {
+    return this.size === 'small';
+  }
 
-  get isLargeSize(): boolean { return this.size === 'large'; }
+  get isLargeSize(): boolean {
+    return this.size === 'large';
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['seconds'] && !this.seconds && this.model && !isNumber(this.model.second)) {
@@ -157,7 +178,7 @@ export class UiTimePicker implements ControlValueAccessor,
     }
     if (this.model.isValid(this.seconds)) {
       this.onChange(
-          this._ngbTimeAdapter.toModel({hour: this.model.hour, minute: this.model.minute, second: this.model.second}));
+        this._ngbTimeAdapter.toModel({hour: this.model.hour, minute: this.model.minute, second: this.model.second}));
     } else {
       this.onChange(this._ngbTimeAdapter.toModel(null));
     }

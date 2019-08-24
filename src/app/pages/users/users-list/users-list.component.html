@@ -13,34 +13,35 @@
                 <ng-container *ngIf="tab.users && tab.users.length">
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>ФИО</th>
-                                <th>Возраст</th>
-                                <th>Работает в компании</th>
-                            </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>ФИО</th>
+                            <th>Возраст</th>
+                            <th>Работает в компании</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of tab.users;">
-                                <td>
-                                    {{user.id}}
-                                </td>
-                                <td>
-                                    <a class="link link--yellow link--no-underline" title="Редактировать"
-                                       [routerLink]="['/', USERS_PATHS.usersList,'edit', user.id]">
-                                        <i class="os-pencil"></i>
-                                    </a>
-                                    <a class="link" [routerLink]="['/', USERS_PATHS.usersList, user.id]" title="Подробная информация">
-                                        {{user.first_name}} {{user.last_name}} {{user.patronymic_name}}
-                                    </a>
-                                </td>
-                                <td>
-                                    {{user.birth_date | dateYearsFormat}}
-                                </td>
-                                <td>
-                                    {{user.created_date | dateRangeFormat}}
-                                </td>
-                            </tr>
+                        <tr *ngFor="let user of tab.users;">
+                            <td>
+                                {{user.id}}
+                            </td>
+                            <td>
+                                <a class="link link--yellow link--no-underline" title="Редактировать"
+                                   [routerLink]="['/', USERS_PATHS.usersList,'edit', user.id]">
+                                    <i class="os-pencil"></i>
+                                </a>
+                                <a class="link" [routerLink]="['/', USERS_PATHS.usersList, user.id]"
+                                   title="Подробная информация">
+                                    {{user.first_name}} {{user.last_name}} {{user.patronymic_name}}
+                                </a>
+                            </td>
+                            <td>
+                                {{user.birth_date | dateYearsFormat}}
+                            </td>
+                            <td>
+                                {{user.created_date | dateRangeFormat}}
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </ng-container>

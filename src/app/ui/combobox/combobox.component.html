@@ -1,0 +1,27 @@
+<div class="ui-combobox" ngbDropdown #myDrop="ngbDropdown" (openChange)="toggled($event)">
+    <div ngbDropdownToggle>
+        <input
+            type="text"
+            class="js-ui-combobox__field ui-combobox__field"
+            autocomplete="off"
+            placeholder="{{defaultText}}"
+            [(ngModel)]="initBy && initBy[textKey] || searchText"
+            (keyup)="searchText=$event.target.value;"
+            name="{{name}}"
+            id="{{name}}"
+            fieldTrim
+            [disabled]="isDisabled"
+        >
+        <button type="button" class="ui-combobox__corner" [disabled]="isDisabled"></button>
+    </div>
+    <div ngbDropdownMenu *ngIf="(items | comboboxSearchFilter : searchText:textKey).length">
+        <button ngbDropdownItem *ngIf="nullChoice" class="ui-combobox__text--placeholder"
+                (click)="onReset();$event.stopPropagation();myDrop.close();">
+            <i>{{defaultText}}</i>
+        </button>
+        <button ngbDropdownItem *ngFor="let item of items | comboboxSearchFilter : searchText:textKey"
+                (click)="onSelect(item);$event.stopPropagation();myDrop.close();"
+                [innerHTML]="item[textKey]  | comboboxSearchHighlight : searchText">
+        </button>
+    </div>
+</div>

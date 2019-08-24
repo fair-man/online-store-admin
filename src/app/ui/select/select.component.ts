@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, ViewEncapsulation, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
 
 import { isEqual } from 'lodash';
 
@@ -19,7 +19,8 @@ export class SelectComponent implements OnInit {
   @Input() isDisabled;
   @Input() name;
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
     this.defaultText = this.defaultText || 'Выберите значение';
@@ -31,7 +32,9 @@ export class SelectComponent implements OnInit {
   }
 
   onSelect(item) {
-    if (isEqual(item, this.initBy)) { return; }
+    if (isEqual(item, this.initBy)) {
+      return;
+    }
     this.callback.emit(item);
   }
 }

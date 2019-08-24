@@ -1,15 +1,15 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {UIDatePickerComponent} from './date-picker.component';
-import {CommonModule} from '@angular/common';
-import {UIDatePickerAdapter} from './date-picker.adapter';
-import {UIDatePickerAdapterNumber} from './date-picker.adapter-number';
-import {UIDatePickerAdapterMoment} from './date-picker.adapter-moment';
-import {UIDatePickerAdapterNative} from './date-picker.adapter-native';
-import {UIYearModelProvider} from './date-picker.model-provider-year';
-import {UIMonthModelProvider} from './date-picker.model-provider-month';
-import {UIDayModelProvider} from './date-picker.model-provider-day';
-import {UIHourModelProvider} from './date-picker.model-provider-hour';
-import {UIMinuteModelProvider} from './date-picker.model-provider-minute';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { UIDatePickerComponent } from './date-picker.component';
+import { CommonModule } from '@angular/common';
+import { UIDatePickerAdapter } from './date-picker.adapter';
+import { UIDatePickerAdapterNumber } from './date-picker.adapter-number';
+import { UIDatePickerAdapterMoment } from './date-picker.adapter-moment';
+import { UIDatePickerAdapterNative } from './date-picker.adapter-native';
+import { UIYearModelProvider } from './date-picker.model-provider-year';
+import { UIMonthModelProvider } from './date-picker.model-provider-month';
+import { UIDayModelProvider } from './date-picker.model-provider-day';
+import { UIHourModelProvider } from './date-picker.model-provider-hour';
+import { UIMinuteModelProvider } from './date-picker.model-provider-minute';
 import {
   DL_STRING_DATE_INPUT_FORMATS,
   DL_STRING_DATE_OUTPUT_FORMAT,
@@ -42,28 +42,32 @@ export const INPUT_FORMATS = [
     CUSTOM_ELEMENTS_SCHEMA
   ]
 })
-export class UIDatePickerModule {}
+export class UIDatePickerModule {
+}
 
 @NgModule({
   imports: [UIDatePickerModule],
   exports: [UIDatePickerComponent],
   providers: [{provide: UIDatePickerAdapter, useClass: UIDatePickerAdapterNumber}],
 })
-export class UIDatePickerNumberModule {}
+export class UIDatePickerNumberModule {
+}
 
 @NgModule({
   imports: [UIDatePickerModule],
   exports: [UIDatePickerComponent],
   providers: [{provide: UIDatePickerAdapter, useClass: UIDatePickerAdapterNative}],
 })
-export class UIDatePickerDateModule {}
+export class UIDatePickerDateModule {
+}
 
 @NgModule({
   imports: [UIDatePickerModule],
   exports: [UIDatePickerComponent],
   providers: [{provide: UIDatePickerAdapter, useClass: UIDatePickerAdapterMoment}],
 })
-export class UIDatePickerMomentModule {}
+export class UIDatePickerMomentModule {
+}
 
 @NgModule({
   imports: [UIDatePickerModule],
@@ -74,4 +78,5 @@ export class UIDatePickerMomentModule {}
     {provide: UIDatePickerAdapter, useClass: UIDatePickerAdapterString}
   ],
 })
-export class UIDatePickerStringModule {}
+export class UIDatePickerStringModule {
+}

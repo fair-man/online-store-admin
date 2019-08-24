@@ -1,14 +1,13 @@
-import {Injectable, Inject} from '@angular/core';
-import {DOCUMENT} from '@angular/common';
+import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 
-const noop = () => {};
-
+const noop = () => {
+};
 
 
 /** Type for the callback used to revert the scrollbar compensation. */
 export type CompensationReverter = () => void;
-
 
 
 /**
@@ -19,7 +18,8 @@ export type CompensationReverter = () => void;
  */
 @Injectable({providedIn: 'root'})
 export class ScrollBar {
-  constructor(@Inject(DOCUMENT) private _document: any) {}
+  constructor(@Inject(DOCUMENT) private _document: any) {
+  }
 
   /**
    * Detects if a scrollbar is present and if yes, already compensates for its
@@ -28,7 +28,9 @@ export class ScrollBar {
    * @return a callback used to revert the compensation (noop if there was none,
    * otherwise a function removing the padding)
    */
-  compensate(): CompensationReverter { return !this._isPresent() ? noop : this._adjustBody(this._getWidth()); }
+  compensate(): CompensationReverter {
+    return !this._isPresent() ? noop : this._adjustBody(this._getWidth());
+  }
 
   /**
    * Adds a padding of the given width on the right of the body.

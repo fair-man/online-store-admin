@@ -1,5 +1,5 @@
-import {UIDatePickerModel} from './date-picker.model';
-import {SimpleChanges} from '@angular/core';
+import { UIDatePickerModel } from './date-picker.model';
+import { SimpleChanges } from '@angular/core';
 
 export interface UIModelProvider {
   onChanges(changes: SimpleChanges): void;

@@ -1,8 +1,8 @@
-import {UIModelProvider} from './date-picker.model-provider';
-import {UIDatePickerModel} from './date-picker.model';
-import {SimpleChanges} from '@angular/core';
+import { UIModelProvider } from './date-picker.model-provider';
+import { UIDatePickerModel } from './date-picker.model';
+import { SimpleChanges } from '@angular/core';
 import * as _moment from 'moment';
-import {Moment} from 'moment';
+import { Moment } from 'moment';
 
 const moment = _moment;
 
@@ -13,7 +13,8 @@ export class UIYearModelProvider implements UIModelProvider {
     return moment({year: startDecade}).startOf('year');
   }
 
-  onChanges(changes: SimpleChanges): void {}
+  onChanges(changes: SimpleChanges): void {
+  }
 
   getModel(milliseconds: number, selectedMilliseconds: number): UIDatePickerModel {
     const rowNumbers = [0, 1, 2, 3];
@@ -96,7 +97,7 @@ export class UIYearModelProvider implements UIModelProvider {
 
   goEnd(fromMilliseconds: number, selectedMilliseconds: number): UIDatePickerModel {
     return this.getModel(
-        UIYearModelProvider.getStartOfDecade(fromMilliseconds)
+      UIYearModelProvider.getStartOfDecade(fromMilliseconds)
         .add(9, 'years')
         .endOf('year')
         .valueOf(),
@@ -106,7 +107,7 @@ export class UIYearModelProvider implements UIModelProvider {
 
   goHome(fromMilliseconds: number, selectedMilliseconds: number): UIDatePickerModel {
     return this.getModel(
-        UIYearModelProvider.getStartOfDecade(fromMilliseconds)
+      UIYearModelProvider.getStartOfDecade(fromMilliseconds)
         .startOf('year')
         .valueOf(),
       selectedMilliseconds

@@ -57,6 +57,28 @@ $dropdown-bg: $clr-white;
     width: 100%;
   }
 
+  > button {
+    display: block;
+    clear: both;
+    padding: 6px 8px;
+    text-decoration: none;
+    color: #000;
+    background-color: transparent;
+    font-weight: normal;
+    border: none;
+    outline: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+
+      background-color: rgba(#000, .06);
+    }
+  }
+
   > li {
     padding: 0;
 

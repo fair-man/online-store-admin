@@ -1,6 +1,6 @@
-import {UIDatePickerAdapter} from './date-picker.adapter';
+import { UIDatePickerAdapter } from './date-picker.adapter';
 import * as _moment from 'moment';
-import {Inject, InjectionToken} from '@angular/core';
+import { Inject, InjectionToken } from '@angular/core';
 
 const moment = _moment;
 

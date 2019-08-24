@@ -10,7 +10,8 @@ import { PRODUCTS_PATHS } from '../products';
 export class ProductsListComponent implements OnInit {
   public PRODUCTS_PATHS = PRODUCTS_PATHS;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

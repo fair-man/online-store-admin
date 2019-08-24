@@ -30,12 +30,12 @@
                     <ui-field>
                         <label for="birthDate"><span class="field__label--required">Дата рождения</span></label>
                         <ui-date-time-picker
-                                [placeholder]="'01.04.1990'"
-                                [initDate]="birthDate"
-                                [isShowTimepicker]="false"
-                                (dateCallback)="onChangeBirthDate($event)"
-                                [checkAdult]="'18'"
-                                [datepickerName]="'birthDate'"
+                            [placeholder]="'01.04.1990'"
+                            [initDate]="birthDate"
+                            [isShowTimepicker]="false"
+                            (dateCallback)="onChangeBirthDate($event)"
+                            [checkAdult]="'18'"
+                            [datepickerName]="'birthDate'"
                         ></ui-date-time-picker>
                     </ui-field>
                 </div>
@@ -48,13 +48,13 @@
                     <ui-field>
                         <label for="rolesList"><span class="field__label--required">Роль в системе</span></label>
                         <ui-select
-                                [items]="rolesList"
-                                (callback)="onChangeRole($event)"
-                                [textKey]="'role_name'"
-                                [defaultText]="'Выберите значение'"
-                                [initBy]="roleSelected"
-                                [isDisabled]="false"
-                                [name]="'rolesList'"
+                            [items]="rolesList"
+                            (callback)="onChangeRole($event)"
+                            [textKey]="'role_name'"
+                            [defaultText]="'Выберите значение'"
+                            [initBy]="roleSelected"
+                            [isDisabled]="false"
+                            [name]="'rolesList'"
                         ></ui-select>
                     </ui-field>
                 </div>
@@ -67,13 +67,13 @@
             </div>
             <div class="grid grid--va-bottom mt-8">
                 <!--<div class="grid__box grid__box&#45;&#45;size-6">-->
-                    <!--<ui-field>-->
-                        <!--<label for="phone">Дом. телефон</label>-->
-                        <!--<input type="text"-->
-                               <!--disabled-->
-                               <!--id="phone" [textMask]="{mask: phoneMask}"-->
-                               <!--formControlName="phone_house">-->
-                    <!--</ui-field>-->
+                <!--<ui-field>-->
+                <!--<label for="phone">Дом. телефон</label>-->
+                <!--<input type="text"-->
+                <!--disabled-->
+                <!--id="phone" [textMask]="{mask: phoneMask}"-->
+                <!--formControlName="phone_house">-->
+                <!--</ui-field>-->
                 <!--</div>-->
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
@@ -104,7 +104,8 @@
                     </div>
                     <div class="grid__box grid__box--size-6">
                         <ui-field>
-                            <label for="registration_disctrict"><span class="field__label--required">Район</span></label>
+                            <label for="registration_disctrict"><span
+                                class="field__label--required">Район</span></label>
                             <input type="text" id="registration_disctrict" formControlName="district">
                         </ui-field>
                     </div>
@@ -123,12 +124,12 @@
                                 Элемент дор. трансп. сети
                             </span></label>
                             <ui-select
-                                    [items]="streetTypesList"
-                                    (callback)="onChangeRegistrationStreetType($event)"
-                                    [textKey]="'name'"
-                                    [defaultText]="'Выберите значение'"
-                                    [initBy]="streetTypeRegistrationSelected"
-                                    [name]="'streetTypeRegistration'"
+                                [items]="streetTypesList"
+                                (callback)="onChangeRegistrationStreetType($event)"
+                                [textKey]="'name'"
+                                [defaultText]="'Выберите значение'"
+                                [initBy]="streetTypeRegistrationSelected"
+                                [name]="'streetTypeRegistration'"
                             ></ui-select>
                         </ui-field>
                     </div>
@@ -188,15 +189,16 @@
                     <div class="grid__box grid__box--size-6">
                         <input type="hidden" formControlName="street_type">
                         <ui-field>
-                            <label for="streetTypeActual"><span class="field__label--required">Элемент дор. трансп. сети</span></label>
+                            <label for="streetTypeActual"><span
+                                class="field__label--required">Элемент дор. трансп. сети</span></label>
                             <ui-select
-                                    [items]="streetTypesList"
-                                    (callback)="onChangeActualStreetType($event)"
-                                    [textKey]="'name'"
-                                    [defaultText]="'Выберите значение'"
-                                    [initBy]="streetTypeActualSelected"
-                                    [isDisabled]="isActualRegistration"
-                                    [name]="'streetTypeActual'"
+                                [items]="streetTypesList"
+                                (callback)="onChangeActualStreetType($event)"
+                                [textKey]="'name'"
+                                [defaultText]="'Выберите значение'"
+                                [initBy]="streetTypeActualSelected"
+                                [isDisabled]="isActualRegistration"
+                                [name]="'streetTypeActual'"
                             ></ui-select>
                         </ui-field>
                     </div>
@@ -204,7 +206,8 @@
                 <div class="grid mt-8">
                     <div class="grid__box grid__box--size-6">
                         <ui-field>
-                            <label for="actual_street"><span class="field__label--required">Имя эл. дор. трансп. сети</span></label>
+                            <label for="actual_street"><span
+                                class="field__label--required">Имя эл. дор. трансп. сети</span></label>
                             <input type="text" id="actual_street" formControlName="street">
                         </ui-field>
                     </div>

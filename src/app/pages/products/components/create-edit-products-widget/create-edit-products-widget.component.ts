@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-edit-products-widget.component.scss']
 })
 export class CreateEditProductsWidgetComponent implements OnInit {
+  public comboboxSelectedItem;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  onChangeComboboxItem(item) {
+    console.log(item);
+    this.comboboxSelectedItem = item;
   }
 
 }

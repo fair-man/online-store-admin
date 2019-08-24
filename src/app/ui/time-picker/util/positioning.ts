@@ -1,9 +1,13 @@
 // previous version:
 // https://github.com/angular-ui/bootstrap/blob/07c31d0731f7cb068a1932b8e01d2312b796b4ec/src/position/position.js
 export class Positioning {
-  private getAllStyles(element: HTMLElement) { return window.getComputedStyle(element); }
+  private getAllStyles(element: HTMLElement) {
+    return window.getComputedStyle(element);
+  }
 
-  private getStyle(element: HTMLElement, prop: string): string { return this.getAllStyles(element)[prop]; }
+  private getStyle(element: HTMLElement, prop: string): string {
+    return this.getAllStyles(element)[prop];
+  }
 
   private isStaticPositioned(element: HTMLElement): boolean {
     return (this.getStyle(element, 'position') || 'static') === 'static';
@@ -81,8 +85,7 @@ export class Positioning {
     return elOffset;
   }
 
-  positionElements(hostElement: HTMLElement, targetElement: HTMLElement, placement: string, appendToBody?: boolean):
-      ClientRect {
+  positionElements(hostElement: HTMLElement, targetElement: HTMLElement, placement: string, appendToBody?: boolean): ClientRect {
     const hostElPosition = appendToBody ? this.offset(hostElement, false) : this.position(hostElement, false);
     const targetElStyles = this.getAllStyles(targetElement);
     const targetElBCR = targetElement.getBoundingClientRect();
@@ -101,14 +104,14 @@ export class Positioning {
     switch (placementPrimary) {
       case 'top':
         targetElPosition.top =
-            hostElPosition.top - (targetElement.offsetHeight + parseFloat(targetElStyles.marginBottom));
+          hostElPosition.top - (targetElement.offsetHeight + parseFloat(targetElStyles.marginBottom));
         break;
       case 'bottom':
         targetElPosition.top = hostElPosition.top + hostElPosition.height;
         break;
       case 'left':
         targetElPosition.left =
-            hostElPosition.left - (targetElement.offsetWidth + parseFloat(targetElStyles.marginRight));
+          hostElPosition.left - (targetElement.offsetWidth + parseFloat(targetElStyles.marginRight));
         break;
       case 'right':
         targetElPosition.left = hostElPosition.left + hostElPosition.width;
@@ -161,7 +164,7 @@ export class Positioning {
     if (targetElemClientRect.width < hostElemClientRect.left) {
       // check for left only
       if (hostElemClientRectVerCenter > targetElemClientRect.height / 2 &&
-          windowHeight - hostElemClientRectVerCenter > targetElemClientRect.height / 2) {
+        windowHeight - hostElemClientRectVerCenter > targetElemClientRect.height / 2) {
         availablePlacements.splice(availablePlacements.length, 1, 'left');
       }
       // check for left-top and left-bottom
@@ -171,7 +174,7 @@ export class Positioning {
     // top: target height is less than host top
     if (targetElemClientRect.height < hostElemClientRect.top) {
       if (hostElemClientRectHorCenter > targetElemClientRect.width / 2 &&
-          windowWidth - hostElemClientRectHorCenter > targetElemClientRect.width / 2) {
+        windowWidth - hostElemClientRectHorCenter > targetElemClientRect.width / 2) {
         availablePlacements.splice(availablePlacements.length, 1, 'top');
       }
       this.setSecondaryPlacementForTopBottom(hostElemClientRect, targetElemClientRect, 'top', availablePlacements);
@@ -182,7 +185,7 @@ export class Positioning {
     if (windowWidth - hostElemClientRect.right > targetElemClientRect.width) {
       // check for right only
       if (hostElemClientRectVerCenter > targetElemClientRect.height / 2 &&
-          windowHeight - hostElemClientRectVerCenter > targetElemClientRect.height / 2) {
+        windowHeight - hostElemClientRectVerCenter > targetElemClientRect.height / 2) {
         availablePlacements.splice(availablePlacements.length, 1, 'right');
       }
       // check for right-top and right-bottom
@@ -192,7 +195,7 @@ export class Positioning {
     // bottom: check if there is enough space between host bottom and viewport end for target height
     if (windowHeight - hostElemClientRect.bottom > targetElemClientRect.height) {
       if (hostElemClientRectHorCenter > targetElemClientRect.width / 2 &&
-          windowWidth - hostElemClientRectHorCenter > targetElemClientRect.width / 2) {
+        windowWidth - hostElemClientRectHorCenter > targetElemClientRect.width / 2) {
         availablePlacements.splice(availablePlacements.length, 1, 'bottom');
       }
       this.setSecondaryPlacementForTopBottom(hostElemClientRect, targetElemClientRect, 'bottom', availablePlacements);
@@ -206,9 +209,8 @@ export class Positioning {
    * primaryplacement: left|right
    * availablePlacementArr: array in which available placements to be set
    */
-  private setSecondaryPlacementForLeftRight(
-      hostElemClientRect: ClientRect, targetElemClientRect: ClientRect, primaryPlacement: string,
-      availablePlacementArr: Array<string>) {
+  private setSecondaryPlacementForLeftRight(hostElemClientRect: ClientRect, targetElemClientRect: ClientRect, primaryPlacement: string,
+                                            availablePlacementArr: Array<string>) {
     const html = document.documentElement;
     // check for left-bottom
     if (targetElemClientRect.height <= hostElemClientRect.bottom) {
@@ -224,9 +226,8 @@ export class Positioning {
    * primaryplacement: top|bottom
    * availablePlacementArr: array in which available placements to be set
    */
-  private setSecondaryPlacementForTopBottom(
-      hostElemClientRect: ClientRect, targetElemClientRect: ClientRect, primaryPlacement: string,
-      availablePlacementArr: Array<string>) {
+  private setSecondaryPlacementForTopBottom(hostElemClientRect: ClientRect, targetElemClientRect: ClientRect, primaryPlacement: string,
+                                            availablePlacementArr: Array<string>) {
     const html = document.documentElement;
     // check for left-bottom
     if ((window.innerWidth || html.clientWidth) - hostElemClientRect.left >= targetElemClientRect.width) {
@@ -250,17 +251,16 @@ const positionService = new Positioning();
  *   'left-top', 'left-bottom',
  *   'right-top', 'right-bottom'.
  * */
-export function positionElements(
-    hostElement: HTMLElement, targetElement: HTMLElement, placement: string | Placement | PlacementArray,
-    appendToBody?: boolean): Placement {
+export function positionElements(hostElement: HTMLElement, targetElement: HTMLElement, placement: string | Placement | PlacementArray,
+                                 appendToBody?: boolean): Placement {
   const placementVals: Array<Placement> = Array.isArray(placement) ? placement : [placement as Placement];
 
   // replace auto placement with other placements
   let hasAuto = placementVals.findIndex(val => val === 'auto');
   if (hasAuto >= 0) {
     ['top', 'bottom', 'left', 'right', 'top-left', 'top-right', 'bottom-left', 'bottom-right', 'left-top',
-     'left-bottom', 'right-top', 'right-bottom',
-    ].forEach(function(obj) {
+      'left-bottom', 'right-top', 'right-bottom',
+    ].forEach(function (obj) {
       if (placementVals.find(val => val.search('^' + obj) !== -1) == null) {
         placementVals.splice(hasAuto++, 1, obj as Placement);
       }
@@ -274,7 +274,7 @@ export function positionElements(
   // get available placements
   const availablePlacements = positionService.getAvailablePlacements(hostElement, targetElement);
   // iterate over all the passed placements
-  for (const { item, index } of toItemIndexes(placementVals)) {
+  for (const {item, index} of toItemIndexes(placementVals)) {
     // check if passed placement is present in the available placement or otherwise apply the last placement in the
     // passed placement list
     if ((availablePlacements.find(val => val === item) != null) || (placementVals.length === index + 1)) {
@@ -296,6 +296,6 @@ function toItemIndexes<T>(a: T[]) {
 }
 
 export type Placement = 'auto' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' |
-    'bottom-right' | 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom';
+  'bottom-right' | 'left-top' | 'left-bottom' | 'right-top' | 'right-bottom';
 
 export type PlacementArray = Placement | Array<Placement>;

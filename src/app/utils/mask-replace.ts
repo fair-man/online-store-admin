@@ -1,9 +1,9 @@
 const maskRegexp = {
-    phone: new RegExp(/([()\s\-_])/, 'gi')
+  phone: new RegExp(/([()\s\-_])/, 'gi')
 };
 
 export const MaskReplace = {
-    replace: (val, type) => {
-        return val.replace(maskRegexp[type], '');
-    }
+  replace: (val, type) => {
+    return val.replace(maskRegexp[type], '');
+  }
 };

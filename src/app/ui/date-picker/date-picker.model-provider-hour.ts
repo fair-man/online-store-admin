@@ -1,12 +1,13 @@
-import {UIModelProvider} from './date-picker.model-provider';
-import {UIDatePickerModel} from './date-picker.model';
-import {SimpleChanges} from '@angular/core';
+import { UIModelProvider } from './date-picker.model-provider';
+import { UIDatePickerModel } from './date-picker.model';
+import { SimpleChanges } from '@angular/core';
 import * as _moment from 'moment';
 
 const moment = _moment;
 
 export class UIHourModelProvider implements UIModelProvider {
-  onChanges(changes: SimpleChanges): void {}
+  onChanges(changes: SimpleChanges): void {
+  }
 
   getModel(milliseconds: number, selectedMilliseconds: number): UIDatePickerModel {
     const startDate = moment(milliseconds).startOf('day');

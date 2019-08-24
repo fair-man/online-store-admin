@@ -40,5 +40,5 @@ export function regExpEscape(text) {
 
 export function hasClassName(element: any, className: string): boolean {
   return element && element.className && element.className.split &&
-      element.className.split(/\s+/).indexOf(className) >= 0;
+    element.className.split(/\s+/).indexOf(className) >= 0;
 }

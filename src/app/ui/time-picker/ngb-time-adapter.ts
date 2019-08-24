@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {NgbTimeStruct} from './ngb-time-struct';
-import {isInteger} from './util/util';
+import { Injectable } from '@angular/core';
+import { NgbTimeStruct } from './ngb-time-struct';
+import { isInteger } from './util/util';
 
 export function NGB_DATEPICKER_TIME_ADAPTER_FACTORY() {
   return new NgbTimeStructAdapter();
@@ -35,8 +35,8 @@ export class NgbTimeStructAdapter extends NgbTimeAdapter<NgbTimeStruct> {
    */
   fromModel(time: NgbTimeStruct): NgbTimeStruct {
     return (time && isInteger(time.hour) && isInteger(time.minute)) ?
-        {hour: time.hour, minute: time.minute, second: isInteger(time.second) ? time.second : null} :
-        null;
+      {hour: time.hour, minute: time.minute, second: isInteger(time.second) ? time.second : null} :
+      null;
   }
 
   /**
@@ -44,7 +44,7 @@ export class NgbTimeStructAdapter extends NgbTimeAdapter<NgbTimeStruct> {
    */
   toModel(time: NgbTimeStruct): NgbTimeStruct {
     return (time && isInteger(time.hour) && isInteger(time.minute)) ?
-        {hour: time.hour, minute: time.minute, second: isInteger(time.second) ? time.second : null} :
-        null;
+      {hour: time.hour, minute: time.minute, second: isInteger(time.second) ? time.second : null} :
+      null;
   }
 }
