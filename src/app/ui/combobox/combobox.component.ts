@@ -61,9 +61,9 @@ export class ComboboxComponent implements OnChanges, OnInit {
   }
 
   toggled(isOpen) {
-    let self = this;
     let index;
-    let el = self.el.nativeElement.querySelector('.js-ui-combobox__field');
+    const self = this;
+    const el = self.el.nativeElement.querySelector('.js-ui-combobox__field');
 
     if (!isOpen) {
       el.blur();

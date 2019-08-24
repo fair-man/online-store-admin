@@ -75,9 +75,9 @@ export class UiTimePicker implements ControlValueAccessor,
   }
 
   onChange = (_: any) => {
-  };
+  }
   onTouched = () => {
-  };
+  }
 
   writeValue(value) {
     const structValue = this._ngbTimeAdapter.fromModel(value);
