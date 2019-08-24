@@ -25,7 +25,6 @@
 
     font-size: 12px;
     width: 100%;
-    height: 36px;
     padding: 0 8px;
     vertical-align: middle;
     color: $clr-gray-primary;
@@ -41,6 +40,14 @@
       cursor: default;
       background-color: $clr-white;
     }
+  }
+
+  input {
+    height: 36px;
+  }
+
+  textarea {
+    padding: 8px;
   }
 
   &--password {

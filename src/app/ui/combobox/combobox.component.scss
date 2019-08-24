@@ -10,7 +10,7 @@
   position: relative;
 }
 
-.ui-combobox__field {
+input.ui-combobox__field {
   @include border-radius(4px);
   @include font(normal, 12px, 16px, $font-primary);
 
