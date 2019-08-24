@@ -5,6 +5,7 @@ import {AuthModule} from './auth/auth.module';
 import {HomeModule} from './home/home.module';
 import {UsersModule} from './users/users.module';
 import {ProvidersModule} from './providers/providers.module';
+import {ProductsModule} from './products/products.module';
 
 @NgModule({
     imports: [
@@ -12,13 +13,15 @@ import {ProvidersModule} from './providers/providers.module';
         AuthModule,
         HomeModule,
         UsersModule,
-        ProvidersModule
+        ProvidersModule,
+        ProductsModule
     ],
     exports: [
         AuthModule,
         HomeModule,
         UsersModule,
-        ProvidersModule
+        ProvidersModule,
+        ProductsModule
     ]
 })
 export class PagesModule {
