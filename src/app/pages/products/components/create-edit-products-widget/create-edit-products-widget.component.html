@@ -1,19 +1,19 @@
 <div class="grid grid--gap-32">
-    <div class="grid__box grid__box--size-5">
+    <div class="grid__box grid__box--size-4">
         <div>
             <span class="sub-title">Расположение продукта</span>
         </div>
-        <div class="grid grid--va-bottom mt-8">
+        <div class="grid grid--gap-8 grid--va-bottom mt-8">
             <div class="grid__box grid__box--size-9">
                 <ui-field>
                     <label for="comboboxGroupCategoriesName"><span
                         class="field__label--required">Группа категории</span></label>
                     <ui-combobox
-                        [items]="[{name: 'test 1'}, {name: 'test 2'}]"
-                        (callback)="onChangeComboboxItem($event)"
+                        [items]="groupsCategoriesProducts"
+                        (callback)="onChangeGroupsCategoriesProductsItem($event)"
                         [textKey]="'name'"
-                        [initBy]="comboboxSelectedItem"
-                        [name]="'comboboxGroupCategoriesName'"
+                        [initBy]="groupCategoryProduct"
+                        [name]="'groupCategoryProduct'"
                         [defaultText]="''"
                         [isDisabled]="false"
                     ></ui-combobox>
@@ -23,16 +23,16 @@
                 <button class="button" type="button">Добавить</button>
             </div>
         </div>
-        <div class="grid grid--va-bottom mt-8">
+        <div class="grid grid--gap-8 grid--va-bottom mt-8">
             <div class="grid__box grid__box--size-9">
                 <ui-field>
                     <label for="comboboxGroupSubCategoriesName"><span
                         class="field__label--required">Группа подкатегории</span></label>
                     <ui-combobox
-                        [items]="[{name: 'test 1'}, {name: 'test 2'}]"
-                        (callback)="onChangeComboboxItem($event)"
+                        [items]="groupsSubCategoriesProducts"
+                        (callback)="onChangeGroupsSubCategoriesProductsItem($event)"
                         [textKey]="'name'"
-                        [initBy]="comboboxSelectedItem"
+                        [initBy]="groupSubCategoryProduct"
                         [name]="'comboboxGroupSubCategoriesName'"
                         [defaultText]="''"
                         [isDisabled]="false"
@@ -43,7 +43,7 @@
                 <button class="button" type="button">Добавить</button>
             </div>
         </div>
-        <div class="grid grid--va-bottom mt-8">
+        <div class="grid grid--gap-8 grid--va-bottom mt-8">
             <div class="grid__box grid__box--size-9">
                 <ui-field>
                     <label for="comboboxCategoriesName"><span
@@ -64,50 +64,50 @@
             </div>
         </div>
     </div>
-    <div class="grid__box grid__box--size-7">
-            <div>
-                <span class="sub-title">Основные данные продукта</span>
+    <div class="grid__box grid__box--size-8">
+        <div>
+            <span class="sub-title">Основные данные продукта</span>
+        </div>
+        <div class="grid grid--gap-8 mt-8">
+            <div class="grid__box grid__box--size-7">
+                <ui-field>
+                    <label for="productName"><span
+                        class="field__label--required">Найменование</span></label>
+                    <input type="text" id="productName">
+                </ui-field>
             </div>
-            <div class="grid mt-8">
-                <div class="grid__box grid__box--size-4">
-                    <ui-field>
-                        <label for="productName"><span
-                            class="field__label--required">Найменование</span></label>
-                        <input type="text" id="productName">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-4">
-                    <ui-field>
-                        <label for="productCode"><span
-                            class="field__label--required">Код</span></label>
-                        <input type="text" id="productCode">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-2">
-                    <ui-field>
-                        <label for="productPrice"><span
-                            class="field__label--required">Цена</span></label>
-                        <input type="text" id="productPrice">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-2">
-                    <ui-field>
-                        <label for="productCount"><span
-                            class="field__label--required">Количество</span></label>
-                        <input type="text" id="productCount">
-                    </ui-field>
-                </div>
+            <div class="grid__box grid__box--size-3">
+                <ui-field>
+                    <label for="productCode"><span
+                        class="field__label--required">Код</span></label>
+                    <input type="text" id="productCode">
+                </ui-field>
             </div>
-            <div class="grid mt-8">
-                <div class="grid__box grid__box--size-12">
-                    <ui-field>
-                        <label for="productDescription"><span
-                            class="field__label--required">Описание</span></label>
-                        <textarea name="productDescription" id="productDescription" rows="6"></textarea>
-                    </ui-field>
-                </div>
+            <div class="grid__box grid__box--size-1">
+                <ui-field>
+                    <label for="productPrice"><span
+                        class="field__label--required">Цена</span></label>
+                    <input type="text" id="productPrice">
+                </ui-field>
+            </div>
+            <div class="grid__box grid__box--size-1">
+                <ui-field>
+                    <label for="productCount"><span
+                        class="field__label--required">Кол.</span></label>
+                    <input type="text" id="productCount">
+                </ui-field>
             </div>
         </div>
+        <div class="grid mt-8">
+            <div class="grid__box grid__box--size-12">
+                <ui-field>
+                    <label for="productDescription"><span
+                        class="field__label--required">Описание</span></label>
+                    <textarea name="productDescription" id="productDescription" rows="6"></textarea>
+                </ui-field>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="mt-32">
@@ -156,7 +156,8 @@
                     <ui-field>
                         <label for="productСharacteristicDescription"><span
                             class="field__label--required">Доп. описание</span></label>
-                        <textarea name="productDescription" id="productСharacteristicDescription" cols="30" rows="7"></textarea>
+                        <textarea name="productDescription" id="productСharacteristicDescription" cols="30"
+                                  rows="7"></textarea>
                     </ui-field>
                 </div>
             </div>
