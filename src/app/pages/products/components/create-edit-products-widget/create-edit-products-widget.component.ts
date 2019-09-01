@@ -60,11 +60,13 @@ export class CreateEditProductsWidgetComponent implements OnInit {
   }
 
   onOpenGroupsCategoriesDialog() {
-    this.modalService.open(CreateEditGroupsProductsComponent, {
+    const groupModal = this.modalService.open(CreateEditGroupsProductsComponent, {
       ariaLabelledBy: 'modal-basic-title',
       windowClass: 'modal-wrapper',
       backdrop: 'static'
     });
+
+    groupModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
   }
 
   onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct) {

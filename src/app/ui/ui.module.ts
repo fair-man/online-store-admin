@@ -18,7 +18,7 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ComboboxComponent } from './combobox/combobox.component';
 import { ComboboxSearchHighlightPipe, ComboboxSearchPipe } from './combobox/combobox.pipes';
-
+import { UiRadioButtonComponent } from './radio-button/radio-button.component';
 
 @NgModule({
   imports: [
@@ -40,7 +40,8 @@ import { ComboboxSearchHighlightPipe, ComboboxSearchPipe } from './combobox/comb
     LoaderComponent,
     ComboboxComponent,
     ComboboxSearchPipe,
-    ComboboxSearchHighlightPipe
+    ComboboxSearchHighlightPipe,
+    UiRadioButtonComponent
   ],
   exports: [
     TextMaskModule,
@@ -56,7 +57,8 @@ import { ComboboxSearchHighlightPipe, ComboboxSearchPipe } from './combobox/comb
     LoaderComponent,
     ComboboxComponent,
     ComboboxSearchPipe,
-    ComboboxSearchHighlightPipe
+    ComboboxSearchHighlightPipe,
+    UiRadioButtonComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -3,19 +3,71 @@
     <div class="modal-close color-gray-dark" id="appCloseXConfirm" (click)="activeModal.dismiss()"></div>
 </div>
 <div class="modal__body">
-    Content can be provided as a TemplateRef or a component type. If you pass a component type as content, then
-    instances of those components can be injected with an instance of the NgbActiveModal class. You can then use
-    NgbActiveModal methods to close / dismiss modals from "inside" of your component.
+    <form #groupsProductForm="ngForm">
+        Выберите действие:
+        <div class="grid">
+            <div class="grid__box grid__box--size-min">
+                <ui-radio-button>
+                    <input type="radio" id="create" name="groupType" value="create"
+                           (change)="onChangeGroupMode('create')" [(ngModel)]="groupModeSelected">
+                    <radio-button-text>Создать</radio-button-text>
+                </ui-radio-button>
+            </div>
+            <div class="grid__box grid__box--size-min">
+                <ui-radio-button>
+                    <input type="radio" id="edit" name="groupType" value="edit"
+                           (change)="onChangeGroupMode('edit')" [(ngModel)]="groupModeSelected">
+                    <radio-button-text>Редактировать</radio-button-text>
+                </ui-radio-button>
+            </div>
+        </div>
+        <div class="mb-24">
+            <div class="mt-8" *ngIf="groupTypeSelected.name === 'edit'">
+                <ui-field>
+                    <label for="comboboxGroupCategoriesModalName">
+                        <span class="field__label--required">Группа категории</span>
+                    </label>
+                    <ui-combobox
+                        [items]="groupsCategoriesProducts"
+                        (callback)="onChangeGroupsCategoriesProductsItem($event)"
+                        [textKey]="'name'"
+                        [initBy]="groupEdit.groupCategoryProduct"
+                        [name]="'comboboxGroupCategoriesModalName'"
+                    ></ui-combobox>
+                </ui-field>
+            </div>
+            <div class="mt-8">
+                <ui-field>
+                    <label for="name">
+                    <span class="field__label--required">
+                        Имя новой группы категорий
+                    </span>
+                    </label>
+                    <input type="text" id="name" name="groupName" [(ngModel)]="groupTypeSelected.groupName" required>
+                </ui-field>
+            </div>
+            <div class="mt-8">
+                <ui-field>
+                    <label for="description">
+                    <span class="field__label--required">
+                        Описание новой группы категорий
+                    </span>
+                    </label>
+                    <textarea type="text" id="description" rows="5" name="groupDescription"
+                              [(ngModel)]="groupTypeSelected.groupDescription" required></textarea>
+                </ui-field>
+            </div>
+        </div>
+    </form>
 </div>
 <div class="modal__footer">
     <div class="modal__footer-action">
-        <button class="button" type="button" id="appSuccessConfirm1">
-            Создать
+        <button class="button" type="button" id="appSuccessConfirm1" [disabled]="groupsProductForm.invalid">
+            <span *ngIf="groupModeSelected === 'create'">Создать</span>
+            <span *ngIf="groupModeSelected === 'edit'">Редактировать</span>
         </button>
     </div>
     <div class="modal__footer-action">
-        <span id="appCloseConfirm">
-            Отмена
-        </span>
+        <span id="appCloseConfirm" (click)="activeModal.dismiss()">Отмена</span>
     </div>
 </div>

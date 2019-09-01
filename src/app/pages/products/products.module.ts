@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsViewComponent } from './products-view/products-view.component';
@@ -22,6 +23,7 @@ import { CreateEditGroupsProductsComponent } from './components/modals/create-ed
   imports: [
     CommonModule,
     UiModule,
+    FormsModule,
     ProductsRoutingModule
   ],
   schemas: [
