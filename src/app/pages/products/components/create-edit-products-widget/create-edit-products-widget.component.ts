@@ -34,8 +34,8 @@ export class CreateEditProductsWidgetComponent implements OnInit {
       );
   }
 
-  getSubCategories(groupCategoryId) {
-    this.productsService.getGroupsSubCategoriesProducts({groupCategoryId})
+  getSubCategories(groupCategoryId: number) {
+    this.productsService.getGroupsSubCategoriesProducts({g_id: groupCategoryId})
       .subscribe(
         (response) => {
           this.groupsSubCategoriesProducts = response['data'].groups_subcategories;
