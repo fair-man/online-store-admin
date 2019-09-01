@@ -1,0 +1,21 @@
+<div class="modal__header">
+    <span class="title">Заголовок модального окна</span>
+    <div class="modal-close color-gray-dark" id="appCloseXConfirm" (click)="activeModal.dismiss()"></div>
+</div>
+<div class="modal__body">
+    Content can be provided as a TemplateRef or a component type. If you pass a component type as content, then
+    instances of those components can be injected with an instance of the NgbActiveModal class. You can then use
+    NgbActiveModal methods to close / dismiss modals from "inside" of your component.
+</div>
+<div class="modal__footer">
+    <div class="modal__footer-action">
+        <button class="button" type="button" id="appSuccessConfirm1">
+            Создать
+        </button>
+    </div>
+    <div class="modal__footer-action">
+        <span id="appCloseConfirm">
+            Отмена
+        </span>
+    </div>
+</div>

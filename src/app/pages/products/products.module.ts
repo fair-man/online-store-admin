@@ -8,6 +8,7 @@ import { ProductsCreateComponent } from './products-create/products-create.compo
 import { ProductsEditComponent } from './products-edit/products-edit.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { UiModule } from '../../ui/ui.module';
+import { CreateEditGroupsProductsComponent } from './components/modals/create-edit-groups-products/create-edit-groups-products.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { UiModule } from '../../ui/ui.module';
     CreateEditProductsWidgetComponent,
     ProductsCreateComponent,
     ProductsEditComponent,
-    ProductsListComponent
+    ProductsListComponent,
+    CreateEditGroupsProductsComponent
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,9 @@ import { UiModule } from '../../ui/ui.module';
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
+  ],
+  entryComponents: [
+    CreateEditGroupsProductsComponent
   ]
 })
 export class ProductsModule {
