@@ -35,12 +35,12 @@
                         [initBy]="groupSubCategoryProduct"
                         [name]="'comboboxGroupSubCategoriesName'"
                         [defaultText]="''"
-                        [isDisabled]="false"
+                        [isDisabled]="!groupCategoryProduct"
                     ></ui-combobox>
                 </ui-field>
             </div>
             <div class="grid__box grid__box--size-1">
-                <button class="button" type="button" (click)="onOpenGroupsSubCategoriesDialog()">Добавить</button>
+                <button class="button" type="button" [disabled]="!groupCategoryProduct" (click)="onOpenGroupsSubCategoriesDialog()">Добавить</button>
             </div>
         </div>
         <div class="grid grid--gap-8 grid--va-bottom mt-8">

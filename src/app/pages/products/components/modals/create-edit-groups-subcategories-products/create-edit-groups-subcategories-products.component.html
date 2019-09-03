@@ -30,20 +30,6 @@
         <div>
             <div class="mt-8" *ngIf="groupTypeSelected.name === 'edit'">
                 <ui-field>
-                    <label for="comboboxGroupCategoriesModalName">
-                        <span class="field__label--required">Группа категории</span>
-                    </label>
-                    <ui-combobox
-                        [items]="groupsCategoriesProducts"
-                        (callback)="onChangeGroupsCategoriesProductsItem($event)"
-                        [textKey]="'name'"
-                        [initBy]="groupEdit.groupCategoryProduct"
-                        [name]="'comboboxGroupCategoriesModalName'"
-                    ></ui-combobox>
-                </ui-field>
-            </div>
-            <div class="mt-8" *ngIf="groupTypeSelected.name === 'edit'">
-                <ui-field>
                     <label for="comboboxGroupSubCategoriesModalName">
                         <span class="field__label--required">Группа подкатегории</span>
                     </label>
@@ -51,7 +37,7 @@
                         [items]="groupsSubCategoriesProducts"
                         (callback)="onChangeGroupsSubCategoriesProductsItem($event)"
                         [textKey]="'name'"
-                        [initBy]="groupEdit.groupSubCategoryProduct"
+                        [initBy]="groupTypeSelected.groupSubCategoryProduct"
                         [name]="'comboboxGroupSubCategoriesModalName'"
                     ></ui-combobox>
                 </ui-field>
@@ -77,17 +63,32 @@
                               [(ngModel)]="groupTypeSelected.groupDescription" required></textarea>
                 </ui-field>
             </div>
+            <div class="mt-8">
+                <ui-field>
+                    <label for="comboboxGroupCategoriesModalName">
+                        <span class="field__label--required">Привязать к группе категорий</span>
+                    </label>
+                    <ui-combobox
+                        [items]="groupsCategoriesProducts"
+                        (callback)="onChangeGroupsCategoriesProductsItem($event)"
+                        [textKey]="'name'"
+                        [initBy]="groupTypeSelected.groupCategoryProduct"
+                        [name]="'comboboxGroupCategoriesModalName'"
+                        [isDisabled]="groupTypeSelected.name === 'create'"
+                    ></ui-combobox>
+                </ui-field>
+            </div>
         </div>
     </form>
 </div>
 <div class="modal__footer">
     <div class="modal__footer-action">
         <button class="button" type="button" id="appCreateButton" [disabled]="groupsProductForm.invalid"
-                *ngIf="groupModeSelected === 'create'" (click)="onSaveGroupCategories()">
+                *ngIf="groupModeSelected === 'create'" (click)="onSaveGroupSubCategories()">
             Создать
         </button>
         <button class="button" type="button" id="appSuccessConfirm1" [disabled]="groupsProductForm.invalid"
-                *ngIf="groupModeSelected === 'edit'" (click)="onSaveGroupCategories()">
+                *ngIf="groupModeSelected === 'edit'" (click)="onSaveGroupSubCategories()">
             Редактировать
         </button>
     </div>

@@ -7,7 +7,9 @@ import { GroupCategoryProduct, GroupSubCategoryProduct } from '../../../../model
 import {
   CreateEditGroupsProductsComponent
 } from '../modals/create-edit-groups-products/create-edit-groups-products.component';
-import { CreateEditGroupsSubcategoriesProductsComponent } from '../modals/create-edit-groups-subcategories-products/create-edit-groups-subcategories-products.component';
+import {
+  CreateEditGroupsSubcategoriesProductsComponent
+} from '../modals/create-edit-groups-subcategories-products/create-edit-groups-subcategories-products.component';
 
 @Component({
   selector: 'app-create-edit-products-widget',
@@ -79,6 +81,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
 
     groupSubCategoriesModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
     groupSubCategoriesModal.componentInstance.groupsSubCategoriesProducts = this.groupsSubCategoriesProducts;
+    groupSubCategoriesModal.componentInstance.groupCategoryProduct = this.groupCategoryProduct;
   }
 
   onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct) {
