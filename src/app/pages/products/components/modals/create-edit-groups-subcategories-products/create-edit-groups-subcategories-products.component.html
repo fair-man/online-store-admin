@@ -2,7 +2,7 @@
     <span class="title">
         <span *ngIf="groupModeSelected === 'create'">Создание</span>
         <span *ngIf="groupModeSelected === 'edit'">Редактирование</span>
-        группы категорий
+        группы подкатегорий
     </span>
     <div class="modal-close color-gray-dark" id="appCloseXConfirm" (click)="activeModal.dismiss()"></div>
 </div>
@@ -39,6 +39,20 @@
                         [textKey]="'name'"
                         [initBy]="groupEdit.groupCategoryProduct"
                         [name]="'comboboxGroupCategoriesModalName'"
+                    ></ui-combobox>
+                </ui-field>
+            </div>
+            <div class="mt-8" *ngIf="groupTypeSelected.name === 'edit'">
+                <ui-field>
+                    <label for="comboboxGroupSubCategoriesModalName">
+                        <span class="field__label--required">Группа подкатегории</span>
+                    </label>
+                    <ui-combobox
+                        [items]="groupsSubCategoriesProducts"
+                        (callback)="onChangeGroupsSubCategoriesProductsItem($event)"
+                        [textKey]="'name'"
+                        [initBy]="groupEdit.groupSubCategoryProduct"
+                        [name]="'comboboxGroupSubCategoriesModalName'"
                     ></ui-combobox>
                 </ui-field>
             </div>

@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { findIndex } from 'lodash';
+
 import { GroupCategoryProduct } from '../../../../../models/products';
+import { ProductsService } from '../../../products.service';
 
 export interface GroupModal {
   name: string;
@@ -23,7 +26,8 @@ export class CreateEditGroupsProductsComponent implements OnInit {
   public groupEdit: GroupModal = {name: 'edit', groupCategoryProduct: null, groupName: null, groupDescription: null};
 
   @Input() groupsCategoriesProducts: GroupCategoryProduct[];
-  constructor(public activeModal: NgbActiveModal) {
+  constructor(public activeModal: NgbActiveModal,
+              private productsService: ProductsService) {
   }
 
   ngOnInit() {
@@ -39,6 +43,51 @@ export class CreateEditGroupsProductsComponent implements OnInit {
 
   onChangeGroupMode(mode) {
     this.groupTypeSelected = mode === 'create' ? this.groupCreate : this.groupEdit;
+  }
+
+  onSaveGroupCategories() {
+    const groupCategoryData = {
+      id: this.groupEdit.groupCategoryProduct ? this.groupEdit.groupCategoryProduct.id : null,
+      name: this.groupTypeSelected.groupName,
+      description: this.groupTypeSelected.groupDescription
+    };
+
+    if (this.groupModeSelected === 'create') {
+      this.createGroupCategory(groupCategoryData);
+    } else {
+      this.updateGroupCategory(groupCategoryData);
+    }
+  }
+
+  createGroupCategory(data) {
+    this.productsService.createGroupCategoryProduct(data)
+      .subscribe(
+        (response) => {
+          this.groupsCategoriesProducts.push(response['data']);
+          this.activeModal.close();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  updateGroupCategory(data) {
+    this.productsService.updateGroupCategoryProduct(data)
+      .subscribe(
+        (response) => {
+          const index = findIndex(this.groupsCategoriesProducts, {id: response['data'].id});
+
+          if (index > -1) {
+            this.groupsCategoriesProducts[index] = response['data'];
+          }
+
+          this.activeModal.close();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
 }

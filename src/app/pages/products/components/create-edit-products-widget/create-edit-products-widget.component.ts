@@ -7,6 +7,7 @@ import { GroupCategoryProduct, GroupSubCategoryProduct } from '../../../../model
 import {
   CreateEditGroupsProductsComponent
 } from '../modals/create-edit-groups-products/create-edit-groups-products.component';
+import { CreateEditGroupsSubcategoriesProductsComponent } from '../modals/create-edit-groups-subcategories-products/create-edit-groups-subcategories-products.component';
 
 @Component({
   selector: 'app-create-edit-products-widget',
@@ -60,13 +61,24 @@ export class CreateEditProductsWidgetComponent implements OnInit {
   }
 
   onOpenGroupsCategoriesDialog() {
-    const groupModal = this.modalService.open(CreateEditGroupsProductsComponent, {
+    const groupCategoriesModal = this.modalService.open(CreateEditGroupsProductsComponent, {
       ariaLabelledBy: 'modal-basic-title',
       windowClass: 'modal-wrapper',
       backdrop: 'static'
     });
 
-    groupModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
+    groupCategoriesModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
+  }
+
+  onOpenGroupsSubCategoriesDialog() {
+    const groupSubCategoriesModal = this.modalService.open(CreateEditGroupsSubcategoriesProductsComponent, {
+      ariaLabelledBy: 'modal-basic-title',
+      windowClass: 'modal-wrapper',
+      backdrop: 'static'
+    });
+
+    groupSubCategoriesModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
+    groupSubCategoriesModal.componentInstance.groupsSubCategoriesProducts = this.groupsSubCategoriesProducts;
   }
 
   onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct) {

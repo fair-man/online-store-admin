@@ -23,7 +23,11 @@ export class ProductsService {
   }
 
   createGroupCategoryProduct(data): Observable<CustomHttpResponse<GroupCategoryProduct>> {
-    return this.http.post<CustomHttpResponse<GroupCategoryProduct>>('/products/groups_categories', data);
+    return this.http.post<CustomHttpResponse<GroupCategoryProduct>>('/products/groups_categories/create', data);
+  }
+
+  updateGroupCategoryProduct(data): Observable<CustomHttpResponse<GroupCategoryProduct>> {
+    return this.http.put<CustomHttpResponse<GroupCategoryProduct>>('/products/groups_categories/update', data);
   }
 
   getGroupsSubCategoriesProducts(params): Observable<CustomHttpResponse<GroupsSubCategoryProduct>> {
