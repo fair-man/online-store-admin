@@ -11,6 +11,7 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { UiModule } from '../../ui/ui.module';
 import { CreateEditGroupsProductsComponent } from './components/modals/create-edit-groups-products/create-edit-groups-products.component';
 import { CreateEditGroupsSubcategoriesProductsComponent } from './components/modals/create-edit-groups-subcategories-products/create-edit-groups-subcategories-products.component';
+import { CreateEditCategoriesProductsComponent } from './components/modals/create-edit-categories-products/create-edit-categories-products.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CreateEditGroupsSubcategoriesProductsComponent } from './components/mod
     ProductsEditComponent,
     ProductsListComponent,
     CreateEditGroupsProductsComponent,
-    CreateEditGroupsSubcategoriesProductsComponent
+    CreateEditGroupsSubcategoriesProductsComponent,
+    CreateEditCategoriesProductsComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { CreateEditGroupsSubcategoriesProductsComponent } from './components/mod
   ],
   entryComponents: [
     CreateEditGroupsProductsComponent,
-    CreateEditGroupsSubcategoriesProductsComponent
+    CreateEditGroupsSubcategoriesProductsComponent,
+    CreateEditCategoriesProductsComponent
   ]
 })
 export class ProductsModule {

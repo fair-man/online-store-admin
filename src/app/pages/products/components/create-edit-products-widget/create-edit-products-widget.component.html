@@ -49,18 +49,18 @@
                     <label for="comboboxCategoriesName"><span
                         class="field__label--required">Категория</span></label>
                     <ui-combobox
-                        [items]="[{name: 'test 1'}, {name: 'test 2'}]"
-                        (callback)="onChangeComboboxItem($event)"
+                        [items]="categoriesProducts"
+                        (callback)="onChangeCategoriesProductsItem($event)"
                         [textKey]="'name'"
-                        [initBy]="comboboxSelectedItem"
+                        [initBy]="categoryProduct"
                         [name]="'comboboxCategoriesName'"
                         [defaultText]="''"
-                        [isDisabled]="false"
+                        [isDisabled]="!groupSubCategoryProduct"
                     ></ui-combobox>
                 </ui-field>
             </div>
             <div class="grid__box grid__box--size-1">
-                <button class="button" type="button">Добавить</button>
+                <button class="button" type="button" [disabled]="!groupSubCategoryProduct" (click)="onOpenCategoriesProductsDialog()">Добавить</button>
             </div>
         </div>
     </div>

@@ -7,7 +7,7 @@ import {
   GroupCategoryProduct,
   GroupsCategoryProduct,
   GroupSubCategoryProduct,
-  GroupsSubCategoryProduct
+  GroupsSubCategoryProduct, CategoriesProduct
 } from '../../models/products';
 
 @Injectable({
@@ -40,5 +40,9 @@ export class ProductsService {
 
   updateGroupSubCategoryProduct(data): Observable<CustomHttpResponse<GroupSubCategoryProduct>> {
     return this.http.put<CustomHttpResponse<GroupSubCategoryProduct>>('/products/groups_subcategories/update', data);
+  }
+
+  getCategories(params): Observable<CustomHttpResponse<CategoriesProduct>> {
+    return this.http.get<CustomHttpResponse<CategoriesProduct>>(`/products/categories`, params);
   }
 }

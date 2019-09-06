@@ -18,3 +18,14 @@ export interface GroupSubCategoryProduct {
 export interface GroupsSubCategoryProduct {
   groups_subcategories: GroupSubCategoryProduct[];
 }
+
+export interface CategoryProduct {
+  id: number;
+  name: string;
+  description: string | null;
+  group_subcategory_id: number;
+}
+
+export interface CategoriesProduct {
+  categories: CategoryProduct[];
+}

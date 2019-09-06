@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProductsService } from '../../products.service';
-import { GroupCategoryProduct, GroupSubCategoryProduct } from '../../../../models/products';
+import { CategoryProduct, GroupCategoryProduct, GroupSubCategoryProduct } from '../../../../models/products';
 import {
   CreateEditGroupsProductsComponent
 } from '../modals/create-edit-groups-products/create-edit-groups-products.component';
 import {
   CreateEditGroupsSubcategoriesProductsComponent
 } from '../modals/create-edit-groups-subcategories-products/create-edit-groups-subcategories-products.component';
+import { CreateEditCategoriesProductsComponent } from '../modals/create-edit-categories-products/create-edit-categories-products.component';
 
 @Component({
   selector: 'app-create-edit-products-widget',
@@ -22,6 +23,8 @@ export class CreateEditProductsWidgetComponent implements OnInit {
   public groupCategoryProduct: GroupCategoryProduct;
   public groupsSubCategoriesProducts: GroupSubCategoryProduct[];
   public groupSubCategoryProduct: GroupSubCategoryProduct;
+  public categoriesProducts: CategoryProduct[];
+  public categoryProduct: CategoryProduct;
 
   constructor(private productsService: ProductsService,
               public modalService: NgbModal) {
@@ -55,6 +58,18 @@ export class CreateEditProductsWidgetComponent implements OnInit {
       );
   }
 
+  getCategoriesProducts(groupSubCategoryId: number) {
+    this.productsService.getCategories({g_id: groupSubCategoryId})
+      .subscribe(
+        (response) => {
+          this.categoriesProducts = response['data'].categories;
+        },
+        (error) => {
+          console.log(error);
+        },
+      );
+  }
+
   onChangeGroupsCategoriesProductsItem(groupCategoryProduct: GroupCategoryProduct) {
     this.groupCategoryProduct = groupCategoryProduct;
     this.groupsSubCategoriesProducts = null;
@@ -72,6 +87,11 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     groupCategoriesModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
   }
 
+  onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct) {
+    this.groupSubCategoryProduct = groupSubCategoryProduct;
+    this.getCategoriesProducts(groupSubCategoryProduct.id);
+  }
+
   onOpenGroupsSubCategoriesDialog() {
     const groupSubCategoriesModal = this.modalService.open(CreateEditGroupsSubcategoriesProductsComponent, {
       ariaLabelledBy: 'modal-basic-title',
@@ -84,13 +104,18 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     groupSubCategoriesModal.componentInstance.groupCategoryProduct = this.groupCategoryProduct;
   }
 
-  onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct) {
-    this.groupSubCategoryProduct = groupSubCategoryProduct;
+  onChangeCategoriesProductsItem(item) {
+    this.categoryProduct = item;
   }
 
-  onChangeComboboxItem(item) {
-    console.log(item);
-    this.comboboxSelectedItem = item;
+  onOpenCategoriesProductsDialog() {
+    const categoriesModal = this.modalService.open(CreateEditCategoriesProductsComponent, {
+      ariaLabelledBy: 'modal-basic-title',
+      windowClass: 'modal-wrapper',
+      backdrop: 'static'
+    });
+
+    categoriesModal.componentInstance.groupsSubCategoriesProducts = this.groupsSubCategoriesProducts;
   }
 
 }
