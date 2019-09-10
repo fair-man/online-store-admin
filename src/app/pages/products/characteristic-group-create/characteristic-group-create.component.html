@@ -1,0 +1,32 @@
+<h1 class="title">Создание группы характеристик продукта</h1>
+
+<div class="mt-32">
+    <div class="grid">
+        <div class="grid__box grid__box--size-3">
+            <ui-field>
+                <label for="characteristicName"><span class="field__label--required">Найменование</span></label>
+                <input type="text" id="characteristicName">
+            </ui-field>
+        </div>
+        <div class="grid__box grid__box--size-min grid__box--va-bottom pb-2">
+            <ui-checkbox>
+                <input type="checkbox">
+                <checkbox-text>Сделать главной группой</checkbox-text>
+            </ui-checkbox>
+        </div>
+    </div>
+    <div class="mt-8">
+        <div class="grid">
+            <div class="grid__box grid__box--size-6">
+                <ui-field>
+                    <label for="characteristicDescription"><span class="field__label--required">Описание</span></label>
+                    <textarea name="productDescription" id="characteristicDescription" rows="6"></textarea>
+                </ui-field>
+            </div>
+        </div>
+    </div>
+    <div class="mt-32">
+        <button class="button" type="submit">Создать</button>
+    </div>
+</div>
+

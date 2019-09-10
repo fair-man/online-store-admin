@@ -1,0 +1,40 @@
+<h1 class="title">Привязка характеристик к группам</h1>
+
+<div class="mt-32">
+    <div class="grid">
+        <div class="grid__box grid__box--size-3">
+            <ui-field>
+                <ui-combobox
+                    [items]="groupsCategoriesProducts"
+                    (callback)="onChangeGroupsCategoriesProductsItem($event)"
+                    [textKey]="'name'"
+                    [initBy]="groupCategoryProduct"
+                    [name]="'characteristicName'"
+                    [defaultText]="'Выберите группу характеристик'"
+                    [isDisabled]="false"
+                ></ui-combobox>
+            </ui-field>
+        </div>
+        <div class="grid__box grid__box--size-3">
+            <ui-field>
+                <input type="text" id="characteristicName" placeholder="Введите название характеристики для поиска">
+            </ui-field>
+        </div>
+    </div>
+    <div class="mt-16">
+        <div class="grid">
+            <div class="grid__box grid__box--size-min">
+                <ui-checkbox>
+                    <input type="checkbox">
+                    <checkbox-text>Камера</checkbox-text>
+                </ui-checkbox>
+            </div>
+            <div class="grid__box grid__box--size-min">
+                <i class="os-pencil"></i>
+            </div>
+        </div>
+    </div>
+    <div class="mt-32">
+        <button class="button" type="submit">Сохранить</button>
+    </div>
+</div>

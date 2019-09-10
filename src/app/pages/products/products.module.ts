@@ -12,6 +12,8 @@ import { UiModule } from '../../ui/ui.module';
 import { CreateEditGroupsProductsComponent } from './components/modals/create-edit-groups-products/create-edit-groups-products.component';
 import { CreateEditGroupsSubcategoriesProductsComponent } from './components/modals/create-edit-groups-subcategories-products/create-edit-groups-subcategories-products.component';
 import { CreateEditCategoriesProductsComponent } from './components/modals/create-edit-categories-products/create-edit-categories-products.component';
+import { CharacteristicGroupCreateComponent } from './characteristic-group-create/characteristic-group-create.component';
+import { CharacteristicGroupManageComponent } from './characteristic-group-manage/characteristic-group-manage.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { CreateEditCategoriesProductsComponent } from './components/modals/creat
     ProductsListComponent,
     CreateEditGroupsProductsComponent,
     CreateEditGroupsSubcategoriesProductsComponent,
-    CreateEditCategoriesProductsComponent
+    CreateEditCategoriesProductsComponent,
+    CharacteristicGroupCreateComponent,
+    CharacteristicGroupManageComponent
   ],
   imports: [
     CommonModule,
