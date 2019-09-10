@@ -4,7 +4,7 @@
             <span class="sub-title">Расположение продукта</span>
         </div>
         <div class="grid grid--gap-8 grid--va-bottom mt-8">
-            <div class="grid__box grid__box--size-9">
+            <div class="grid__box grid__box--size-10">
                 <ui-field>
                     <label for="comboboxGroupCategoriesName"><span
                         class="field__label--required">Группа категории</span></label>
@@ -19,12 +19,14 @@
                     ></ui-combobox>
                 </ui-field>
             </div>
-            <div class="grid__box grid__box--size-1">
-                <button class="button" type="button" (click)="onOpenGroupsCategoriesDialog()">Добавить</button>
+            <div class="grid__box grid__box--size-2">
+                <button class="button" type="button" (click)="onOpenGroupsCategoriesDialog()">
+                    <i class="os-cog-alt"></i>
+                </button>
             </div>
         </div>
         <div class="grid grid--gap-8 grid--va-bottom mt-8">
-            <div class="grid__box grid__box--size-9">
+            <div class="grid__box grid__box--size-10">
                 <ui-field>
                     <label for="comboboxGroupSubCategoriesName"><span
                         class="field__label--required">Группа подкатегории</span></label>
@@ -39,12 +41,14 @@
                     ></ui-combobox>
                 </ui-field>
             </div>
-            <div class="grid__box grid__box--size-1">
-                <button class="button" type="button" [disabled]="!groupCategoryProduct" (click)="onOpenGroupsSubCategoriesDialog()">Добавить</button>
+            <div class="grid__box grid__box--size-2">
+                <button class="button" type="button" [disabled]="!groupCategoryProduct" (click)="onOpenGroupsSubCategoriesDialog()">
+                    <i class="os-cog-alt"></i>
+                </button>
             </div>
         </div>
         <div class="grid grid--gap-8 grid--va-bottom mt-8">
-            <div class="grid__box grid__box--size-9">
+            <div class="grid__box grid__box--size-10">
                 <ui-field>
                     <label for="comboboxCategoriesName"><span
                         class="field__label--required">Категория</span></label>
@@ -59,8 +63,10 @@
                     ></ui-combobox>
                 </ui-field>
             </div>
-            <div class="grid__box grid__box--size-1">
-                <button class="button" type="button" [disabled]="!groupSubCategoryProduct" (click)="onOpenCategoriesProductsDialog()">Добавить</button>
+            <div class="grid__box grid__box--size-2">
+                <button class="button" type="button" [disabled]="!groupSubCategoryProduct" (click)="onOpenCategoriesProductsDialog()">
+                    <i class="os-cog-alt"></i>
+                </button>
             </div>
         </div>
     </div>

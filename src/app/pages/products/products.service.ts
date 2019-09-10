@@ -42,7 +42,7 @@ export class ProductsService {
     return this.http.put<CustomHttpResponse<GroupSubCategoryProduct>>('/products/groups_subcategories/update', data);
   }
 
-  getCategories(params): Observable<CustomHttpResponse<CategoriesProduct>> {
-    return this.http.get<CustomHttpResponse<CategoriesProduct>>(`/products/categories`, params);
+  getCategories(params): Observable<CustomHttpResponse<any>> {
+    return this.http.get<CustomHttpResponse<any>>(`/products/categories`, params);
   }
 }
