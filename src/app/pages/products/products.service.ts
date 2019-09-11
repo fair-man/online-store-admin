@@ -42,7 +42,11 @@ export class ProductsService {
     return this.http.put<CustomHttpResponse<GroupSubCategoryProduct>>('/products/groups_subcategories/update', data);
   }
 
-  getCategories(params): Observable<CustomHttpResponse<any>> {
-    return this.http.get<CustomHttpResponse<any>>(`/products/categories`, params);
+  getCategories(params): Observable<any> {
+    return this.http.get<any>(`/products/categories`, params);
+  }
+
+  createCharacteristicGroup(data): Observable<any> {
+    return this.http.post(`/products/characteristics/create`, data);
   }
 }
