@@ -49,10 +49,14 @@ export class CharacteristicGroupManageComponent implements OnInit {
   }
 
   onChangeCategoryProductsItem(categoryProduct: CategoryProduct) {
-    this.categoryProducts = categoryProduct;
-    this.characteristicsGroups.forEach((group) => {
-      group['isChecked'] = categoryProduct.groups_characteristics.indexOf(group.id) > -1;
-      return group;
+    this.categoryProducts = null;
+
+    setTimeout(() => {
+      this.categoryProducts = categoryProduct;
+      this.characteristicsGroups.forEach((group) => {
+        group['isChecked'] = categoryProduct.groups_characteristics.indexOf(group.id) > -1;
+        return group;
+      });
     });
   }
 
