@@ -56,10 +56,10 @@ export class CreateEditGroupsSubcategoriesProductsComponent implements OnInit {
 
   onSaveGroupSubCategories() {
     const groupSubCategoryData = {
-      g_id: this.groupTypeSelected.groupSubCategoryProduct && this.groupTypeSelected.groupSubCategoryProduct.id || null,
-      g_group_category_id: this.groupTypeSelected.groupCategoryProduct.id || null,
-      g_name: this.groupTypeSelected.groupName,
-      g_description: this.groupTypeSelected.groupDescription
+      gs_id: this.groupTypeSelected.groupSubCategoryProduct && this.groupTypeSelected.groupSubCategoryProduct.id || null,
+      gs_group_category_id: this.groupTypeSelected.groupCategoryProduct.id || null,
+      gs_name: this.groupTypeSelected.groupName,
+      gs_description: this.groupTypeSelected.groupDescription
     };
 
     if (this.groupTypeSelected.name === 'create') {
@@ -87,14 +87,15 @@ export class CreateEditGroupsSubcategoriesProductsComponent implements OnInit {
       .subscribe(
         (response) => {
           const index = findIndex(this.groupsSubCategoriesProducts, {id: response['data'].id});
+          let type = '';
 
           if (index > -1 && this.groupCategoryProduct.id === response['data'].group_category_id) {
-            this.groupsSubCategoriesProducts[index] = response['data'];
+            type = 'update';
           } else if (index > -1) {
-            this.groupsSubCategoriesProducts.splice(index, 1);
+            type = 'drop';
           }
 
-          this.activeModal.close();
+          this.activeModal.close({groupSubcategory: response.data, type});
         },
         (error) => {
           console.log(error);

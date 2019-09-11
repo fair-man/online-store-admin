@@ -47,9 +47,9 @@ export class CreateEditGroupsProductsComponent implements OnInit {
 
   onSaveGroupCategories() {
     const groupCategoryData = {
-      id: this.groupEdit.groupCategoryProduct ? this.groupEdit.groupCategoryProduct.id : null,
-      name: this.groupTypeSelected.groupName,
-      description: this.groupTypeSelected.groupDescription
+      g_id: this.groupEdit.groupCategoryProduct ? this.groupEdit.groupCategoryProduct.id : null,
+      g_name: this.groupTypeSelected.groupName,
+      g_description: this.groupTypeSelected.groupDescription
     };
 
     if (this.groupModeSelected === 'create') {

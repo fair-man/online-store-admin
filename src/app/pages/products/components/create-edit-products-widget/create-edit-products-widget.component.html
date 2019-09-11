@@ -129,21 +129,6 @@
             <div class="grid mt-8">
                 <div class="grid__box grid__box--size-6">
                     <ui-field>
-                        <label for="productСharacteristicGroup"><span
-                            class="field__label--required">Группа характеристики</span></label>
-                        <ui-combobox
-                            [items]="[{name: 'test 1'}, {name: 'test 2'}]"
-                            (callback)="onChangeComboboxItem($event)"
-                            [textKey]="'name'"
-                            [initBy]="comboboxSelectedItem"
-                            [name]="'productСharacteristicGroup'"
-                            [defaultText]="''"
-                            [isDisabled]="false"
-                        ></ui-combobox>
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-6">
-                    <ui-field>
                         <label for="productСharacteristicName"><span
                             class="field__label--required">Найменование</span></label>
                         <input type="text" id="productСharacteristicName">

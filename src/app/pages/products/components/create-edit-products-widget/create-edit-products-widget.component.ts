@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { findIndex } from 'lodash';
 
 import { ProductsService } from '../../products.service';
 import { CategoryProduct, GroupCategoryProduct, GroupSubCategoryProduct } from '../../../../models/products';
@@ -74,6 +75,8 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     this.groupCategoryProduct = groupCategoryProduct;
     this.groupsSubCategoriesProducts = null;
     this.groupSubCategoryProduct = null;
+    this.categoriesProducts = null;
+    this.categoryProduct = null;
     this.getSubCategories(groupCategoryProduct.id);
   }
 
@@ -89,6 +92,8 @@ export class CreateEditProductsWidgetComponent implements OnInit {
 
   onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct) {
     this.groupSubCategoryProduct = groupSubCategoryProduct;
+    this.categoriesProducts = null;
+    this.categoryProduct = null;
     this.getCategoriesProducts(groupSubCategoryProduct.id);
   }
 
@@ -102,6 +107,39 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     groupSubCategoriesModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
     groupSubCategoriesModal.componentInstance.groupsSubCategoriesProducts = this.groupsSubCategoriesProducts;
     groupSubCategoriesModal.componentInstance.groupCategoryProduct = this.groupCategoryProduct;
+
+    groupSubCategoriesModal.result.then(
+      (closedData) => {
+        if (!closedData) {
+          return;
+        }
+        const type = closedData.type;
+        const index = findIndex(this.groupsSubCategoriesProducts, {id: this.groupSubCategoryProduct.id});
+
+        if (type === 'update') {
+          if (index > -1) {
+            this.groupsSubCategoriesProducts[index] = closedData.groupSubcategory;
+          }
+
+          if (this.groupSubCategoryProduct) {
+            this.groupSubCategoryProduct = closedData.groupSubcategory;
+          }
+        }
+
+        if (type === 'drop') {
+          if (index > -1) {
+            this.groupsSubCategoriesProducts.splice(index, 1);
+          }
+
+          if (this.groupSubCategoryProduct) {
+            this.groupSubCategoryProduct = null;
+          }
+        }
+      },
+      (dismissedData) => {
+        console.log('Dismissed', dismissedData);
+      }
+    );
   }
 
   onChangeCategoriesProductsItem(item) {
@@ -116,6 +154,41 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     });
 
     categoriesModal.componentInstance.groupsSubCategoriesProducts = this.groupsSubCategoriesProducts;
+    categoriesModal.componentInstance.groupSubCategoryProduct = this.groupSubCategoryProduct;
+    categoriesModal.componentInstance.categoriesProducts = this.categoriesProducts;
+
+    categoriesModal.result.then(
+      (closedData) => {
+        if (!closedData) {
+          return;
+        }
+        const type = closedData.type;
+        const index = findIndex(this.categoriesProducts, {id: this.categoryProduct.id});
+
+        if (type === 'update') {
+          if (index > -1) {
+            this.categoriesProducts[index] = closedData.categoryProduct;
+          }
+
+          if (this.groupSubCategoryProduct) {
+            this.categoryProduct = closedData.categoryProduct;
+          }
+        }
+
+        if (type === 'drop') {
+          if (index > -1) {
+            this.categoriesProducts.splice(index, 1);
+          }
+
+          if (this.categoryProduct) {
+            this.categoryProduct = null;
+          }
+        }
+      },
+      (dismissedData) => {
+        console.log('Dismissed', dismissedData);
+      }
+    );
   }
 
 }

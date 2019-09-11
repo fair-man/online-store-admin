@@ -1,19 +1,99 @@
 <div class="modal__header">
     <span class="title">
-
+        <span *ngIf="groupModeSelected === 'create'">Создание</span>
+        <span *ngIf="groupModeSelected === 'edit'">Редактирование</span>
+        категории
     </span>
     <div class="modal-close color-gray-dark" id="appCloseXConfirm" (click)="activeModal.dismiss()"></div>
 </div>
 <div class="modal__body">
-
+    <form #groupsProductForm="ngForm">
+        Выберите действие:
+        <div class="mb-16">
+            <div class="grid">
+                <div class="grid__box grid__box--size-min">
+                    <ui-radio-button>
+                        <input type="radio" id="create" name="groupType" value="create"
+                               (change)="onChangeGroupMode('create')" [(ngModel)]="groupModeSelected">
+                        <radio-button-text>Создать</radio-button-text>
+                    </ui-radio-button>
+                </div>
+                <div class="grid__box grid__box--size-min">
+                    <ui-radio-button>
+                        <input type="radio" id="edit" name="groupType" value="edit"
+                               (change)="onChangeGroupMode('edit')" [(ngModel)]="groupModeSelected">
+                        <radio-button-text>Редактировать</radio-button-text>
+                    </ui-radio-button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="mt-8" *ngIf="groupTypeSelected.name === 'edit'">
+                <ui-field>
+                    <label for="comboboxCategoriesModalName">
+                        <span class="field__label--required">Категория</span>
+                    </label>
+                    <ui-combobox
+                        [items]="categoriesProducts"
+                        (callback)="onChangeCategoriesProductsItem($event)"
+                        [textKey]="'name'"
+                        [initBy]="groupTypeSelected.categoryProduct"
+                        [name]="'comboboxCategoriesModalName'"
+                    ></ui-combobox>
+                </ui-field>
+            </div>
+            <div class="mt-8">
+                <ui-field>
+                    <label for="name">
+                        <span class="field__label--required">
+                            Имя новой категории
+                        </span>
+                    </label>
+                    <input type="text" id="name" name="groupName" [(ngModel)]="groupTypeSelected.groupName" required>
+                </ui-field>
+            </div>
+            <div class="mt-8">
+                <ui-field>
+                    <label for="description">
+                        <span class="field__label--required">
+                            Описание новой категории
+                        </span>
+                    </label>
+                    <textarea type="text" id="description" rows="5" name="groupDescription"
+                              [(ngModel)]="groupTypeSelected.groupDescription" required></textarea>
+                </ui-field>
+            </div>
+            <div class="mt-8">
+                <ui-field>
+                    <label for="comboboxGroupSubCategoriesModalName">
+                        <span class="field__label--required">Группа подкатегории</span>
+                    </label>
+                    <ui-combobox
+                        [items]="groupsSubCategoriesProducts"
+                        (callback)="onChangeGroupsSubCategoriesProductsItem($event)"
+                        [textKey]="'name'"
+                        [initBy]="groupTypeSelected.groupSubCategoryProduct"
+                        [name]="'comboboxGroupSubCategoriesModalName'"
+                        [isDisabled]="groupTypeSelected.name === 'create'"
+                    ></ui-combobox>
+                </ui-field>
+            </div>
+        </div>
+    </form>
 </div>
 <div class="modal__footer">
     <div class="modal__footer-action">
-        <button class="button" type="button" id="appCreateButton">
+        <button class="button" type="button" id="appCreateButton" [disabled]="groupsProductForm.invalid"
+                *ngIf="groupModeSelected === 'create'" (click)="onSaveGroupSubCategories()">
             Создать
+        </button>
+        <button class="button" type="button" id="appSuccessConfirm1" [disabled]="groupsProductForm.invalid"
+                *ngIf="groupModeSelected === 'edit'" (click)="onSaveGroupSubCategories()">
+            Редактировать
         </button>
     </div>
     <div class="modal__footer-action">
         <span id="appCloseConfirm" (click)="activeModal.dismiss()">Отмена</span>
     </div>
 </div>
+

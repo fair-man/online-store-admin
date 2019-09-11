@@ -45,6 +45,14 @@ export class ProductsService {
     return this.http.get<CustomHttpResponse<CategoryProduct[]>>(`/products/categories`, {params: params});
   }
 
+  createCategoryProduct(data): Observable<CustomHttpResponse<CategoryProduct>> {
+    return this.http.post<CustomHttpResponse<CategoryProduct>>(`/products/categories/create`, data);
+  }
+
+  updateCategoryProduct(data): Observable<CustomHttpResponse<CategoryProduct>> {
+    return this.http.put<CustomHttpResponse<CategoryProduct>>(`/products/categories/update`, data);
+  }
+
   createCharacteristicGroup(data): Observable<CustomHttpResponse<CharacteristicsGroup>> {
     return this.http.post<CustomHttpResponse<CharacteristicsGroup>>(`/products/characteristics/create`, data);
   }
