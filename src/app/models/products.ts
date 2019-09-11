@@ -16,6 +16,7 @@ export interface CategoryProduct {
   name: string;
   description: string | null;
   group_subcategory_id: number;
+  groups_characteristics?: any;
 }
 
 export interface CharacteristicsGroup {

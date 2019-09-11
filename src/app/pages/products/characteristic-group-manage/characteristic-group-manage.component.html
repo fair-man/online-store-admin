@@ -1,14 +1,14 @@
-<h1 class="title">Привязка характеристик к группам</h1>
+<h1 class="title">Привязка групп характеристик к категориям</h1>
 
 <div class="mt-32">
     <div class="grid">
         <div class="grid__box grid__box--size-3">
             <ui-field>
                 <ui-combobox
-                    [items]="groupsCategoriesProducts"
-                    (callback)="onChangeGroupsCategoriesProductsItem($event)"
+                    [items]="categoriesProducts"
+                    (callback)="onChangeCategoryProductsItem($event)"
                     [textKey]="'name'"
-                    [initBy]="groupCategoryProduct"
+                    [initBy]="categoryProducts"
                     [name]="'characteristicName'"
                     [defaultText]="'Выберите группу характеристик'"
                     [isDisabled]="false"
@@ -17,16 +17,17 @@
         </div>
         <div class="grid__box grid__box--size-3">
             <ui-field>
-                <input type="text" id="characteristicName" placeholder="Введите название характеристики для поиска">
+                <input type="text" id="characteristicName" placeholder="Введите название характеристики для поиска"
+                       [(ngModel)]="characteristicSearch" [disabled]="!categoryProducts">
             </ui-field>
         </div>
     </div>
-    <div class="mt-16">
-        <div class="grid">
+    <div class="mt-16" *ngIf="categoryProducts">
+        <div class="grid" *ngFor="let group of characteristicsGroups">
             <div class="grid__box grid__box--size-min">
                 <ui-checkbox>
-                    <input type="checkbox">
-                    <checkbox-text>Камера</checkbox-text>
+                    <input type="checkbox" value="{{group.id}}" [checked]="group.isChecked">
+                    <checkbox-text>{{group.name}}</checkbox-text>
                 </ui-checkbox>
             </div>
             <div class="grid__box grid__box--size-min">
@@ -34,7 +35,7 @@
             </div>
         </div>
     </div>
-    <div class="mt-32">
+    <div class="mt-32" *ngIf="categoryProducts">
         <button class="button" type="submit">Сохранить</button>
     </div>
 </div>
