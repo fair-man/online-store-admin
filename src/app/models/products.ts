@@ -4,19 +4,11 @@ export interface GroupCategoryProduct {
   description: string | null;
 }
 
-export interface GroupsCategoryProduct {
-  groups_categories: GroupCategoryProduct[];
-}
-
 export interface GroupSubCategoryProduct {
   id: number;
   group_category_id: number;
   name: string;
   description: string | null;
-}
-
-export interface GroupsSubCategoryProduct {
-  groups_subcategories: GroupSubCategoryProduct[];
 }
 
 export interface CategoryProduct {
@@ -26,6 +18,9 @@ export interface CategoryProduct {
   group_subcategory_id: number;
 }
 
-export interface CategoriesProduct {
-  categories: CategoryProduct[];
+export interface CharacteristicsGroup {
+  id: number;
+  name: string;
+  description: string | null;
+  is_main: number;
 }

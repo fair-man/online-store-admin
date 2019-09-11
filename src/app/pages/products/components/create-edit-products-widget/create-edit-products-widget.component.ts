@@ -38,7 +38,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     this.productsService.getGroupsCategoriesProducts()
       .subscribe(
         (response) => {
-          this.groupsCategoriesProducts = response['data'].groups_categories;
+          this.groupsCategoriesProducts = response.data;
         },
         (error) => {
           console.log(error);
@@ -50,7 +50,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     this.productsService.getGroupsSubCategoriesProducts({g_id: groupCategoryId})
       .subscribe(
         (response) => {
-          this.groupsSubCategoriesProducts = response['data'].groups_subcategories;
+          this.groupsSubCategoriesProducts = response.data;
         },
         (error) => {
           console.log(error);
@@ -62,11 +62,11 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     this.productsService.getCategories({g_id: groupSubCategoryId})
       .subscribe(
         (response) => {
-          this.categoriesProducts = response['data'].categories;
+          this.categoriesProducts = response.data;
         },
         (error) => {
           console.log(error);
-        },
+        }
       );
   }
 
