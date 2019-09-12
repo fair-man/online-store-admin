@@ -23,16 +23,21 @@
         </div>
     </div>
     <div class="mt-16" *ngIf="categoryProducts">
-        <div class="grid" *ngFor="let group of characteristicsGroups">
+        <div class="grid" *ngFor="let group of characteristicsGroups | searchText : characteristicSearch:'name'">
             <div class="grid__box grid__box--size-min">
                 <ui-checkbox>
                     <input type="checkbox" value="{{group.id}}" [checked]="group.isChecked">
-                    <checkbox-text>{{group.name}}</checkbox-text>
+                    <checkbox-text>
+                        <span [innerHTML]="group['name'] | highlightText : characteristicSearch"></span>
+                    </checkbox-text>
                 </ui-checkbox>
             </div>
             <div class="grid__box grid__box--size-min">
                 <i class="os-pencil"></i>
             </div>
+        </div>
+        <div class="mt-16" *ngIf="!(characteristicsGroups | searchText : characteristicSearch:'name').length">
+            Ничего не найдено.
         </div>
     </div>
     <div class="mt-32" *ngIf="categoryProducts">

@@ -4,8 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AuthRoutingModule } from './app-routing.component';
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
-import { UiModule } from './ui/ui.module';
 import { PagesModule } from './pages/pages.module';
 
 import { httpInterceptorProviders } from './interceptors/httpInterceptorProviders';
@@ -18,9 +16,7 @@ import { httpInterceptorProviders } from './interceptors/httpInterceptorProvider
     BrowserModule,
     HttpClientModule,
     AuthRoutingModule,
-    PagesModule,
-    SharedModule,
-    UiModule
+    PagesModule
   ],
   providers: [
     httpInterceptorProviders
