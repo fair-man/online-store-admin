@@ -120,38 +120,44 @@
 
 </div>
 
-<div class="mt-32">
-    <div class="grid grid--gap-32">
-        <div class="grid__box grid__box--size-5">
-            <div>
-                <span class="sub-title">Характеристики продукта</span>
-            </div>
-            <div class="grid mt-8">
-                <div class="grid__box grid__box--size-6">
-                    <ui-field>
-                        <label for="productСharacteristicName"><span
-                            class="field__label--required">Найменование</span></label>
-                        <input type="text" id="productСharacteristicName">
-                    </ui-field>
-                </div>
-                <div class="grid__box grid__box--size-6">
-                    <ui-field>
-                        <label for="productСharacteristicValue"><span
-                            class="field__label--required">Значение</span></label>
-                        <input type="text" id="productСharacteristicValue">
-                    </ui-field>
-                </div>
-            </div>
-            <div class="grid mt-8">
-                <div class="grid__box grid__box--size-12">
-                    <ui-field>
-                        <label for="productСharacteristicDescription"><span
-                            class="field__label--required">Доп. описание</span></label>
-                        <textarea name="productDescription" id="productСharacteristicDescription" cols="30"
-                                  rows="7"></textarea>
-                    </ui-field>
-                </div>
-            </div>
-        </div>
+<div class="mt-32" *ngIf="groupsCharacteristics">
+    <div>
+        <span class="sub-title">Характеристики продукта</span>
     </div>
+    <ngb-tabset>
+        <ngb-tab *ngFor="let group of groupsCharacteristics" [title]="group.name" [id]="group.id">
+            <ng-template ngbTabContent>
+                <div class="grid grid--gap-32">
+                    <div class="grid__box grid__box--size-12">
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-4">
+                                <ui-field>
+                                    <label for="productСharacteristicName"><span
+                                        class="field__label--required">Найменование</span></label>
+                                    <input type="text" id="productСharacteristicName">
+                                </ui-field>
+                            </div>
+                            <div class="grid__box grid__box--size-8">
+                                <ui-field>
+                                    <label for="productСharacteristicValue"><span
+                                        class="field__label--required">Значение</span></label>
+                                    <input type="text" id="productСharacteristicValue">
+                                </ui-field>
+                            </div>
+                        </div>
+                        <div class="grid mt-8">
+                            <div class="grid__box grid__box--size-12">
+                                <ui-field>
+                                    <label for="productСharacteristicDescription"><span
+                                        class="field__label--required">Доп. описание</span></label>
+                                    <textarea name="productDescription" id="productСharacteristicDescription" cols="30"
+                                              rows="7"></textarea>
+                                </ui-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
 </div>
