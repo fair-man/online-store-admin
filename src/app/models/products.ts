@@ -24,4 +24,5 @@ export interface CharacteristicsGroup {
   name: string;
   description: string | null;
   is_main: number;
+  isChecked?: boolean;
 }

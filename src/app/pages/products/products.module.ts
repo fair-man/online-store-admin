@@ -24,6 +24,8 @@ import { CharacteristicGroupCreateComponent } from './characteristic-group-creat
 import { CharacteristicGroupManageComponent } from './characteristic-group-manage/characteristic-group-manage.component';
 import { SharedModule } from '../../shared/shared.module';
 import { PipesModule } from '../../shared/pipes/pipes.module';
+import { CharacteristicGroupWidgetComponent } from './components/characteristic-group-widget/characteristic-group-widget.component';
+import { CharacteristicGroupProductsComponent } from './components/modals/characteristic-group-products/characteristic-group-products.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { PipesModule } from '../../shared/pipes/pipes.module';
     CreateEditGroupsSubcategoriesProductsComponent,
     CreateEditCategoriesProductsComponent,
     CharacteristicGroupCreateComponent,
-    CharacteristicGroupManageComponent
+    CharacteristicGroupManageComponent,
+    CharacteristicGroupWidgetComponent,
+    CharacteristicGroupProductsComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +56,8 @@ import { PipesModule } from '../../shared/pipes/pipes.module';
   entryComponents: [
     CreateEditGroupsProductsComponent,
     CreateEditGroupsSubcategoriesProductsComponent,
-    CreateEditCategoriesProductsComponent
+    CreateEditCategoriesProductsComponent,
+    CharacteristicGroupProductsComponent
   ]
 })
 export class ProductsModule {

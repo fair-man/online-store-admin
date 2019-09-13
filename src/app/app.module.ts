@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { PagesModule } from './pages/pages.module';
 
 import { httpInterceptorProviders } from './interceptors/httpInterceptorProviders';
+import { SharedModule } from './shared/shared.module';
+import { UiModule } from './ui/ui.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { httpInterceptorProviders } from './interceptors/httpInterceptorProvider
     BrowserModule,
     HttpClientModule,
     AuthRoutingModule,
+    SharedModule,
+    UiModule,
     PagesModule
   ],
   providers: [

@@ -23,24 +23,22 @@
         </div>
     </div>
     <div class="mt-16" *ngIf="categoryProducts">
-        <div class="grid" *ngFor="let group of characteristicsGroups | searchText : characteristicSearch:'name'">
+        <div class="grid" *ngFor="let group of groupsCharacteristics | searchText : characteristicSearch:'name'">
             <div class="grid__box grid__box--size-min">
                 <ui-checkbox>
-                    <input type="checkbox" value="{{group.id}}" [checked]="group.isChecked">
+                    <input type="checkbox" [(ngModel)]="group.isChecked" [checked]="group.isChecked">
                     <checkbox-text>
+                        <i class="os-pencil os-pointer" (click)="onOpenEditGroupCharacteristicDialog(group)"></i>
                         <span [innerHTML]="group['name'] | highlightText : characteristicSearch"></span>
                     </checkbox-text>
                 </ui-checkbox>
             </div>
-            <div class="grid__box grid__box--size-min">
-                <i class="os-pencil"></i>
-            </div>
         </div>
-        <div class="mt-16" *ngIf="!(characteristicsGroups | searchText : characteristicSearch:'name').length">
+        <div class="mt-16" *ngIf="!(groupsCharacteristics | searchText : characteristicSearch:'name').length">
             Ничего не найдено.
         </div>
     </div>
     <div class="mt-32" *ngIf="categoryProducts">
-        <button class="button" type="submit">Сохранить</button>
+        <button class="button" type="submit" (click)="onSubmitGroupBundle()">Сохранить</button>
     </div>
 </div>

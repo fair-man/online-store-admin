@@ -1,0 +1,40 @@
+<form [formGroup]="groupCharacteristicForm" (ngSubmit)="onSubmitCreateGroupCharacteristicForm()">
+    <div class="grid">
+        <div class="grid__box grid__box--size-6">
+            <ui-field>
+                <label for="characteristicName"><span class="field__label--required">Найменование</span></label>
+                <input type="text" id="characteristicName" formControlName="ch_name">
+            </ui-field>
+        </div>
+        <div class="grid__box grid__box--size-6 grid__box--va-bottom pb-2">
+            <ui-checkbox>
+                <input type="checkbox" formControlName="ch_is_main">
+                <checkbox-text>Сделать главной группой</checkbox-text>
+            </ui-checkbox>
+        </div>
+    </div>
+    <div class="mt-8">
+        <div class="grid">
+            <div class="grid__box grid__box--size-16">
+                <ui-field>
+                    <label for="characteristicDescription"><span class="field__label--required">Описание</span></label>
+                    <textarea name="productDescription" id="characteristicDescription" rows="6"
+                              formControlName="ch_description"></textarea>
+                </ui-field>
+            </div>
+        </div>
+    </div>
+    <div class="mt-16 color-green" *ngIf="state && stateMessage">
+        {{stateMessage}}
+    </div>
+    <div class="mt-16 color-red" *ngIf="!state && stateMessage">
+        {{stateMessage}}
+    </div>
+    <div class="mt-32" [ngClass]="{'ta--right': isEdit}">
+        <button class="button" [ngClass]="{'button--orange': isEdit}" type="submit"
+                [disabled]="groupCharacteristicForm.invalid">
+            <span *ngIf="!isEdit">Создать</span>
+            <span *ngIf="isEdit">Редактировать</span>
+        </button>
+    </div>
+</form>

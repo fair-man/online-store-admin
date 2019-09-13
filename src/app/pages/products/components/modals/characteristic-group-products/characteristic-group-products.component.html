@@ -1,0 +1,9 @@
+<div class="modal__header">
+    <span class="title">
+        Редактирование группы
+    </span>
+    <div class="modal-close color-gray-dark" id="appCloseXConfirm" (click)="activeModal.dismiss(groupInfo)"></div>
+</div>
+<div class="modal__body">
+    <app-characteristic-group-widget [groupInfo]="groupInfo" [isEdit]="true"></app-characteristic-group-widget>
+</div>
