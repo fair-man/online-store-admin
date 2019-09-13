@@ -3,11 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { filter, findIndex } from 'lodash';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { CategoryProduct, CharacteristicsGroup } from '../../../models/products';
+import { CategoryProduct, GroupCharacteristics } from '../../../models/products';
 import { ProductsService } from '../products.service';
 import {
   CharacteristicGroupProductsComponent
 } from '../components/modals/characteristic-group-products/characteristic-group-products.component';
+import { PRODUCTS_PATHS } from '../products';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
 
 @Component({
   selector: 'app-characteristic-group-manage',
@@ -17,14 +20,21 @@ import {
 export class CharacteristicGroupManageComponent implements OnInit {
   public categoriesProducts: CategoryProduct[];
   public categoryProducts: CategoryProduct;
-  public groupsCharacteristics: CharacteristicsGroup[];
+  public groupsCharacteristics: GroupCharacteristics[];
   public characteristicSearch: string;
+  public productsPath = PRODUCTS_PATHS;
+  public breadcrumbs: Breadcrumb[] = [
+    {text: 'Продукты', url: PRODUCTS_PATHS.PRODUCTS},
+    {text: 'Привязка групп характеристик к категориям', url: null}
+  ];
 
   constructor(private productsService: ProductsService,
+              private breadcrumbsService: BreadcrumbsService,
               public modalService: NgbModal) {
   }
 
   ngOnInit() {
+    this.breadcrumbsService.updateBreadcrumbs(this.breadcrumbs);
     this.getCategories();
   }
 
@@ -42,7 +52,7 @@ export class CharacteristicGroupManageComponent implements OnInit {
   }
 
   private getCharacteristics() {
-    this.productsService.getCharacteristicsGroups({})
+    this.productsService.getCharacteristicsGroups()
       .subscribe(
         (response) => {
           this.groupsCharacteristics = response.data;
@@ -88,16 +98,16 @@ export class CharacteristicGroupManageComponent implements OnInit {
 
     groupCategoriesModal.componentInstance.groupInfo = group;
     groupCategoriesModal.result.then(
-      (groupData: CharacteristicsGroup) => {
+      (groupData: GroupCharacteristics) => {
         this.updateGroupCategoryData(groupData);
       },
-      (groupData: CharacteristicsGroup) => {
+      (groupData: GroupCharacteristics) => {
         this.updateGroupCategoryData(groupData);
       },
     );
   }
 
-  private updateGroupCategoryData(group: CharacteristicsGroup) {
+  private updateGroupCategoryData(group: GroupCharacteristics) {
     const index = findIndex(this.groupsCharacteristics, {id: group.id});
 
     if (index > -1) {

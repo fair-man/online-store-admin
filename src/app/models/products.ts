@@ -19,7 +19,7 @@ export interface CategoryProduct {
   groups_characteristics?: any;
 }
 
-export interface CharacteristicsGroup {
+export interface GroupCharacteristics {
   id: number;
   name: string;
   description: string | null;

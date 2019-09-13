@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/index';
 import { CustomHttpResponse } from '../../classes/http';
 import {
   GroupCategoryProduct, GroupSubCategoryProduct, CategoryProduct,
-  CharacteristicsGroup
+  GroupCharacteristics
 } from '../../models/products';
 
 @Injectable({
@@ -45,12 +45,12 @@ export class ProductsService {
     return this.http.get<CustomHttpResponse<CategoryProduct[]>>(`/products/categories`, {params: params});
   }
 
-  getCategoriesManage(): Observable<any> {
-    return this.http.get<any>(`/products/categories/manage`);
+  getCategoriesManage(): Observable<CustomHttpResponse<CategoryProduct[]>> {
+    return this.http.get<CustomHttpResponse<CategoryProduct[]>>(`/products/categories/manage`);
   }
 
-  updateCategoryGroupsCharacteristics(data): Observable<any> {
-    return this.http.put<any>(`/products/categories/manage/update`, data);
+  updateCategoryGroupsCharacteristics(data): Observable<CustomHttpResponse<GroupCharacteristics>> {
+    return this.http.put<CustomHttpResponse<GroupCharacteristics>>(`/products/categories/manage/update`, data);
   }
 
   createCategoryProduct(data): Observable<CustomHttpResponse<CategoryProduct>> {
@@ -61,15 +61,15 @@ export class ProductsService {
     return this.http.put<CustomHttpResponse<CategoryProduct>>(`/products/categories/update`, data);
   }
 
-  getCharacteristicsGroups(data): Observable<any> {
-    return this.http.get<any>(`/products/groups/characteristics`);
+  getCharacteristicsGroups(): Observable<CustomHttpResponse<GroupCharacteristics[]>> {
+    return this.http.get<CustomHttpResponse<GroupCharacteristics[]>>(`/products/groups/characteristics`);
   }
 
-  createCharacteristicGroup(data): Observable<CustomHttpResponse<CharacteristicsGroup>> {
-    return this.http.post<CustomHttpResponse<CharacteristicsGroup>>(`/products/groups/characteristics/create`, data);
+  createCharacteristicGroup(data): Observable<CustomHttpResponse<GroupCharacteristics>> {
+    return this.http.post<CustomHttpResponse<GroupCharacteristics>>(`/products/groups/characteristics/create`, data);
   }
 
-  editCharacteristicGroup(data): Observable<CustomHttpResponse<CharacteristicsGroup>> {
-    return this.http.put<CustomHttpResponse<CharacteristicsGroup>>(`/products/groups/characteristics/update`, data);
+  editCharacteristicGroup(data): Observable<CustomHttpResponse<GroupCharacteristics>> {
+    return this.http.put<CustomHttpResponse<GroupCharacteristics>>(`/products/groups/characteristics/update`, data);
   }
 }

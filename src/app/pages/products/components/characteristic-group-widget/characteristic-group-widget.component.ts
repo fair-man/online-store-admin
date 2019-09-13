@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ProductsService } from '../../products.service';
-import { CharacteristicsGroup } from '../../../../models/products';
+import { GroupCharacteristics } from '../../../../models/products';
 
 @Component({
   selector: 'app-characteristic-group-widget',
@@ -18,7 +18,7 @@ export class CharacteristicGroupWidgetComponent implements OnInit {
   public stateMessage: string | null;
   public state: boolean;
 
-  @Input() groupInfo: CharacteristicsGroup;
+  @Input() groupInfo: GroupCharacteristics;
   @Input() isEdit: boolean;
 
   constructor(private productsService: ProductsService) { }

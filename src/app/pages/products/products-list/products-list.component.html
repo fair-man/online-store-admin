@@ -1,7 +1,17 @@
 <h1>Продукты</h1>
 
-<div class="mt-8">
-    <a class="link link--no-underline link--button" [routerLink]="['/' + PRODUCTS_PATHS.PRODUCT_CREATE]">
-        <button type="button" class="button button--orange">Создать продукт</button>
-    </a>
+<div class="mt-32">
+    <div class="grid">
+        <div class="grid__box grid__box--size-min">
+            <a class="link" [routerLink]="['/' + productsPath.PRODUCT_CREATE]">Создание продукта</a>
+        </div>
+        <div class="grid__box grid__box--size-min">
+            <a class="link" routerLink="{{'/' + productsPath.PRODUCT_CHARACTERISTIC_CREATE}}">
+                Создание группы характеристик</a>
+        </div>
+        <div class="grid__box grid__box--size-min">
+            <a class="link" routerLink="{{'/' + productsPath.PRODUCT_CHARACTERISTIC_MANAGE}}">
+                Привязка групп характеристик к категориям</a>
+        </div>
+    </div>
 </div>

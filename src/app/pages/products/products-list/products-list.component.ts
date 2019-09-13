@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PRODUCTS_PATHS } from '../products';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
 
 @Component({
   selector: 'app-products-list',
@@ -8,12 +10,14 @@ import { PRODUCTS_PATHS } from '../products';
   styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent implements OnInit {
-  public PRODUCTS_PATHS = PRODUCTS_PATHS;
+  public productsPath = PRODUCTS_PATHS;
+  breadcrumbs: Breadcrumb[] = [{text: 'Продукты', url: null}];
 
-  constructor() {
+  constructor(private breadcrumbsService: BreadcrumbsService) {
   }
 
   ngOnInit() {
+    this.breadcrumbsService.updateBreadcrumbs(this.breadcrumbs);
   }
 
 }
