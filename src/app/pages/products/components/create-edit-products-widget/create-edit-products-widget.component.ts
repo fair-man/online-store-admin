@@ -15,6 +15,7 @@ import {
   CreateEditGroupsSubcategoriesProductsComponent
 } from '../modals/create-edit-groups-subcategories-products/create-edit-groups-subcategories-products.component';
 import { CreateEditCategoriesProductsComponent } from '../modals/create-edit-categories-products/create-edit-categories-products.component';
+import { PRODUCTS_PATHS } from '../../products';
 
 @Component({
   selector: 'app-create-edit-products-widget',
@@ -29,6 +30,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
   public categoriesProducts: CategoryProduct[];
   public categoryProduct: CategoryProduct;
   public groupsCharacteristics: GroupCharacteristics[];
+  public productsPath = PRODUCTS_PATHS;
 
   constructor(private productsService: ProductsService,
               public modalService: NgbModal) {
@@ -78,7 +80,11 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     this.productsService.getCategoriesGroups({c_id: categoryId})
       .subscribe(
         (response) => {
-          this.groupsCharacteristics = response.data;
+          this.groupsCharacteristics = response.data.map((ch, index) => {
+            ch.sort_order = index + 1;
+            ch.characteristics = [];
+            return ch;
+          });
         },
         (error) => {
           console.log(error);
@@ -208,6 +214,68 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         console.log('Dismissed', dismissedData);
       }
     );
+  }
+
+  sortOrderGroupsCharacteristics(item, type, index) {
+    let sortItem;
+
+    switch (type) {
+      case 'up':
+        sortItem = this.groupsCharacteristics[index - 1];
+        break;
+      case 'down':
+        sortItem = this.groupsCharacteristics[index + 1];
+        break;
+      default:
+        break;
+    }
+
+    if (!sortItem || sortItem.is_main) {
+      return;
+    }
+
+    item.sort_order = sortItem.sort_order;
+    sortItem.sort_order = index + 1;
+    this.groupsCharacteristics = this.groupsCharacteristics.sort((a, b) => {
+        return a.sort_order - b.sort_order;
+    });
+  }
+
+  sortOrderCharacteristics(items, item, type, index) {
+    let sortItem;
+
+    switch (type) {
+      case 'up':
+        sortItem = items.characteristics[index - 1];
+        break;
+      case 'down':
+        sortItem = items.characteristics[index + 1];
+        break;
+      default:
+        break;
+    }
+
+    if (!sortItem) {
+      return;
+    }
+
+    item.sort_order = sortItem.sort_order;
+    sortItem.sort_order = index + 1;
+    items.characteristics = items.characteristics.sort((a, b) => {
+      return a.sort_order - b.sort_order;
+    });
+  }
+
+  onAddCharacteristic(group) {
+    const characteristics = group.characteristics;
+    const count = characteristics.length ? characteristics[characteristics.length - 1].sort_order + 1 : 1;
+    group.characteristics.push({
+      fakeId: +new Date(),
+      name: 'Новая характеристика ' + count,
+      value: '',
+      description: '',
+      sort_order: count
+    });
   }
 
 }

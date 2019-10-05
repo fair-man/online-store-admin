@@ -3,6 +3,7 @@
 @import "../../scss/core/variabless";
 
 .card {
+  transition: transform 1s;
   @include border-radius(4px);
 
   padding: 16px;

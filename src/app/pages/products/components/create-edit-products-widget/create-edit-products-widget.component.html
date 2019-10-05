@@ -1,4 +1,15 @@
-<div class="grid grid--gap-32">
+<div class="grid mt-8">
+    <div class="grid__box grid__box--size-min">
+        <a class="link" routerLink="{{'/' + productsPath.PRODUCT_CHARACTERISTIC_CREATE}}">
+            Создание группы характеристик</a>
+    </div>
+    <div class="grid__box grid__box--size-min">
+        <a class="link" routerLink="{{'/' + productsPath.PRODUCT_CHARACTERISTIC_MANAGE}}">
+            Привязка групп характеристик к категориям</a>
+    </div>
+    <div class="grid__box grid__box--size-min"></div>
+</div>
+<div class="grid grid--gap-32 mt-32">
     <div class="grid__box grid__box--size-4">
         <div>
             <span class="sub-title">Расположение продукта</span>
@@ -116,48 +127,121 @@
     </div>
 </div>
 
-<div class="mt-32">
-
+<div class="mt-32" *ngIf="!groupsCharacteristics">
+    <span class="text-placeholder">Для отображения блока характеристик, заполните поля блока "Расположение продукта"</span>
 </div>
-
 <div class="mt-32" *ngIf="groupsCharacteristics">
     <div>
-        <span class="sub-title">Характеристики продукта</span>
+        <span class="sub-title">Описание продукта</span>
     </div>
-    <ngb-tabset>
-        <ngb-tab *ngFor="let group of groupsCharacteristics" [title]="group.name" [id]="group.id">
-            <ng-template ngbTabContent>
-                <div class="grid grid--gap-32">
-                    <div class="grid__box grid__box--size-12">
-                        <div class="grid mt-8">
-                            <div class="grid__box grid__box--size-4">
-                                <ui-field>
-                                    <label for="productСharacteristicName"><span
-                                        class="field__label--required">Найменование</span></label>
-                                    <input type="text" id="productСharacteristicName">
-                                </ui-field>
-                            </div>
-                            <div class="grid__box grid__box--size-8">
-                                <ui-field>
-                                    <label for="productСharacteristicValue"><span
-                                        class="field__label--required">Значение</span></label>
-                                    <input type="text" id="productСharacteristicValue">
-                                </ui-field>
+    <div class="mt-8">
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+            <ngb-panel *ngFor="let group of groupsCharacteristics;let index = index" id="{{group.id}}">
+                <ng-template ngbPanelHeader let-opened="opened">
+                    <div class="grid">
+                        <div class="grid__box grid__box--size-min">
+                            <div class="grid grid--gap-4">
+                                <div class="grid__box grid__box--size-min">
+                                    <span class="badge__wrapper">
+                                        <span class="badge"
+                                              [ngClass]="{
+                                                'bg-color-green': !group.is_main || group.is_main && group.characteristics.length,
+                                                'bg-color-red': group.is_main && !group.characteristics.length
+                                              }">{{group.characteristics.length}}</span>
+                                    </span>
+                                </div>
+                                <div class="grid__box grid__box--size-min pt-2">
+                                    {{group.name}}
+                                </div>
                             </div>
                         </div>
-                        <div class="grid mt-8">
-                            <div class="grid__box grid__box--size-12">
-                                <ui-field>
-                                    <label for="productСharacteristicDescription"><span
-                                        class="field__label--required">Доп. описание</span></label>
-                                    <textarea name="productDescription" id="productСharacteristicDescription" cols="30"
-                                              rows="7"></textarea>
-                                </ui-field>
+                        <div class="grid__box grid__box--size-min grid__box--pull-right">
+                            <div class="grid grid--gap-4">
+                                <div class="grid__box grid__box--size-min" *ngIf="!group.is_main">
+                                    <button type="button" class="button button--ctrl os-up-big font-size-20"
+                                            (click)="sortOrderGroupsCharacteristics(group, 'up', index)"></button>
+                                </div>
+                                <div class="grid__box grid__box--size-min" *ngIf="!group.is_main">
+                                    <button type="button" class="button button--ctrl os-down-big font-size-20 pt-2"
+                                            (click)="sortOrderGroupsCharacteristics(group, 'down', index)"></button>
+                                </div>
+                                <div class="grid__box grid__box--size-min">
+                                    <button type="button" class="button button--ctrl os-plus color-green-primary
+                                        font-size-20 color-green pt-2" (click)="onAddCharacteristic(group)"></button>
+                                </div>
+                                <div class="grid__box grid__box--size-min">
+                                    <button type="button" class="button button--ctrl font-size-20 color-blue" ngbPanelToggle
+                                            [ngClass]="{'os-angle-circled-up': opened, 'os-angle-circled-down': !opened}"></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </ng-template>
-        </ngb-tab>
-    </ngb-tabset>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <div class="text-placeholder" *ngIf="!group.characteristics.length">Нет характеристик для отображения</div>
+                    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-1">
+                        <ngb-panel *ngFor="let characteristic of group.characteristics;let index = index;"
+                                   id="{{'characteristicBlock_' + characteristic.id || characteristic.fakeId}}">
+                            <ng-template ngbPanelHeader let-opened="opened">
+                                <div class="grid">
+                                    <div class="grid__box grid__box--size-min">
+                                        {{characteristic.name}}
+                                    </div>
+                                    <div class="grid__box grid__box--size-min grid__box--pull-right">
+                                        <div class="grid grid--gap-4">
+                                            <div class="grid__box grid__box--size-min">
+                                                <button type="button" class="button button--ctrl os-up-big font-size-20"
+                                                        (click)="sortOrderCharacteristics(group, characteristic, 'up', index)"></button>
+                                            </div>
+                                            <div class="grid__box grid__box--size-min">
+                                                <button type="button" class="button button--ctrl os-down-big font-size-20 pt-2"
+                                                        (click)="sortOrderCharacteristics(group, characteristic, 'down', index)"></button>
+                                            </div>
+                                            <div class="grid__box grid__box--size-min">
+                                                <button type="button" class="button button--ctrl os-cancel-circled color-green-primary
+                                                    font-size-18 color-red pt-2" (click)="group.characteristics.splice(index, 1)"></button>
+                                            </div>
+                                            <div class="grid__box grid__box--size-min">
+                                                <button type="button" class="button button--ctrl font-size-20 color-blue" ngbPanelToggle
+                                                        [ngClass]="{'os-angle-circled-up': opened, 'os-angle-circled-down': !opened}"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+                                <div class="grid">
+                                    <div class="grid__box grid__box--size-4">
+                                        <ui-field>
+                                            <label for="{{'characteristicName' + characteristic.id || characteristic.fakeId}}"><span
+                                                class="field__label--required">Найменование</span></label>
+                                            <input type="text" id="{{'characteristicName' + characteristic.id || characteristic.fakeId}}"
+                                                   [(ngModel)]="characteristic.name">
+                                        </ui-field>
+                                    </div>
+                                    <div class="grid__box grid__box--size-8">
+                                        <ui-field>
+                                            <label for="{{'characteristicValue' + characteristic.id || characteristic.fakeId}}"><span
+                                                class="field__label--required">Значение</span></label>
+                                            <input type="text" id="{{'characteristicValue' + characteristic.id || characteristic.fakeId}}" [(ngModel)]="characteristic.value">
+                                        </ui-field>
+                                    </div>
+                                </div>
+                                <div class="grid mt-8 mb-8">
+                                    <div class="grid__box grid__box--size-12">
+                                        <ui-field>
+                                            <label for="{{'characteristicDescription' + characteristic.id || characteristic.fakeId}}">Доп. описание</label>
+                                            <textarea name="productDescription"
+                                                      id="{{'characteristicDescription' + characteristic.id || characteristic.fakeId}}"
+                                                      cols="30" rows="7" [(ngModel)]="characteristic.description"></textarea>
+                                        </ui-field>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-panel>
+                    </ngb-accordion>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
 </div>

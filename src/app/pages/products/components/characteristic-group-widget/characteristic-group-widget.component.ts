@@ -43,6 +43,7 @@ export class CharacteristicGroupWidgetComponent implements OnInit {
     this.stateMessage = null;
     this.state = false;
     this.groupCharacteristicForm.value.ch_is_main = +this.groupCharacteristicForm.value.ch_is_main;
+    this.groupCharacteristicForm.value.ch_sort_order = this.groupCharacteristicForm.value.ch_is_main ? 1 : 10;
     this.productsService.createCharacteristicGroup(this.groupCharacteristicForm.value)
       .subscribe(
         (response) => {
@@ -61,7 +62,10 @@ export class CharacteristicGroupWidgetComponent implements OnInit {
     this.state = false;
     this.groupCharacteristicForm.value.ch_is_main = +this.groupCharacteristicForm.value.ch_is_main;
     this.productsService.editCharacteristicGroup(
-      Object.assign({ch_id: this.groupInfo.id}, this.groupCharacteristicForm.value))
+      Object.assign({
+          ch_id: this.groupInfo.id,
+          ch_sort_order: this.groupCharacteristicForm.value.ch_is_main ? 1 : 10
+        }, this.groupCharacteristicForm.value))
       .subscribe(
         (response) => {
           this.groupInfo = Object.assign(this.groupInfo, response.data);

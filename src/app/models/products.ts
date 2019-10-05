@@ -24,5 +24,7 @@ export interface GroupCharacteristics {
   name: string;
   description: string | null;
   is_main: number;
+  sort_order: number;
+  characteristics?: any;
   isChecked?: boolean;
 }

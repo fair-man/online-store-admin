@@ -32,10 +32,21 @@
   }
 }
 
+@for $i from 12 through 80 {
+  .font-size-#{$i} {
+    font-size: $i + px;
+  }
+}
+
 .pos-r {
   position: relative;
 }
 
 .highlight-text {
   font-weight: bold;
+}
+
+.text-placeholder {
+  font-style: italic;
+  color: $clr-gray-secondary;
 }

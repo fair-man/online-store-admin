@@ -27,6 +27,20 @@
     }
   }
 
+  &--ctrl {
+    border: none;
+    outline: none;
+    padding: 0;
+    height: auto;
+    width: auto;
+    display: inline-block;
+    background: none;
+
+    &:active {
+      background: none;
+    }
+  }
+
   &[disabled] {
     opacity: .6;
     cursor: default;
