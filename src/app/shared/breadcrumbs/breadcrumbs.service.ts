@@ -1,23 +1,23 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/index';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs/index';
 
-import { Breadcrumb } from '../../models/breadcrumbs';
+import {Breadcrumb} from '../../models/breadcrumbs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class BreadcrumbsService {
-  private _breadcrumbs: BehaviorSubject<Breadcrumb[]>;
+    private _breadcrumbs: BehaviorSubject<Breadcrumb[]>;
 
-  constructor() {
-    this._breadcrumbs = <BehaviorSubject<Breadcrumb[]>>new BehaviorSubject(null);
-  }
+    constructor() {
+        this._breadcrumbs = <BehaviorSubject<Breadcrumb[]>>new BehaviorSubject(null);
+    }
 
-  get breadcrumbsState() {
-    return this._breadcrumbs.asObservable();
-  }
+    get breadcrumbsState() {
+        return this._breadcrumbs.asObservable();
+    }
 
-  updateBreadcrumbs(breadcrumbs: Breadcrumb[]) {
-    this._breadcrumbs.next(breadcrumbs);
-  }
+    updateBreadcrumbs(breadcrumbs: Breadcrumb[]) {
+        this._breadcrumbs.next(breadcrumbs);
+    }
 }

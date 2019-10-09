@@ -1,281 +1,389 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { findIndex } from 'lodash';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {each, findIndex, filter, cloneDeep} from 'lodash';
 
-import { ProductsService } from '../../products.service';
+import {ProductsService} from '../../products.service';
 import {
-  CategoryProduct, GroupCategoryProduct, GroupCharacteristics,
-  GroupSubCategoryProduct
+    CategoryProduct, GroupCategoryProduct, GroupCharacteristics,
+    GroupSubCategoryProduct
 } from '../../../../models/products';
 import {
-  CreateEditGroupsProductsComponent
+    CreateEditGroupsProductsComponent
 } from '../modals/create-edit-groups-products/create-edit-groups-products.component';
 import {
-  CreateEditGroupsSubcategoriesProductsComponent
+    CreateEditGroupsSubcategoriesProductsComponent
 } from '../modals/create-edit-groups-subcategories-products/create-edit-groups-subcategories-products.component';
-import { CreateEditCategoriesProductsComponent } from '../modals/create-edit-categories-products/create-edit-categories-products.component';
-import { PRODUCTS_PATHS } from '../../products';
+import {CreateEditCategoriesProductsComponent} from '../modals/create-edit-categories-products/create-edit-categories-products.component';
+import {PRODUCTS_PATHS} from '../../products';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {checkCharacteristicsValidator} from './create-edit-products-widget.validators';
 
 @Component({
-  selector: 'app-create-edit-products-widget',
-  templateUrl: './create-edit-products-widget.component.html',
-  styleUrls: ['./create-edit-products-widget.component.scss']
+    selector: 'app-create-edit-products-widget',
+    templateUrl: './create-edit-products-widget.component.html',
+    styleUrls: ['./create-edit-products-widget.component.scss']
 })
 export class CreateEditProductsWidgetComponent implements OnInit {
-  public groupsCategoriesProducts: GroupCategoryProduct[];
-  public groupCategoryProduct: GroupCategoryProduct;
-  public groupsSubCategoriesProducts: GroupSubCategoryProduct[];
-  public groupSubCategoryProduct: GroupSubCategoryProduct;
-  public categoriesProducts: CategoryProduct[];
-  public categoryProduct: CategoryProduct;
-  public groupsCharacteristics: GroupCharacteristics[];
-  public productsPath = PRODUCTS_PATHS;
+    public productCreateEditForm: FormGroup;
+    public groupsCategoriesProducts: GroupCategoryProduct[];
+    public groupCategoryProduct: GroupCategoryProduct;
+    public groupsSubCategoriesProducts: GroupSubCategoryProduct[];
+    public groupSubCategoryProduct: GroupSubCategoryProduct;
+    public categoriesProducts: CategoryProduct[];
+    public categoryProduct: CategoryProduct;
+    public groupsCharacteristics: GroupCharacteristics[];
+    public productsPath = PRODUCTS_PATHS;
 
-  constructor(private productsService: ProductsService,
-              public modalService: NgbModal) {
-  }
-
-  ngOnInit() {
-    this.getGroupsCategories();
-  }
-
-  getGroupsCategories() {
-    this.productsService.getGroupsCategoriesProducts()
-      .subscribe(
-        (response) => {
-          this.groupsCategoriesProducts = response.data;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-  }
-
-  getSubCategories(groupCategoryId: number) {
-    this.productsService.getGroupsSubCategoriesProducts({g_id: groupCategoryId})
-      .subscribe(
-        (response) => {
-          this.groupsSubCategoriesProducts = response.data;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-  }
-
-  getCategoriesProducts(groupSubCategoryId: number) {
-    this.productsService.getCategories({g_id: groupSubCategoryId})
-      .subscribe(
-        (response) => {
-          this.categoriesProducts = response.data;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-  }
-
-  getCategoriesGroupsProducts(categoryId: number) {
-    this.productsService.getCategoriesGroups({c_id: categoryId})
-      .subscribe(
-        (response) => {
-          this.groupsCharacteristics = response.data.map((ch, index) => {
-            ch.sort_order = index + 1;
-            ch.characteristics = [];
-            return ch;
-          });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-  }
-
-  onChangeGroupsCategoriesProductsItem(groupCategoryProduct: GroupCategoryProduct) {
-    this.groupCategoryProduct = groupCategoryProduct;
-    this.groupsSubCategoriesProducts = null;
-    this.groupSubCategoryProduct = null;
-    this.categoriesProducts = null;
-    this.categoryProduct = null;
-    this.groupsCharacteristics = null;
-    this.getSubCategories(groupCategoryProduct.id);
-  }
-
-  onOpenGroupsCategoriesDialog() {
-    const groupCategoriesModal = this.modalService.open(CreateEditGroupsProductsComponent, {
-      ariaLabelledBy: 'modal-basic-title',
-      windowClass: 'modal-wrapper',
-      backdrop: 'static'
-    });
-
-    groupCategoriesModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
-  }
-
-  onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct) {
-    this.groupSubCategoryProduct = groupSubCategoryProduct;
-    this.categoriesProducts = null;
-    this.categoryProduct = null;
-    this.groupsCharacteristics = null;
-    this.getCategoriesProducts(groupSubCategoryProduct.id);
-  }
-
-  onOpenGroupsSubCategoriesDialog() {
-    const groupSubCategoriesModal = this.modalService.open(CreateEditGroupsSubcategoriesProductsComponent, {
-      ariaLabelledBy: 'modal-basic-title',
-      windowClass: 'modal-wrapper',
-      backdrop: 'static'
-    });
-
-    groupSubCategoriesModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
-    groupSubCategoriesModal.componentInstance.groupsSubCategoriesProducts = this.groupsSubCategoriesProducts;
-    groupSubCategoriesModal.componentInstance.groupCategoryProduct = this.groupCategoryProduct;
-
-    groupSubCategoriesModal.result.then(
-      (closedData) => {
-        if (!closedData) {
-          return;
-        }
-        const type = closedData.type;
-        const index = findIndex(this.groupsSubCategoriesProducts, {id: this.groupSubCategoryProduct.id});
-
-        if (type === 'update') {
-          if (index > -1) {
-            this.groupsSubCategoriesProducts[index] = closedData.groupSubcategory;
-          }
-
-          if (this.groupSubCategoryProduct) {
-            this.groupSubCategoryProduct = closedData.groupSubcategory;
-          }
-        }
-
-        if (type === 'drop') {
-          if (index > -1) {
-            this.groupsSubCategoriesProducts.splice(index, 1);
-          }
-
-          if (this.groupSubCategoryProduct) {
-            this.groupSubCategoryProduct = null;
-          }
-        }
-      },
-      (dismissedData) => {
-        console.log('Dismissed', dismissedData);
-      }
-    );
-  }
-
-  onChangeCategoriesProductsItem(categoryProduct: CategoryProduct) {
-    this.categoryProduct = categoryProduct;
-    this.groupsCharacteristics = null;
-    this.getCategoriesGroupsProducts(categoryProduct.id);
-  }
-
-  onOpenCategoriesProductsDialog() {
-    const categoriesModal = this.modalService.open(CreateEditCategoriesProductsComponent, {
-      ariaLabelledBy: 'modal-basic-title',
-      windowClass: 'modal-wrapper',
-      backdrop: 'static'
-    });
-
-    categoriesModal.componentInstance.groupsSubCategoriesProducts = this.groupsSubCategoriesProducts;
-    categoriesModal.componentInstance.groupSubCategoryProduct = this.groupSubCategoryProduct;
-    categoriesModal.componentInstance.categoriesProducts = this.categoriesProducts;
-
-    categoriesModal.result.then(
-      (closedData) => {
-        if (!closedData) {
-          return;
-        }
-        const type = closedData.type;
-        const index = findIndex(this.categoriesProducts, {id: this.categoryProduct.id});
-
-        if (type === 'update') {
-          if (index > -1) {
-            this.categoriesProducts[index] = closedData.categoryProduct;
-          }
-
-          if (this.groupSubCategoryProduct) {
-            this.categoryProduct = closedData.categoryProduct;
-          }
-        }
-
-        if (type === 'drop') {
-          if (index > -1) {
-            this.categoriesProducts.splice(index, 1);
-          }
-
-          if (this.categoryProduct) {
-            this.categoryProduct = null;
-          }
-        }
-      },
-      (dismissedData) => {
-        console.log('Dismissed', dismissedData);
-      }
-    );
-  }
-
-  sortOrderGroupsCharacteristics(item, type, index) {
-    let sortItem;
-
-    switch (type) {
-      case 'up':
-        sortItem = this.groupsCharacteristics[index - 1];
-        break;
-      case 'down':
-        sortItem = this.groupsCharacteristics[index + 1];
-        break;
-      default:
-        break;
+    constructor(private productsService: ProductsService,
+                private fb: FormBuilder,
+                public modalService: NgbModal) {
     }
 
-    if (!sortItem || sortItem.is_main) {
-      return;
+    ngOnInit() {
+        this.getGroupsCategories();
+        this.productCreateEditForm = this.fb.group({
+            category_product_id: new FormControl('', Validators.required),
+            name: new FormControl('', Validators.required),
+            description: new FormControl('', Validators.required),
+            vendor_code: new FormControl('', Validators.required),
+            price: new FormControl('', Validators.required),
+            count: new FormControl('', Validators.required),
+            products_groups_description_options: this.fb.array([])
+        });
     }
 
-    item.sort_order = sortItem.sort_order;
-    sortItem.sort_order = index + 1;
-    this.groupsCharacteristics = this.groupsCharacteristics.sort((a, b) => {
-        return a.sort_order - b.sort_order;
-    });
-  }
-
-  sortOrderCharacteristics(items, item, type, index) {
-    let sortItem;
-
-    switch (type) {
-      case 'up':
-        sortItem = items.characteristics[index - 1];
-        break;
-      case 'down':
-        sortItem = items.characteristics[index + 1];
-        break;
-      default:
-        break;
+    get groups () {
+        return this.productCreateEditForm.get('products_groups_description_options') as FormArray;
     }
 
-    if (!sortItem) {
-      return;
+    getGroupsCategories() {
+        this.productsService.getGroupsCategoriesProducts()
+            .subscribe(
+                (response) => {
+                    this.groupsCategoriesProducts = response.data;
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
     }
 
-    item.sort_order = sortItem.sort_order;
-    sortItem.sort_order = index + 1;
-    items.characteristics = items.characteristics.sort((a, b) => {
-      return a.sort_order - b.sort_order;
-    });
-  }
+    getSubCategories(groupCategoryId: number) {
+        this.productsService.getGroupsSubCategoriesProducts({g_id: groupCategoryId})
+            .subscribe(
+                (response) => {
+                    this.groupsSubCategoriesProducts = response.data;
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+    }
 
-  onAddCharacteristic(group) {
-    const characteristics = group.characteristics;
-    const count = characteristics.length ? characteristics[characteristics.length - 1].sort_order + 1 : 1;
-    group.characteristics.push({
-      fakeId: +new Date(),
-      name: 'Новая характеристика ' + count,
-      value: '',
-      description: '',
-      sort_order: count
-    });
-  }
+    getCategoriesProducts(groupSubCategoryId: number) {
+        this.productsService.getCategories({g_id: groupSubCategoryId})
+            .subscribe(
+                (response) => {
+                    this.categoriesProducts = response.data;
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+    }
+
+    getCategoriesGroupsProducts(categoryId: number) {
+        this.productsService.getCategoriesGroups({c_id: categoryId})
+            .subscribe(
+                (response) => {
+                    this.groupsCharacteristics = response.data.map((ch, index) => {
+                        ch.sort_order = index + 1;
+                        ch.isChecked = ch.is_main === 1;
+                        ch.characteristics = [];
+                        return ch;
+                    });
+
+                    this.onCloseGroupsCharacteristicPopover();
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+    }
+
+    onChangeGroupsCategoriesProductsItem(groupCategoryProduct: GroupCategoryProduct) {
+        this.groupCategoryProduct = groupCategoryProduct;
+        this.groupsSubCategoriesProducts = null;
+        this.groupSubCategoryProduct = null;
+        this.categoriesProducts = null;
+        this.categoryProduct = null;
+        this.groupsCharacteristics = null;
+        this.getSubCategories(groupCategoryProduct.id);
+    }
+
+    onOpenGroupsCategoriesDialog() {
+        const groupCategoriesModal = this.modalService.open(CreateEditGroupsProductsComponent, {
+            ariaLabelledBy: 'modal-basic-title',
+            windowClass: 'modal-wrapper',
+            backdrop: 'static'
+        });
+
+        groupCategoriesModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
+    }
+
+    onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct) {
+        this.groupSubCategoryProduct = groupSubCategoryProduct;
+        this.categoriesProducts = null;
+        this.categoryProduct = null;
+        this.groupsCharacteristics = null;
+        this.getCategoriesProducts(groupSubCategoryProduct.id);
+    }
+
+    onOpenGroupsSubCategoriesDialog() {
+        const groupSubCategoriesModal = this.modalService.open(CreateEditGroupsSubcategoriesProductsComponent, {
+            ariaLabelledBy: 'modal-basic-title',
+            windowClass: 'modal-wrapper',
+            backdrop: 'static'
+        });
+
+        groupSubCategoriesModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
+        groupSubCategoriesModal.componentInstance.groupsSubCategoriesProducts = this.groupsSubCategoriesProducts;
+        groupSubCategoriesModal.componentInstance.groupCategoryProduct = this.groupCategoryProduct;
+
+        groupSubCategoriesModal.result.then(
+            (closedData) => {
+                if (!closedData) {
+                    return;
+                }
+                const type = closedData.type;
+                const index = findIndex(this.groupsSubCategoriesProducts, {id: this.groupSubCategoryProduct.id});
+
+                if (type === 'update') {
+                    if (index > -1) {
+                        this.groupsSubCategoriesProducts[index] = closedData.groupSubcategory;
+                    }
+
+                    if (this.groupSubCategoryProduct) {
+                        this.groupSubCategoryProduct = closedData.groupSubcategory;
+                    }
+                }
+
+                if (type === 'drop') {
+                    if (index > -1) {
+                        this.groupsSubCategoriesProducts.splice(index, 1);
+                    }
+
+                    if (this.groupSubCategoryProduct) {
+                        this.groupSubCategoryProduct = null;
+                    }
+                }
+            },
+            (dismissedData) => {
+                console.log('Dismissed', dismissedData);
+            }
+        );
+    }
+
+    onChangeCategoriesProductsItem(categoryProduct: CategoryProduct) {
+        this.categoryProduct = categoryProduct;
+        this.groupsCharacteristics = null;
+        this.getCategoriesGroupsProducts(categoryProduct.id);
+        this.productCreateEditForm.controls['category_product_id'].setValue(categoryProduct.id);
+    }
+
+    onOpenCategoriesProductsDialog() {
+        const categoriesModal = this.modalService.open(CreateEditCategoriesProductsComponent, {
+            ariaLabelledBy: 'modal-basic-title',
+            windowClass: 'modal-wrapper',
+            backdrop: 'static'
+        });
+
+        categoriesModal.componentInstance.groupsSubCategoriesProducts = this.groupsSubCategoriesProducts;
+        categoriesModal.componentInstance.groupSubCategoryProduct = this.groupSubCategoryProduct;
+        categoriesModal.componentInstance.categoriesProducts = this.categoriesProducts;
+
+        categoriesModal.result.then(
+            (closedData) => {
+                if (!closedData) {
+                    return;
+                }
+                const type = closedData.type;
+                const index = findIndex(this.categoriesProducts, {id: this.categoryProduct.id});
+
+                if (type === 'update') {
+                    if (index > -1) {
+                        this.categoriesProducts[index] = closedData.categoryProduct;
+                    }
+
+                    if (this.groupSubCategoryProduct) {
+                        this.categoryProduct = closedData.categoryProduct;
+                    }
+                }
+
+                if (type === 'drop') {
+                    if (index > -1) {
+                        this.categoriesProducts.splice(index, 1);
+                    }
+
+                    if (this.categoryProduct) {
+                        this.categoryProduct = null;
+                    }
+                }
+            },
+            (dismissedData) => {
+                console.log('Dismissed', dismissedData);
+            }
+        );
+    }
+
+    onCloseGroupsCharacteristicPopover() {
+        this.productCreateEditForm.removeControl('products_groups_description_options');
+        this.productCreateEditForm.setControl('products_groups_description_options', this.fb.array([]));
+
+        each(this.groupsCharacteristics, (group) => {
+            if (group.is_main || group.isChecked) {
+                const groupLink = this.addGroupCharacteristic(group);
+
+                each(group.characteristics, (characteristic) => {
+                    this.addCharacteristic(groupLink, characteristic);
+                });
+            } else {
+                group.characteristics = [];
+            }
+        });
+    }
+
+    addGroupCharacteristic(group) {
+        const opts = this.productCreateEditForm.get('products_groups_description_options') as FormArray;
+        const formGroup = new FormGroup({
+            id: new FormControl(group.id, Validators.required),
+            name: new FormControl(group.name, Validators.required),
+            description: new FormControl(group.description, Validators.required),
+            sort_order: new FormControl(group.sort_order, Validators.required),
+            is_main: new FormControl(group.is_main),
+            isChecked: new FormControl(group.isChecked),
+            characteristics: new FormArray([], Validators.required)
+        }, [Validators.required]);
+
+        opts.push(formGroup);
+
+        return formGroup;
+    }
+
+    addCharacteristic(group, characteristic) {
+        const groupIndex = findIndex(this.groupsCharacteristics, (g) => g.id === group.value.id);
+        const characteristics = group.get('characteristics') as FormArray;
+        characteristics.push(this.fb.group({
+            fakeId: new FormControl(characteristic.fakeId),
+            name: new FormControl(characteristic.name, Validators.required),
+            value: new FormControl(characteristic.value, Validators.required),
+            description: new FormControl(characteristic.description, Validators.required),
+            sort_order: new FormControl(characteristic.sort_order, Validators.required)
+        }, [checkCharacteristicsValidator()]));
+
+        if (groupIndex > -1) {
+            const characteristicIndex = findIndex(this.groupsCharacteristics[groupIndex].characteristics,
+                (ch) => (ch.id || ch.fakeId) === (characteristic.id || characteristic.fakeId));
+
+            if (characteristicIndex === -1) {
+                this.groupsCharacteristics[groupIndex].characteristics.push(characteristic);
+            }
+        }
+    }
+
+    onMakeCharacteristic(group) {
+        const characteristics = group.get('characteristics') as FormArray;
+        const count = characteristics.controls.length ?
+            characteristics.controls[characteristics.controls.length - 1].value.sort_order + 1 : 1;
+        const characteristic = {
+            fakeId: +new Date(),
+            name: 'Новая характеристика ' + count,
+            value: '',
+            description: '',
+            sort_order: count
+        };
+
+        this.addCharacteristic(group, characteristic);
+    }
+
+    // sortOrderGroupsCharacteristics(item, type, index) {
+    //     let sortItem;
+    //
+    //     switch (type) {
+    //         case 'up':
+    //             sortItem = this.groupsCharacteristics[index - 1];
+    //             break;
+    //         case 'down':
+    //             sortItem = this.groupsCharacteristics[index + 1];
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //
+    //     if (!sortItem || sortItem.is_main) {
+    //         return;
+    //     }
+    //
+    //     item.sort_order = sortItem.sort_order;
+    //     sortItem.sort_order = index + 1;
+    //     this.groupsCharacteristics = this.groupsCharacteristics.sort((a, b) => {
+    //         return a.sort_order - b.sort_order;
+    //     });
+    // }
+    //
+    // sortOrderCharacteristics(items, item, type, index) {
+    //     let sortItem;
+    //
+    //     switch (type) {
+    //         case 'up':
+    //             sortItem = items.characteristics[index - 1];
+    //             break;
+    //         case 'down':
+    //             sortItem = items.characteristics[index + 1];
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //
+    //     if (!sortItem) {
+    //         return;
+    //     }
+    //
+    //     item.sort_order = sortItem.sort_order;
+    //     sortItem.sort_order = index + 1;
+    //     items.characteristics = items.characteristics.sort((a, b) => {
+    //         return a.sort_order - b.sort_order;
+    //     });
+    // }
+
+    onSaveOrEditProduct() {
+        console.log(this.productCreateEditForm.value);
+        const requestObj = this.productCreateEditForm.value;
+        requestObj.products_groups_description_options = requestObj.products_groups_description_options.map((group) => {
+            return {
+                id: group.id,
+                sort_order: group.sort_order,
+                options: group.characteristics.map((characteristic) => {
+                    return {
+                        name: characteristic.name,
+                        value: characteristic.value,
+                        description: characteristic.description,
+                        sort_order: characteristic.sort_order
+                    };
+                })
+            };
+        });
+
+        this.productsService.createProduct({product_json: requestObj})
+            .subscribe(
+                (response) => {
+                    console.log(response);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+    }
 
 }

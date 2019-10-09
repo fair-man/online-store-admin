@@ -1,97 +1,97 @@
 @import "../core/variabless";
 
 .grid {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
 
-  margin-left: - $grid-gap-base / 2;
-  margin-right: - $grid-gap-base / 2;
+    margin-left: - $grid-gap-base / 2;
+    margin-right: - $grid-gap-base / 2;
 
-  @each $gap in $grid-gap-nums {
-    &--gap-#{$gap} {
-      margin-left: - $gap / 2 * 1px;
-      margin-right: - $gap / 2 * 1px;
-    }
-  }
-
-  @each $va in $grid-va {
-    @if $va == flex-start {
-      &--va-top {
-        align-items: $va;
-      }
+    @each $gap in $grid-gap-nums {
+        &--gap-#{$gap} {
+            margin-left: - $gap / 2 * 1px;
+            margin-right: - $gap / 2 * 1px;
+        }
     }
 
-    @if $va == center {
-      &--va-middle {
-        align-items: $va;
-      }
-    }
+    @each $va in $grid-va {
+        @if $va == flex-start {
+            &--va-top {
+                align-items: $va;
+            }
+        }
 
-    @if $va == flex-end {
-      &--va-bottom {
-        align-items: $va;
-      }
+        @if $va == center {
+            &--va-middle {
+                align-items: $va;
+            }
+        }
+
+        @if $va == flex-end {
+            &--va-bottom {
+                align-items: $va;
+            }
+        }
     }
-  }
 }
 
 .grid__box {
-  flex: 1 1 auto;
-  max-width: 100%;
+    flex: 1 1 auto;
+    max-width: 100%;
 
-  padding-left: $grid-gap-base / 2;
-  padding-right: $grid-gap-base / 2;
+    padding-left: $grid-gap-base / 2;
+    padding-right: $grid-gap-base / 2;
 
-  &--size-min {
-    flex: 0 0 auto;
-  }
-
-  &--pull-right {
-    margin-left: auto;
-  }
-
-  &--pull-left {
-    margin-right: auto;
-  }
-
-  @each $gap in $grid-gap-nums {
-    .grid--gap-#{$gap} > & {
-      padding-left: $gap / 2 * 1px;
-      padding-right: $gap / 2 * 1px;
-    }
-  }
-
-  @for $i from 1 through $columns {
-    $w: 100 / $columns * $i * 1%;
-
-    &--size-#{$i} {
-      max-width: $w;
-      flex-basis: $w;
+    &--size-min {
+        flex: 0 0 auto;
     }
 
-    &--offset-#{$i} {
-      margin-left: $w;
-    }
-  }
-
-  @each $va in $grid-va {
-    @if $va == flex-start {
-      &--va-top {
-        align-self: $va;
-      }
+    &--pull-right {
+        margin-left: auto;
     }
 
-    @if $va == center {
-      &--va-middle {
-        align-self: $va;
-      }
+    &--pull-left {
+        margin-right: auto;
     }
 
-    @if $va == flex-end {
-      &--va-bottom {
-        align-self: $va;
-      }
+    @each $gap in $grid-gap-nums {
+        .grid--gap-#{$gap} > & {
+            padding-left: $gap / 2 * 1px;
+            padding-right: $gap / 2 * 1px;
+        }
     }
-  }
+
+    @for $i from 1 through $columns {
+        $w: 100 / $columns * $i * 1%;
+
+        &--size-#{$i} {
+            max-width: $w;
+            flex-basis: $w;
+        }
+
+        &--offset-#{$i} {
+            margin-left: $w;
+        }
+    }
+
+    @each $va in $grid-va {
+        @if $va == flex-start {
+            &--va-top {
+                align-self: $va;
+            }
+        }
+
+        @if $va == center {
+            &--va-middle {
+                align-self: $va;
+            }
+        }
+
+        @if $va == flex-end {
+            &--va-bottom {
+                align-self: $va;
+            }
+        }
+    }
 }

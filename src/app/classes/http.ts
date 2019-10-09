@@ -1,17 +1,17 @@
 abstract class CustomHttpResponseBase {
-  constructor() {
-  }
+    constructor() {
+    }
 
-  response_status: {
-    rc_id: number;
-    rc_message: string;
-  };
+    response_status: {
+        rc_id: number;
+        rc_message: string;
+    };
 }
 
 export class CustomHttpResponse<T> extends CustomHttpResponseBase {
-  constructor() {
-    super();
-  }
+    constructor() {
+        super();
+    }
 
-  data: T | null;
+    data: T | null;
 }

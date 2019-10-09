@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { NgbTimeStruct } from './ngb-time-struct';
-import { isInteger } from './util/util';
+import {Injectable} from '@angular/core';
+import {NgbTimeStruct} from './ngb-time-struct';
+import {isInteger} from './util/util';
 
 export function NGB_DATEPICKER_TIME_ADAPTER_FACTORY() {
-  return new NgbTimeStructAdapter();
+    return new NgbTimeStructAdapter();
 }
 
 /**
@@ -16,35 +16,35 @@ export function NGB_DATEPICKER_TIME_ADAPTER_FACTORY() {
  */
 @Injectable({providedIn: 'root', useFactory: NGB_DATEPICKER_TIME_ADAPTER_FACTORY})
 export abstract class NgbTimeAdapter<T> {
-  /**
-   * Converts user-model date into an NgbTimeStruct for internal use in the library
-   */
-  abstract fromModel(value: T): NgbTimeStruct;
+    /**
+     * Converts user-model date into an NgbTimeStruct for internal use in the library
+     */
+    abstract fromModel(value: T): NgbTimeStruct;
 
-  /**
-   * Converts internal time value NgbTimeStruct to user-model date
-   * The returned type is supposed to be of the same type as fromModel() input-value param
-   */
-  abstract toModel(time: NgbTimeStruct): T;
+    /**
+     * Converts internal time value NgbTimeStruct to user-model date
+     * The returned type is supposed to be of the same type as fromModel() input-value param
+     */
+    abstract toModel(time: NgbTimeStruct): T;
 }
 
 @Injectable()
 export class NgbTimeStructAdapter extends NgbTimeAdapter<NgbTimeStruct> {
-  /**
-   * Converts a NgbTimeStruct value into NgbTimeStruct value
-   */
-  fromModel(time: NgbTimeStruct): NgbTimeStruct {
-    return (time && isInteger(time.hour) && isInteger(time.minute)) ?
-      {hour: time.hour, minute: time.minute, second: isInteger(time.second) ? time.second : null} :
-      null;
-  }
+    /**
+     * Converts a NgbTimeStruct value into NgbTimeStruct value
+     */
+    fromModel(time: NgbTimeStruct): NgbTimeStruct {
+        return (time && isInteger(time.hour) && isInteger(time.minute)) ?
+            {hour: time.hour, minute: time.minute, second: isInteger(time.second) ? time.second : null} :
+            null;
+    }
 
-  /**
-   * Converts a NgbTimeStruct value into NgbTimeStruct value
-   */
-  toModel(time: NgbTimeStruct): NgbTimeStruct {
-    return (time && isInteger(time.hour) && isInteger(time.minute)) ?
-      {hour: time.hour, minute: time.minute, second: isInteger(time.second) ? time.second : null} :
-      null;
-  }
+    /**
+     * Converts a NgbTimeStruct value into NgbTimeStruct value
+     */
+    toModel(time: NgbTimeStruct): NgbTimeStruct {
+        return (time && isInteger(time.hour) && isInteger(time.minute)) ?
+            {hour: time.hour, minute: time.minute, second: isInteger(time.second) ? time.second : null} :
+            null;
+    }
 }

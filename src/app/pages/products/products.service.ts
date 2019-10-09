@@ -1,79 +1,83 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/index';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/index';
 
-import { CustomHttpResponse } from '../../classes/http';
+import {CustomHttpResponse} from '../../classes/http';
 import {
-  GroupCategoryProduct, GroupSubCategoryProduct, CategoryProduct,
-  GroupCharacteristics
+    GroupCategoryProduct, GroupSubCategoryProduct, CategoryProduct,
+    GroupCharacteristics
 } from '../../models/products';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ProductsService {
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  getGroupsCategoriesProducts(): Observable<CustomHttpResponse<GroupCategoryProduct[]>> {
-    return this.http.get<CustomHttpResponse<GroupCategoryProduct[]>>('/products/groups_categories');
-  }
+    getGroupsCategoriesProducts(): Observable<CustomHttpResponse<GroupCategoryProduct[]>> {
+        return this.http.get<CustomHttpResponse<GroupCategoryProduct[]>>('/products/groups_categories');
+    }
 
-  createGroupCategoryProduct(data): Observable<CustomHttpResponse<GroupCategoryProduct>> {
-    return this.http.post<CustomHttpResponse<GroupCategoryProduct>>('/products/groups_categories/create', data);
-  }
+    createGroupCategoryProduct(data): Observable<CustomHttpResponse<GroupCategoryProduct>> {
+        return this.http.post<CustomHttpResponse<GroupCategoryProduct>>('/products/groups_categories/create', data);
+    }
 
-  updateGroupCategoryProduct(data): Observable<CustomHttpResponse<GroupCategoryProduct>> {
-    return this.http.put<CustomHttpResponse<GroupCategoryProduct>>('/products/groups_categories/update', data);
-  }
+    updateGroupCategoryProduct(data): Observable<CustomHttpResponse<GroupCategoryProduct>> {
+        return this.http.put<CustomHttpResponse<GroupCategoryProduct>>('/products/groups_categories/update', data);
+    }
 
-  getGroupsSubCategoriesProducts(params): Observable<CustomHttpResponse<GroupSubCategoryProduct[]>> {
-    return this.http.get<CustomHttpResponse<GroupSubCategoryProduct[]>>('/products/groups_subcategories',
-      {params: params});
-  }
+    getGroupsSubCategoriesProducts(params): Observable<CustomHttpResponse<GroupSubCategoryProduct[]>> {
+        return this.http.get<CustomHttpResponse<GroupSubCategoryProduct[]>>('/products/groups_subcategories',
+            {params: params});
+    }
 
-  createGroupSubCategoryProduct(data): Observable<CustomHttpResponse<GroupSubCategoryProduct>> {
-    return this.http.post<CustomHttpResponse<GroupSubCategoryProduct>>('/products/groups_subcategories/create', data);
-  }
+    createGroupSubCategoryProduct(data): Observable<CustomHttpResponse<GroupSubCategoryProduct>> {
+        return this.http.post<CustomHttpResponse<GroupSubCategoryProduct>>('/products/groups_subcategories/create', data);
+    }
 
-  updateGroupSubCategoryProduct(data): Observable<CustomHttpResponse<GroupSubCategoryProduct>> {
-    return this.http.put<CustomHttpResponse<GroupSubCategoryProduct>>('/products/groups_subcategories/update', data);
-  }
+    updateGroupSubCategoryProduct(data): Observable<CustomHttpResponse<GroupSubCategoryProduct>> {
+        return this.http.put<CustomHttpResponse<GroupSubCategoryProduct>>('/products/groups_subcategories/update', data);
+    }
 
-  getCategories(params): Observable<CustomHttpResponse<CategoryProduct[]>> {
-    return this.http.get<CustomHttpResponse<CategoryProduct[]>>(`/products/categories`, {params: params});
-  }
+    getCategories(params): Observable<CustomHttpResponse<CategoryProduct[]>> {
+        return this.http.get<CustomHttpResponse<CategoryProduct[]>>(`/products/categories`, {params: params});
+    }
 
-  getCategoriesGroups(params): Observable<CustomHttpResponse<GroupCharacteristics[]>> {
-    return this.http.get<CustomHttpResponse<GroupCharacteristics[]>>(`/products/categories/groups`, {params: params});
-  }
+    getCategoriesGroups(params): Observable<CustomHttpResponse<GroupCharacteristics[]>> {
+        return this.http.get<CustomHttpResponse<GroupCharacteristics[]>>(`/products/categories/groups`, {params: params});
+    }
 
-  getCategoriesManage(): Observable<CustomHttpResponse<CategoryProduct[]>> {
-    return this.http.get<CustomHttpResponse<CategoryProduct[]>>(`/products/categories/manage`);
-  }
+    getCategoriesManage(): Observable<CustomHttpResponse<CategoryProduct[]>> {
+        return this.http.get<CustomHttpResponse<CategoryProduct[]>>(`/products/categories/manage`);
+    }
 
-  updateCategoryGroupsCharacteristics(data): Observable<CustomHttpResponse<GroupCharacteristics>> {
-    return this.http.put<CustomHttpResponse<GroupCharacteristics>>(`/products/categories/manage/update`, data);
-  }
+    updateCategoryGroupsCharacteristics(data): Observable<CustomHttpResponse<GroupCharacteristics>> {
+        return this.http.put<CustomHttpResponse<GroupCharacteristics>>(`/products/categories/manage/update`, data);
+    }
 
-  createCategoryProduct(data): Observable<CustomHttpResponse<CategoryProduct>> {
-    return this.http.post<CustomHttpResponse<CategoryProduct>>(`/products/categories/create`, data);
-  }
+    createCategoryProduct(data): Observable<CustomHttpResponse<CategoryProduct>> {
+        return this.http.post<CustomHttpResponse<CategoryProduct>>(`/products/categories/create`, data);
+    }
 
-  updateCategoryProduct(data): Observable<CustomHttpResponse<CategoryProduct>> {
-    return this.http.put<CustomHttpResponse<CategoryProduct>>(`/products/categories/update`, data);
-  }
+    updateCategoryProduct(data): Observable<CustomHttpResponse<CategoryProduct>> {
+        return this.http.put<CustomHttpResponse<CategoryProduct>>(`/products/categories/update`, data);
+    }
 
-  getCharacteristicsGroups(): Observable<CustomHttpResponse<GroupCharacteristics[]>> {
-    return this.http.get<CustomHttpResponse<GroupCharacteristics[]>>(`/products/groups/characteristics`);
-  }
+    getCharacteristicsGroups(): Observable<CustomHttpResponse<GroupCharacteristics[]>> {
+        return this.http.get<CustomHttpResponse<GroupCharacteristics[]>>(`/products/groups/characteristics`);
+    }
 
-  createCharacteristicGroup(data): Observable<CustomHttpResponse<GroupCharacteristics>> {
-    return this.http.post<CustomHttpResponse<GroupCharacteristics>>(`/products/groups/characteristics/create`, data);
-  }
+    createCharacteristicGroup(data): Observable<CustomHttpResponse<GroupCharacteristics>> {
+        return this.http.post<CustomHttpResponse<GroupCharacteristics>>(`/products/groups/characteristics/create`, data);
+    }
 
-  editCharacteristicGroup(data): Observable<CustomHttpResponse<GroupCharacteristics>> {
-    return this.http.put<CustomHttpResponse<GroupCharacteristics>>(`/products/groups/characteristics/update`, data);
-  }
+    editCharacteristicGroup(data): Observable<CustomHttpResponse<GroupCharacteristics>> {
+        return this.http.put<CustomHttpResponse<GroupCharacteristics>>(`/products/groups/characteristics/update`, data);
+    }
+
+    createProduct(data): Observable<any> {
+        return this.http.post(`/products/create`, data);
+    }
 }

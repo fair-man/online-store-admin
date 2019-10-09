@@ -1,0 +1,29 @@
+<a class="link link--dashed color-gray"
+   [ngbPopover]="groupCharacteristicSelect"
+   placement="bottom-left"
+   triggers="manual"
+   #p2="ngbPopover"
+   autoClose="outside"
+   (click)="toggleWithSearch(p2)"
+   (hidden)="searchPopoverHideCell()">
+    Выбор групп характеристик
+</a>
+
+<ng-template #groupCharacteristicSelect>
+    <div class="padding-16">
+        <ui-field>
+            <input type="text" id="searchGroupCharacteristic" [(ngModel)]="characteristicSearch">
+        </ui-field>
+        <div class="mt-8">
+            <div *ngFor="let group of groups | searchText : characteristicSearch:'name'">
+                <ui-checkbox>
+                    <input type="checkbox" [disabled]="group.is_main" [(ngModel)]="group.isChecked"
+                           (change)="onChange($event, group)">
+                    <checkbox-text>
+                        <span [innerHTML]="group['name'] | highlightText : characteristicSearch"></span>
+                    </checkbox-text>
+                </ui-checkbox>
+            </div>
+        </div>
+    </div>
+</ng-template>

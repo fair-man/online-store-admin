@@ -115,8 +115,7 @@
       "check-decl",
       "check-operator",
       "check-separator",
-      "check-type",
-      "check-module"
+      "check-type"
     ],
     "no-output-on-prefix": false,
     "no-inputs-metadata-property": true,

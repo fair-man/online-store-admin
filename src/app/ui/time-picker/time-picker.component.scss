@@ -4,123 +4,123 @@
 @import "../field/field.component";
 
 .time-picker__container {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .uib-separator {
-  margin-left: 4px;
-  margin-right: 4px;
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
 .uib-time {
-  input {
-    @extend .field__input;
-    @include box(70px, 28px);
+    input {
+        @extend .field__input;
+        @include box(70px, 28px);
 
-    padding: 0 30px 0 8px;
-    border: 1px solid $border-clr;
+        padding: 0 30px 0 8px;
+        border: 1px solid $border-clr;
 
-    &.ng-invalid {
-      border-color: $clr-red-primary;
+        &.ng-invalid {
+            border-color: $clr-red-primary;
+        }
     }
-  }
 }
 
 .uib-timepicker {
-  margin: 0 auto;
+    margin: 0 auto;
 }
 
 .day-title {
-  border-top: 1px solid $border-clr;
-  border-bottom: 1px solid $border-clr;
-  text-transform: uppercase;
-  color: $clr-black;
+    border-top: 1px solid $border-clr;
+    border-bottom: 1px solid $border-clr;
+    text-transform: uppercase;
+    color: $clr-black;
 }
 
 .uib-timepicker {
-  border-top: 1px solid $border-clr;
-  border-bottom: 1px solid $border-clr;
-  color: $clr-black;
+    border-top: 1px solid $border-clr;
+    border-bottom: 1px solid $border-clr;
+    color: $clr-black;
 }
 
 .uib-timepicker__table {
-  margin: 0 auto;
+    margin: 0 auto;
 }
 
 .uib-time {
-  position: relative;
+    position: relative;
 }
 
 .increment-hours,
 .increment-minutes {
-  @include box(30px, 14px);
+    @include box(30px, 14px);
 
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  right: 0;
-  cursor: pointer;
-  opacity: .6;
-  background: none;
-  outline: none;
-  border: none;
-  padding: 0;
-
-  &:hover,
-  &:focus {
-    opacity: 1;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    opacity: .6;
+    background: none;
     outline: none;
-  }
+    border: none;
+    padding: 0;
 
-  &:before {
-    @include box(5px, 5px);
+    &:hover,
+    &:focus {
+        opacity: 1;
+        outline: none;
+    }
 
-    content: '';
-    border-top: 1px solid $border-clr;
-    border-left: 1px solid $border-clr;
-    display: block;
-    transform: rotate(45deg);
-    position: relative;
-    top: 3px;
-    right: -11px;
-  }
+    &:before {
+        @include box(5px, 5px);
+
+        content: '';
+        border-top: 1px solid $border-clr;
+        border-left: 1px solid $border-clr;
+        display: block;
+        transform: rotate(45deg);
+        position: relative;
+        top: 3px;
+        right: -11px;
+    }
 }
 
 .decrement-hours,
 .decrement-minutes {
-  @include box(30px, 14px);
+    @include box(30px, 14px);
 
-  position: absolute;
-  z-index: 2;
-  bottom: 0;
-  right: 0;
-  cursor: pointer;
-  opacity: .6;
-  outline: none;
-  background: none;
-  border: none;
-  padding: 0;
-
-  &:hover,
-  &:focus {
-    opacity: 1;
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    opacity: .6;
     outline: none;
-  }
+    background: none;
+    border: none;
+    padding: 0;
 
-  &:before {
-    @include box(5px, 5px);
+    &:hover,
+    &:focus {
+        opacity: 1;
+        outline: none;
+    }
 
-    content: '';
-    border-right: 1px solid $border-clr;
-    border-bottom: 1px solid $border-clr;
-    display: block;
-    transform: rotate(45deg);
-    position: relative;
-    bottom: 3px;
-    right: -11px;
-  }
+    &:before {
+        @include box(5px, 5px);
+
+        content: '';
+        border-right: 1px solid $border-clr;
+        border-bottom: 1px solid $border-clr;
+        display: block;
+        transform: rotate(45deg);
+        position: relative;
+        bottom: 3px;
+        right: -11px;
+    }
 }

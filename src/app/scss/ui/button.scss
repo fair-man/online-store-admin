@@ -3,46 +3,46 @@
 @import "../core/_mixins";
 
 .button {
-  @include font(normal, 13px, 20px, $font-secondary);
-  @include border-radius(4px);
+    @include font(normal, 13px, 20px, $font-secondary);
+    @include border-radius(4px);
 
-  background: linear-gradient(to bottom, $clr-white 0%, $clr-gray-secondary 100%);
-  padding: 0 12px;
-  height: 36px;
-  vertical-align: middle;
-  border: 1px solid $clr-gray-secondary;
-  color: $clr-gray-primary;
-  outline: none;
-  cursor: pointer;
-
-  &:active {
-    background: linear-gradient(to top, $clr-white 0%, $clr-gray-secondary 100%);
-  }
-
-  &--orange {
-    background: linear-gradient(to bottom, $clr-yellow-secondary 0%, $clr-yellow-primary 100%);
-
-    &:active {
-      background: linear-gradient(to top, $clr-yellow-secondary 0%, $clr-yellow-primary 100%);
-    }
-  }
-
-  &--ctrl {
-    border: none;
+    background: linear-gradient(to bottom, $clr-white 0%, $clr-gray-secondary 100%);
+    padding: 0 12px;
+    height: 36px;
+    vertical-align: middle;
+    border: 1px solid $clr-gray-secondary;
+    color: $clr-gray-primary;
     outline: none;
-    padding: 0;
-    height: auto;
-    width: auto;
-    display: inline-block;
-    background: none;
+    cursor: pointer;
 
     &:active {
-      background: none;
+        background: linear-gradient(to top, $clr-white 0%, $clr-gray-secondary 100%);
     }
-  }
 
-  &[disabled] {
-    opacity: .6;
-    cursor: default;
-  }
+    &--orange {
+        background: linear-gradient(to bottom, $clr-yellow-secondary 0%, $clr-yellow-primary 100%);
+
+        &:active {
+            background: linear-gradient(to top, $clr-yellow-secondary 0%, $clr-yellow-primary 100%);
+        }
+    }
+
+    &--ctrl {
+        border: none;
+        outline: none;
+        padding: 0;
+        height: auto;
+        width: auto;
+        display: inline-block;
+        background: none;
+
+        &:active {
+            background: none;
+        }
+    }
+
+    &[disabled] {
+        opacity: .6;
+        cursor: default;
+    }
 }

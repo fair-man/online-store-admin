@@ -23,3 +23,19 @@ $border-radius-default: 4px;
 // z-index
 $zindex-dropdown: 1000 !default;
 $zindex-modal: 1051 !default;
+
+// popover
+$zindex-popover: 1001 !default;
+$popover-max-width: 450px;
+$arrow-size: 1rem;
+$popover-max-width: 450px !default;
+$popover-border-width: 1px !default;
+$popover-border-color: rgba($clr-black, .2) !default;
+$popover-border-radius: 4px !default;
+$popover-inner-border-radius: calc(#{$popover-border-radius} - #{$popover-border-width}) !default;
+
+$popover-arrow-width: 1rem !default;
+$popover-arrow-height: .5rem !default;
+$popover-arrow-color: $clr-white !default;
+
+$popover-arrow-outer-color: fade-in($popover-border-color, .05) !default;

@@ -15,11 +15,11 @@
         <button type="button" class="ui-combobox__corner" [disabled]="isDisabled"></button>
     </div>
     <div ngbDropdownMenu *ngIf="(items | comboboxSearchFilter : searchText:textKey).length">
-        <button ngbDropdownItem *ngIf="nullChoice" class="ui-combobox__text--placeholder"
+        <button ngbDropdownItem *ngIf="nullChoice" type="button" class="ui-combobox__text--placeholder"
                 (click)="onReset();$event.stopPropagation();myDrop.close();">
             <i>{{defaultText}}</i>
         </button>
-        <button ngbDropdownItem *ngFor="let item of items | comboboxSearchFilter : searchText:textKey"
+        <button ngbDropdownItem type="button" *ngFor="let item of items | comboboxSearchFilter : searchText:textKey"
                 (click)="onSelect(item);$event.stopPropagation();myDrop.close();"
                 [innerHTML]="item[textKey]  | comboboxSearchHighlight : searchText">
         </button>

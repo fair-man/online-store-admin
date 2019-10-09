@@ -6,93 +6,93 @@
 @import "../../scss/core/_mixins";
 
 .ui-combobox {
-  width: 100%;
-  position: relative;
+    width: 100%;
+    position: relative;
 }
 
 input.ui-combobox__field {
-  @include border-radius(4px);
-  @include font(normal, 12px, 16px, $font-primary);
+    @include border-radius(4px);
+    @include font(normal, 12px, 16px, $font-primary);
 
-  border: 1px solid $border-clr;
-  outline: none;
-  padding-left: 8px;
-  padding-right: 38px;
-  width: 100%;
-  height: 36px;
-  border-radius: 4px;
-  vertical-align: top;
+    border: 1px solid $border-clr;
+    outline: none;
+    padding-left: 8px;
+    padding-right: 38px;
+    width: 100%;
+    height: 36px;
+    border-radius: 4px;
+    vertical-align: top;
 
-  background-color: $clr-white;
-  box-shadow: 0 1px 0 0 $clr-white;
-
-  &::placeholder {
-    color: $clr-gray-secondary;
-    font-style: italic;
-    font-weight: 100;
-    font-size: 12px;
-  }
-  &::-ms-clear {
-    display: none;
-  }
-
-  &:disabled {
-    opacity: .6;
-    cursor: default;
     background-color: $clr-white;
-  }
+    box-shadow: 0 1px 0 0 $clr-white;
 
-  &:focus {
-    border-color: $clr-yellow-primary;
-  }
+    &::placeholder {
+        color: $clr-gray-secondary;
+        font-style: italic;
+        font-weight: 100;
+        font-size: 12px;
+    }
+    &::-ms-clear {
+        display: none;
+    }
 
-  &:focus + .ui-combobox__corner {
-    border-left: 1px solid $clr-yellow-primary;
-  }
+    &:disabled {
+        opacity: .6;
+        cursor: default;
+        background-color: $clr-white;
+    }
+
+    &:focus {
+        border-color: $clr-yellow-primary;
+    }
+
+    &:focus + .ui-combobox__corner {
+        border-left: 1px solid $clr-yellow-primary;
+    }
 }
 
 .ui-combobox__corner {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 36px;
-  height: 36px;
-  color: transparent;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  background: transparent;
-  border-left: 1px solid $border-clr;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-
-  &:before {
-    content: '';
-    @include box(6px);
-    border-left: 2px solid rgba(#000, .54);
-    border-bottom: 2px solid rgba(#000, .54);
-    transform: rotate(-45deg);
     position: absolute;
-    right: 15px;
-    top: 14px;
-  }
+    top: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    color: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: transparent;
+    border-left: 1px solid $border-clr;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
 
-  &:disabled {
-    opacity: .6;
-    cursor: default;
-    border-left: 1px solid #d6d6d6;
-  }
+    &:before {
+        content: '';
+        @include box(6px);
+        border-left: 2px solid rgba(#000, .54);
+        border-bottom: 2px solid rgba(#000, .54);
+        transform: rotate(-45deg);
+        position: absolute;
+        right: 15px;
+        top: 14px;
+    }
+
+    &:disabled {
+        opacity: .6;
+        cursor: default;
+        border-left: 1px solid #d6d6d6;
+    }
 }
 
 button.ui-combobox__text {
-  &--placeholder {
-    color: $clr-gray-secondary;
-    font-style: italic;
-    font-weight: 100;
-    font-size: 12px;
-  }
+    &--placeholder {
+        color: $clr-gray-secondary;
+        font-style: italic;
+        font-weight: 100;
+        font-size: 12px;
+    }
 }
 
 .ui-combobox__item--search-highlight {
-  font-weight: bold;
+    font-weight: bold;
 }

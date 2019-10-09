@@ -3,75 +3,75 @@
 @import "../../scss/core/variabless";
 
 .ui-select {
-  position: relative;
-  width: 100%;
+    position: relative;
+    width: 100%;
 }
 
 .ui-select__toggle-button {
-  @include border-radius(4px);
-  @include font(normal, 12px, 16px, $font-primary);
+    @include border-radius(4px);
+    @include font(normal, 12px, 16px, $font-primary);
 
-  width: 100%;
-  height: 36px;
-  display: block;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  border-radius: 4px;
-  background-color: $clr-white;
-  box-shadow: 0 1px 0 0 $clr-white;
-  outline: none;
-  border: 1px solid $border-clr;
-  text-align: left;
-  padding: 0 36px 0 8px;
-
-  &:active {
-    outline: none;
-  }
-
-  &:disabled {
-    opacity: .6;
-    cursor: default;
+    width: 100%;
+    height: 36px;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-radius: 4px;
     background-color: $clr-white;
-  }
+    box-shadow: 0 1px 0 0 $clr-white;
+    outline: none;
+    border: 1px solid $border-clr;
+    text-align: left;
+    padding: 0 36px 0 8px;
 
-  &:before {
-    content: '';
-    @include box(6px);
-    border-left: 2px solid rgba($clr-black, .54);
-    border-bottom: 2px solid rgba($clr-black, .54);
-    transform: rotate(-45deg);
-    position: absolute;
-    right: 15px;
-    top: 14px;
-  }
+    &:active {
+        outline: none;
+    }
 
-  &--highlight {
-    border-color: $clr-yellow-primary;
-  }
+    &:disabled {
+        opacity: .6;
+        cursor: default;
+        background-color: $clr-white;
+    }
+
+    &:before {
+        content: '';
+        @include box(6px);
+        border-left: 2px solid rgba($clr-black, .54);
+        border-bottom: 2px solid rgba($clr-black, .54);
+        transform: rotate(-45deg);
+        position: absolute;
+        right: 15px;
+        top: 14px;
+    }
+
+    &--highlight {
+        border-color: $clr-yellow-primary;
+    }
 }
 
 .ui-select__default-text,
 .dropdown-menu .ui-select__reset-text > a {
-  color: $clr-gray-secondary;
-  font-style: italic;
-  font-weight: 100;
-  font-size: 12px;
+    color: $clr-gray-secondary;
+    font-style: italic;
+    font-weight: 100;
+    font-size: 12px;
 }
 
 .ui-select__menu-item {
-  display: block;
-  width: 100%;
-  border: none;
-  outline: none;
-  padding: 6px 8px;
-  font-size: 12px;
-  background-color: transparent;
-  text-align: left;
+    display: block;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 6px 8px;
+    font-size: 12px;
+    background-color: transparent;
+    text-align: left;
 
-  &:focus,
-  &:hover {
-    background-color: $clr-gray-secondary;
-    cursor: pointer;
-  }
+    &:focus,
+    &:hover {
+        background-color: $clr-gray-secondary;
+        cursor: pointer;
+    }
 }

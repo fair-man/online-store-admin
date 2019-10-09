@@ -1,52 +1,52 @@
 @import "./colors";
 
 @each $colorName, $colorValue in $text-colors {
-  .color-#{$colorName} {
-    color: $colorValue;
-  }
+    .color-#{$colorName} {
+        color: $colorValue;
+    }
 }
 
 @each $colorName, $colorValue in $text-colors {
-  .bg-color-#{$colorName} {
-    background-color: $colorValue;
-  }
+    .bg-color-#{$colorName} {
+        background-color: $colorValue;
+    }
 }
 
 @each $num in $nums {
-  @each $type in (padding, margin) {
-    .#{$type}-#{$num} {
-      #{$type}: #{$num}px;
-    }
+    @each $type in (padding, margin) {
+        .#{$type}-#{$num} {
+            #{$type}: #{$num}px;
+        }
 
-    @each $side in (left, right, top, bottom) {
-      .#{str-slice($type, 0, 1)}#{str-slice($side, 0, 1)}-#{$num} {
-        #{$type}-#{$side}: #{$num}px;
-      }
+        @each $side in (left, right, top, bottom) {
+            .#{str-slice($type, 0, 1)}#{str-slice($side, 0, 1)}-#{$num} {
+                #{$type}-#{$side}: #{$num}px;
+            }
+        }
     }
-  }
 }
 
 @each $ta in (left, center, right) {
-  .ta--#{$ta} {
-    text-align: $ta;
-  }
+    .ta--#{$ta} {
+        text-align: $ta;
+    }
 }
 
 @for $i from 12 through 80 {
-  .font-size-#{$i} {
-    font-size: $i + px;
-  }
+    .font-size-#{$i} {
+        font-size: $i + px;
+    }
 }
 
 .pos-r {
-  position: relative;
+    position: relative;
 }
 
 .highlight-text {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .text-placeholder {
-  font-style: italic;
-  color: $clr-gray-secondary;
+    font-style: italic;
+    color: $clr-gray-secondary;
 }

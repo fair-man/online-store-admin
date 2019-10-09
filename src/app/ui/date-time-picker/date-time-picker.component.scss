@@ -4,110 +4,110 @@
 @import "../field/field.component";
 
 div.ui-date-time-picker {
-  display: block;
+    display: block;
 
-  input.ui-date-time-picker__input {
-    @include border-radius(4px);
+    input.ui-date-time-picker__input {
+        @include border-radius(4px);
 
-    font-size: 12px;
-    width: 100%;
-    height: 36px;
-    padding: 0 30px 0 8px;
-    vertical-align: middle;
-    color: $clr-gray-primary;
-    outline: none;
-    border: 1px solid $border-clr;
+        font-size: 12px;
+        width: 100%;
+        height: 36px;
+        padding: 0 30px 0 8px;
+        vertical-align: middle;
+        color: $clr-gray-primary;
+        outline: none;
+        border: 1px solid $border-clr;
 
-    &:focus {
-      border-color: $clr-yellow-primary;
+        &:focus {
+            border-color: $clr-yellow-primary;
+        }
+
+        &:disabled {
+            opacity: .6;
+            cursor: default;
+            background-color: $clr-white;
+        }
+
+        @include placeholder {
+            color: $clr-gray-secondary;
+            font-style: italic;
+            font-weight: 100;
+            font-size: 12px;
+        }
+
+        &--highlight {
+            border-color: $clr-yellow-primary;
+        }
+
+        &--invalid {
+            border-color: $clr-red-primary;
+
+            &:focus {
+                border-color: $clr-red-primary;
+            }
+        }
     }
 
-    &:disabled {
-      opacity: .6;
-      cursor: default;
-      background-color: $clr-white;
+    // Перебитие style от js
+    .dropdown-menu {
+        width: 235px;
+        overflow: hidden;
+        top: 100% !important;
+        position: absolute;
+        transform: none !important;
     }
-
-    @include placeholder {
-      color: $clr-gray-secondary;
-      font-style: italic;
-      font-weight: 100;
-      font-size: 12px;
-    }
-
-    &--highlight {
-      border-color: $clr-yellow-primary;
-    }
-
-    &--invalid {
-      border-color: $clr-red-primary;
-
-      &:focus {
-        border-color: $clr-red-primary;
-      }
-    }
-  }
-
-  // Перебитие style от js
-  .dropdown-menu {
-    width: 235px;
-    overflow: hidden;
-    top: 100% !important;
-    position: absolute;
-    transform: none !important;
-  }
 }
 
 .ui-date-time-picker__toggle {
-  position: absolute;
-  z-index: 10;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  right: 0;
-  background: transparent;
+    position: absolute;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    background: transparent;
 
-  button {
-    background-color: transparent;
-    border: none;
-    outline: none;
+    button {
+        background-color: transparent;
+        border: none;
+        outline: none;
 
-    &:disabled {
-      opacity: .6;
-      cursor: default;
+        &:disabled {
+            opacity: .6;
+            cursor: default;
 
-      &:hover {
-        cursor: default;
-      }
+            &:hover {
+                cursor: default;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+            opacity: .6;
+        }
     }
-
-    &:hover {
-      cursor: pointer;
-      opacity: .6;
-    }
-  }
 }
 
 .ui-date-time-picker__footer {
-  border-top: 1px solid $border-clr;
-  margin-top: -1px;
+    border-top: 1px solid $border-clr;
+    margin-top: -1px;
 }
 
 .time-picker__block {
-  border-top: 1px solid $border-clr;
-  border-bottom: 1px solid $border-clr;
-  padding-top: 4px;
-  padding-bottom: 4px;
+    border-top: 1px solid $border-clr;
+    border-bottom: 1px solid $border-clr;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .time-picker__block-content {
-  display: flex;
-  flex-direction: column;
-  flex-flow: nowrap;
-  width: 205px;
-  margin: 0 auto;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-flow: nowrap;
+    width: 205px;
+    margin: 0 auto;
+    align-items: center;
 }

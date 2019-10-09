@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 /**
  * Configuration service for the NgbTimepicker component.
@@ -7,13 +7,13 @@ import { Injectable } from '@angular/core';
  */
 @Injectable({providedIn: 'root'})
 export class NgbTimepickerConfig {
-  meridian = false;
-  spinners = true;
-  seconds = false;
-  hourStep = 1;
-  minuteStep = 1;
-  secondStep = 1;
-  disabled = false;
-  readonlyInputs = false;
-  size: 'small' | 'medium' | 'large' = 'medium';
+    meridian = false;
+    spinners = true;
+    seconds = false;
+    hourStep = 1;
+    minuteStep = 1;
+    secondStep = 1;
+    disabled = false;
+    readonlyInputs = false;
+    size: 'small' | 'medium' | 'large' = 'medium';
 }

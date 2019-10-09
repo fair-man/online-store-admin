@@ -4,124 +4,124 @@
 @import "../field/field.component";
 
 .uib-daypicker {
-  outline: none;
+    outline: none;
 }
 
 .capitalize {
-  &:first-letter {
-    text-transform: uppercase;
-  }
+    &:first-letter {
+        text-transform: uppercase;
+    }
 }
 
 .datepicker__custom-title {
-  text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 .datepicker__top-navigation {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
 
-  padding-top: 4px;
-  padding-bottom: 10px;
+    padding-top: 4px;
+    padding-bottom: 10px;
 }
 
 .top-navigation__item > button {
-  border: none;
-  background-color: transparent;
-  outline: none;
+    border: none;
+    background-color: transparent;
+    outline: none;
 
-  &:hover {
-    cursor: pointer;
-    opacity: .6;
-  }
+    &:hover {
+        cursor: pointer;
+        opacity: .6;
+    }
 }
 
 .template-navigation__button {
-  border: none;
-  background-color: transparent;
-  outline: none;
-  font-weight: bold;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-weight: bold;
 }
 
 .days-row,
 .month-row,
 .year-row,
 .datepicker__name-days {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  width: 230px;
-  margin: 4px auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    width: 230px;
+    margin: 4px auto;
 }
 
 .datepicker__name-days-parent {
-  border-top: 1px solid $border-clr;
-  border-bottom: 1px solid $border-clr;
+    border-top: 1px solid $border-clr;
+    border-bottom: 1px solid $border-clr;
 }
 
 .datepicker__month,
 .datepicker__year {
-  border-top: 1px solid $border-clr;
+    border-top: 1px solid $border-clr;
 }
 
 .day {
-  flex: 1 1 38px;
-  text-align: center;
+    flex: 1 1 38px;
+    text-align: center;
 }
 
 .month {
-  flex: 1 1 76px;
-  text-align: left;
-  padding-left: 6px;
+    flex: 1 1 76px;
+    text-align: left;
+    padding-left: 6px;
 }
 
 .month {
-  flex: 1 1 76px;
-  text-align: left;
+    flex: 1 1 76px;
+    text-align: left;
 
-  button {
-    text-transform: lowercase;
-  }
+    button {
+        text-transform: lowercase;
+    }
 }
 
 .datepicker__button {
-  outline: none;
-  background: none;
-  border: none;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  min-width: 26.5px;
-  text-align: center;
-  cursor: pointer;
-  margin-top: 2px;
-  border-radius: 4px;
-
-  &:hover {
-    background-color: $border-clr;
-    font-weight: normal;
-  }
-
-  &--selected {
-    background-color: $clr-yellow-primary;
-    font-weight: normal;
-    cursor: default;
+    outline: none;
+    background: none;
+    border: none;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    min-width: 26.5px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 2px;
+    border-radius: 4px;
 
     &:hover {
-      background-color: $clr-yellow-primary;
+        background-color: $border-clr;
+        font-weight: normal;
     }
-  }
 
-  &--now {
-    font-weight: bold;
+    &--selected {
+        background-color: $clr-yellow-primary;
+        font-weight: normal;
+        cursor: default;
 
-    &:hover {
-      font-weight: bold;
+        &:hover {
+            background-color: $clr-yellow-primary;
+        }
     }
-  }
 
-  &--past,
-  &--future {
-    display: none;
-  }
+    &--now {
+        font-weight: bold;
+
+        &:hover {
+            font-weight: bold;
+        }
+    }
+
+    &--past,
+    &--future {
+        display: none;
+    }
 }

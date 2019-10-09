@@ -3,84 +3,84 @@
 @import "../../scss/core/mixins";
 
 .field__label {
-  display: block;
+    display: block;
 
-  label {
-    cursor: pointer;
-  }
-
-  &--required {
-    &:after {
-      content: '*';
-      color: $clr-red-primary;
-      margin-left: 4px;
+    label {
+        cursor: pointer;
     }
-  }
+
+    &--required {
+        &:after {
+            content: '*';
+            color: $clr-red-primary;
+            margin-left: 4px;
+        }
+    }
 }
 
 .field__input {
-  input,
-  textarea {
-    @include border-radius(4px);
+    input,
+    textarea {
+        @include border-radius(4px);
 
-    font-size: 12px;
-    width: 100%;
-    padding: 0 8px;
-    vertical-align: middle;
-    color: $clr-gray-primary;
-    outline: none;
-    border: 1px solid $border-clr;
+        font-size: 12px;
+        width: 100%;
+        padding: 0 8px;
+        vertical-align: middle;
+        color: $clr-gray-primary;
+        outline: none;
+        border: 1px solid $border-clr;
 
-    &:focus {
-      border-color: $clr-yellow-primary;
+        &:focus {
+            border-color: $clr-yellow-primary;
+        }
+
+        &:disabled {
+            opacity: .6;
+            cursor: default;
+            background-color: $clr-white;
+        }
     }
 
-    &:disabled {
-      opacity: .6;
-      cursor: default;
-      background-color: $clr-white;
-    }
-  }
-
-  input {
-    height: 36px;
-  }
-
-  textarea {
-    padding: 10px 8px;
-  }
-
-  &--password {
-    position: relative;
     input {
-      padding: 0 36px 0 8px;
+        height: 36px;
     }
-  }
 
-  @include placeholder {
-    color: $clr-gray-secondary;
-    font-style: italic;
-    font-weight: 100;
-    font-size: 12px;
-  }
+    textarea {
+        padding: 10px 8px;
+    }
+
+    &--password {
+        position: relative;
+        input {
+            padding: 0 36px 0 8px;
+        }
+    }
+
+    @include placeholder {
+        color: $clr-gray-secondary;
+        font-style: italic;
+        font-weight: 100;
+        font-size: 12px;
+    }
 }
 
 .field__toggle {
-  width: 36px;
-  height: 36px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  i {
-    font-size: 16px;
-  }
+    i {
+        font-size: 16px;
+    }
 
-  &:hover {
-    opacity: .6;
-    cursor: pointer;
-  }
+    &:hover {
+        opacity: .6;
+        cursor: pointer;
+    }
 }

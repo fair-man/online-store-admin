@@ -2,33 +2,33 @@
 @import "../core/colors";
 
 .wrap {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 16px;
-  width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 16px;
+    width: 100%;
 
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .wrap__header {
-  @include border-radius(4px);
+    @include border-radius(4px);
 
-  background-color: #F8AE20;
-  height: 56px;
-  padding: 0 16px;
+    background-color: #F8AE20;
+    height: 56px;
+    padding: 0 16px;
 }
 
 .wrap__content {
-  flex-shrink: 0;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  padding: 0 16px;
+    flex-shrink: 0;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding: 0 16px;
 }
 
 .wrap__footer {
-  @extend .wrap__header;
+    @extend .wrap__header;
 
-  margin-top: auto;
+    margin-top: auto;
 }
