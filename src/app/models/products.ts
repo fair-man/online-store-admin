@@ -28,3 +28,12 @@ export interface GroupCharacteristics {
     characteristics?: any;
     isChecked?: boolean;
 }
+
+export interface Characteristic {
+    id?: number;
+    fakeId?: number;
+    name: string;
+    value: string;
+    description: string | null;
+    sort_order: number;
+}

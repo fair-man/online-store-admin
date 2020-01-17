@@ -170,11 +170,11 @@
                                 <div class="grid grid--gap-4">
                                     <div class="grid__box grid__box--size-min" *ngIf="!group.value.is_main">
                                         <button type="button" class="button button--ctrl os-up-big font-size-20"
-                                                (click)="sortOrderGroupsCharacteristics(group, 'up', index)"></button>
+                                                (click)="sortOrderGroupsCharacteristics(group, 'up', i)"></button>
                                     </div>
                                     <div class="grid__box grid__box--size-min" *ngIf="!group.value.is_main">
                                         <button type="button" class="button button--ctrl os-down-big font-size-20 pt-2"
-                                                (click)="sortOrderGroupsCharacteristics(group, 'down', index)"></button>
+                                                (click)="sortOrderGroupsCharacteristics(group, 'down', i)"></button>
                                     </div>
                                     <div class="grid__box grid__box--size-min">
                                         <button type="button" class="button button--ctrl os-plus color-green-primary
@@ -195,8 +195,7 @@
                         </div>
                         <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-1" formArrayName="characteristics">
                             <ngb-panel *ngFor="let characteristic of group.get('characteristics').controls;let j = index;"
-                                       id="{{'characteristicBlock_' + characteristic.value.id || characteristic.value.fakeId}}" [formGroupName]="j">
-                                <ng-container ></ng-container>
+                                       id="{{'characteristicBlock_' + (characteristic.value.id || characteristic.value.fakeId)}}" [formGroupName]="j">
                                 <ng-template ngbPanelHeader let-opened="opened">
                                     <div class="grid">
                                         <div class="grid__box grid__box--size-min">
@@ -206,17 +205,17 @@
                                             <div class="grid grid--gap-4">
                                                 <div class="grid__box grid__box--size-min">
                                                     <button type="button" class="button button--ctrl os-up-big font-size-20"
-                                                            (click)="sortOrderCharacteristics(group, characteristic, 'up', index)"></button>
+                                                            (click)="sortOrderCharacteristics(group, characteristic, 'up', j)"></button>
                                                 </div>
                                                 <div class="grid__box grid__box--size-min">
                                                     <button type="button"
                                                             class="button button--ctrl os-down-big font-size-20 pt-2"
-                                                            (click)="sortOrderCharacteristics(group, characteristic, 'down', index)"></button>
+                                                            (click)="sortOrderCharacteristics(group, characteristic, 'down', j)"></button>
                                                 </div>
                                                 <div class="grid__box grid__box--size-min">
                                                     <button type="button" class="button button--ctrl os-cancel-circled color-green-primary
                                                     font-size-18 color-red pt-2"
-                                                            (click)="group.characteristics.splice(index, 1)"></button>
+                                                            (click)="removeCharacteristic(group, j)"></button>
                                                 </div>
                                                 <div class="grid__box grid__box--size-min">
                                                     <button type="button"

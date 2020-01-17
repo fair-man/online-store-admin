@@ -5,7 +5,7 @@ import {each, findIndex, filter, cloneDeep} from 'lodash';
 
 import {ProductsService} from '../../products.service';
 import {
-    CategoryProduct, GroupCategoryProduct, GroupCharacteristics,
+    CategoryProduct, Characteristic, GroupCategoryProduct, GroupCharacteristics,
     GroupSubCategoryProduct
 } from '../../../../models/products';
 import {
@@ -57,7 +57,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         return this.productCreateEditForm.get('products_groups_description_options') as FormArray;
     }
 
-    getGroupsCategories() {
+    private getGroupsCategories() {
         this.productsService.getGroupsCategoriesProducts()
             .subscribe(
                 (response) => {
@@ -69,7 +69,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             );
     }
 
-    getSubCategories(groupCategoryId: number) {
+    private getSubCategories(groupCategoryId: number) {
         this.productsService.getGroupsSubCategoriesProducts({g_id: groupCategoryId})
             .subscribe(
                 (response) => {
@@ -81,7 +81,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             );
     }
 
-    getCategoriesProducts(groupSubCategoryId: number) {
+    private getCategoriesProducts(groupSubCategoryId: number) {
         this.productsService.getCategories({g_id: groupSubCategoryId})
             .subscribe(
                 (response) => {
@@ -93,7 +93,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             );
     }
 
-    getCategoriesGroupsProducts(categoryId: number) {
+    private getCategoriesGroupsProducts(categoryId: number) {
         this.productsService.getCategoriesGroups({c_id: categoryId})
             .subscribe(
                 (response) => {
@@ -112,7 +112,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             );
     }
 
-    onChangeGroupsCategoriesProductsItem(groupCategoryProduct: GroupCategoryProduct) {
+    public onChangeGroupsCategoriesProductsItem(groupCategoryProduct: GroupCategoryProduct) {
         this.groupCategoryProduct = groupCategoryProduct;
         this.groupsSubCategoriesProducts = null;
         this.groupSubCategoryProduct = null;
@@ -122,7 +122,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         this.getSubCategories(groupCategoryProduct.id);
     }
 
-    onOpenGroupsCategoriesDialog() {
+    public onOpenGroupsCategoriesDialog() {
         const groupCategoriesModal = this.modalService.open(CreateEditGroupsProductsComponent, {
             ariaLabelledBy: 'modal-basic-title',
             windowClass: 'modal-wrapper',
@@ -132,7 +132,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         groupCategoriesModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
     }
 
-    onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct) {
+    public onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct) {
         this.groupSubCategoryProduct = groupSubCategoryProduct;
         this.categoriesProducts = null;
         this.categoryProduct = null;
@@ -140,7 +140,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         this.getCategoriesProducts(groupSubCategoryProduct.id);
     }
 
-    onOpenGroupsSubCategoriesDialog() {
+    public onOpenGroupsSubCategoriesDialog() {
         const groupSubCategoriesModal = this.modalService.open(CreateEditGroupsSubcategoriesProductsComponent, {
             ariaLabelledBy: 'modal-basic-title',
             windowClass: 'modal-wrapper',
@@ -185,14 +185,14 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         );
     }
 
-    onChangeCategoriesProductsItem(categoryProduct: CategoryProduct) {
+    public onChangeCategoriesProductsItem(categoryProduct: CategoryProduct) {
         this.categoryProduct = categoryProduct;
         this.groupsCharacteristics = null;
         this.getCategoriesGroupsProducts(categoryProduct.id);
         this.productCreateEditForm.controls['category_product_id'].setValue(categoryProduct.id);
     }
 
-    onOpenCategoriesProductsDialog() {
+    public onOpenCategoriesProductsDialog() {
         const categoriesModal = this.modalService.open(CreateEditCategoriesProductsComponent, {
             ariaLabelledBy: 'modal-basic-title',
             windowClass: 'modal-wrapper',
@@ -237,24 +237,44 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         );
     }
 
-    onCloseGroupsCharacteristicPopover() {
+    public onCloseGroupsCharacteristicPopover() {
+        const groups = cloneDeep(this.productCreateEditForm.value.products_groups_description_options);
         this.productCreateEditForm.removeControl('products_groups_description_options');
         this.productCreateEditForm.setControl('products_groups_description_options', this.fb.array([]));
 
         each(this.groupsCharacteristics, (group) => {
             if (group.is_main || group.isChecked) {
+                const cloneGroup = filter(groups, (gr) => gr.id === group.id);
                 const groupLink = this.addGroupCharacteristic(group);
 
-                each(group.characteristics, (characteristic) => {
-                    this.addCharacteristic(groupLink, characteristic);
+                each(group.characteristics, (c) => {
+                    let cloneCharacteristic = {};
+
+                    if (cloneGroup && cloneGroup.length) {
+                        const cloneCharacteristicArr = filter(cloneGroup[0].characteristics, (ch) => {
+                            if ((ch.fakeId === c.fakeId) || (ch.id && c.id && ch.id === c.id)) {
+                                c.sort_order = ch.sort_order;
+                                return ch;
+                            }
+                        });
+
+                        if (cloneCharacteristicArr && cloneCharacteristicArr.length) {
+                            cloneCharacteristic = cloneCharacteristicArr[0];
+                        }
+                    }
+
+                    this.addCharacteristic(groupLink, Object.assign(c, cloneCharacteristic));
                 });
+                groupLink.controls['characteristics'].setValue(groupLink.value.characteristics.sort((a, b) => {
+                    return a.sort_order - b.sort_order;
+                }));
             } else {
                 group.characteristics = [];
             }
         });
     }
 
-    addGroupCharacteristic(group) {
+    private addGroupCharacteristic(group: GroupCharacteristics) {
         const opts = this.productCreateEditForm.get('products_groups_description_options') as FormArray;
         const formGroup = new FormGroup({
             id: new FormControl(group.id, Validators.required),
@@ -271,7 +291,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         return formGroup;
     }
 
-    addCharacteristic(group, characteristic) {
+    private addCharacteristic(group: FormGroup, characteristic: Characteristic) {
         const groupIndex = findIndex(this.groupsCharacteristics, (g) => g.id === group.value.id);
         const characteristics = group.get('characteristics') as FormArray;
         characteristics.push(this.fb.group({
@@ -284,7 +304,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
 
         if (groupIndex > -1) {
             const characteristicIndex = findIndex(this.groupsCharacteristics[groupIndex].characteristics,
-                (ch) => (ch.id || ch.fakeId) === (characteristic.id || characteristic.fakeId));
+                (ch: Characteristic) => (ch.id || ch.fakeId) === (characteristic.id || characteristic.fakeId));
 
             if (characteristicIndex === -1) {
                 this.groupsCharacteristics[groupIndex].characteristics.push(characteristic);
@@ -292,7 +312,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         }
     }
 
-    onMakeCharacteristic(group) {
+    public onMakeCharacteristic(group: FormGroup) {
         const characteristics = group.get('characteristics') as FormArray;
         const count = characteristics.controls.length ?
             characteristics.controls[characteristics.controls.length - 1].value.sort_order + 1 : 1;
@@ -307,57 +327,83 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         this.addCharacteristic(group, characteristic);
     }
 
-    // sortOrderGroupsCharacteristics(item, type, index) {
-    //     let sortItem;
-    //
-    //     switch (type) {
-    //         case 'up':
-    //             sortItem = this.groupsCharacteristics[index - 1];
-    //             break;
-    //         case 'down':
-    //             sortItem = this.groupsCharacteristics[index + 1];
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    //
-    //     if (!sortItem || sortItem.is_main) {
-    //         return;
-    //     }
-    //
-    //     item.sort_order = sortItem.sort_order;
-    //     sortItem.sort_order = index + 1;
-    //     this.groupsCharacteristics = this.groupsCharacteristics.sort((a, b) => {
-    //         return a.sort_order - b.sort_order;
-    //     });
-    // }
-    //
-    // sortOrderCharacteristics(items, item, type, index) {
-    //     let sortItem;
-    //
-    //     switch (type) {
-    //         case 'up':
-    //             sortItem = items.characteristics[index - 1];
-    //             break;
-    //         case 'down':
-    //             sortItem = items.characteristics[index + 1];
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    //
-    //     if (!sortItem) {
-    //         return;
-    //     }
-    //
-    //     item.sort_order = sortItem.sort_order;
-    //     sortItem.sort_order = index + 1;
-    //     items.characteristics = items.characteristics.sort((a, b) => {
-    //         return a.sort_order - b.sort_order;
-    //     });
-    // }
+    sortOrderGroupsCharacteristics(item, type, index) {
+        let sortItem;
+        let itemSortOrder;
+        const descriptionOptions = this.productCreateEditForm.controls['products_groups_description_options'];
+        const descriptionOptionsControls = descriptionOptions['controls'];
 
-    onSaveOrEditProduct() {
+        switch (type) {
+            case 'up':
+                if (index - 1 >= 0) {
+                    sortItem = descriptionOptionsControls[index - 1];
+                }
+                break;
+            case 'down':
+                if ((index + 1) <= (descriptionOptionsControls.length - 1)) {
+                    sortItem = descriptionOptionsControls[index + 1];
+                }
+                break;
+            default:
+                break;
+        }
+
+        if (!sortItem || sortItem.value.is_main) {
+            return;
+        }
+
+        itemSortOrder = item.get('sort_order').value;
+        item.controls['sort_order'].setValue(sortItem.get('sort_order').value);
+        sortItem.controls['sort_order'].setValue(itemSortOrder);
+        descriptionOptions.setValue(descriptionOptions.value.sort((a, b) => {
+            return a.sort_order - b.sort_order;
+        }));
+    }
+
+    sortOrderCharacteristics(items, item, type, index) {
+        let sortItem;
+        let charactericticSortOrder;
+        const characteristicsControls = items.controls.characteristics.controls;
+        const characteristics = items.controls.characteristics;
+
+        switch (type) {
+            case 'up':
+                if (index - 1 >= 0) {
+                    sortItem = characteristicsControls[index - 1];
+                }
+                break;
+            case 'down':
+                if ((index + 1) <= (characteristicsControls.length - 1)) {
+                    sortItem = characteristicsControls[index + 1];
+                }
+                break;
+            default:
+                break;
+        }
+
+        if (!sortItem) {
+            return;
+        }
+
+        charactericticSortOrder = item.get('sort_order').value;
+        item.controls['sort_order'].setValue(sortItem.get('sort_order').value);
+        sortItem.controls['sort_order'].setValue(charactericticSortOrder);
+        characteristics.setValue(characteristics.value.sort((a, b) => {
+            return a.sort_order - b.sort_order;
+        }));
+    }
+
+    removeCharacteristic(group, index) {
+        const grp = this.groupsCharacteristics.filter((g) => g.id === group.value.id);
+
+        if (grp && grp.length) {
+            grp[0].characteristics.splice(index, 1);
+        }
+
+        group.controls['characteristics'].removeAt(index);
+    }
+
+    public onSaveOrEditProduct() {
         console.log(this.productCreateEditForm.value);
         const requestObj = this.productCreateEditForm.value;
         requestObj.products_groups_description_options = requestObj.products_groups_description_options.map((group) => {
@@ -374,6 +420,9 @@ export class CreateEditProductsWidgetComponent implements OnInit {
                 })
             };
         });
+
+        console.log(requestObj);
+        return;
 
         this.productsService.createProduct({product_json: requestObj})
             .subscribe(
