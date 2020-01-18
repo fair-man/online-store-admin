@@ -414,7 +414,6 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     }
 
     public onSaveOrEditProduct() {
-        console.log(this.productCreateEditForm.value);
         const requestObj = this.productCreateEditForm.value;
         requestObj.products_groups_description_options = requestObj.products_groups_description_options.map((group) => {
             return {
@@ -430,9 +429,6 @@ export class CreateEditProductsWidgetComponent implements OnInit {
                 })
             };
         });
-
-        console.log(requestObj);
-        return;
 
         this.productsService.createProduct({product_json: requestObj})
             .subscribe(
