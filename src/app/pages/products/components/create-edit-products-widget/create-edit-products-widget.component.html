@@ -190,82 +190,86 @@
                         </div>
                     </ng-template>
                     <ng-template ngbPanelContent>
-                        <div class="text-placeholder" *ngIf="!group.value.characteristics.length">Нет характеристик для
-                            отображения
-                        </div>
-                        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-1" formArrayName="characteristics">
-                            <ngb-panel *ngFor="let characteristic of group.get('characteristics').controls;let j = index;"
-                                       id="{{'characteristicBlock_' + (characteristic.value.id || characteristic.value.fakeId)}}" [formGroupName]="j">
-                                <ng-template ngbPanelHeader let-opened="opened">
-                                    <div class="grid">
-                                        <div class="grid__box grid__box--size-min">
-                                            {{characteristic.value.name}}
-                                        </div>
-                                        <div class="grid__box grid__box--size-min grid__box--pull-right">
-                                            <div class="grid grid--gap-4">
-                                                <div class="grid__box grid__box--size-min">
-                                                    <button type="button" class="button button--ctrl os-up-big font-size-20"
-                                                            (click)="sortOrderCharacteristics(group, characteristic, 'up', j)"></button>
-                                                </div>
-                                                <div class="grid__box grid__box--size-min">
-                                                    <button type="button"
-                                                            class="button button--ctrl os-down-big font-size-20 pt-2"
-                                                            (click)="sortOrderCharacteristics(group, characteristic, 'down', j)"></button>
-                                                </div>
-                                                <div class="grid__box grid__box--size-min">
-                                                    <button type="button" class="button button--ctrl os-cancel-circled color-green-primary
+                        <div class="products__groups">
+                            <div class="text-placeholder" *ngIf="!group.value.characteristics.length">Нет характеристик для
+                                отображения
+                            </div>
+                            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-1" formArrayName="characteristics">
+                                <ngb-panel *ngFor="let characteristic of group.get('characteristics').controls;let j = index;let first = first; let last = last"
+                                           id="{{'characteristicBlock_' + (characteristic.value.id || characteristic.value.fakeId)}}" [formGroupName]="j">
+                                    <ng-template ngbPanelHeader let-opened="opened">
+                                        <div class="grid">
+                                            <div class="grid__box grid__box--size-min">
+                                                {{characteristic.value.name}}
+                                            </div>
+                                            <div class="grid__box grid__box--size-min grid__box--pull-right">
+                                                <div class="grid grid--gap-4">
+                                                    <div class="grid__box grid__box--size-min">
+                                                        <button type="button" class="button button--ctrl os-up-big font-size-20"
+                                                                [disabled]="first"
+                                                                (click)="sortOrderCharacteristics(group, characteristic, 'up', j)"></button>
+                                                    </div>
+                                                    <div class="grid__box grid__box--size-min">
+                                                        <button type="button"
+                                                                class="button button--ctrl os-down-big font-size-20 pt-2"
+                                                                [disabled]="last"
+                                                                (click)="sortOrderCharacteristics(group, characteristic, 'down', j)"></button>
+                                                    </div>
+                                                    <div class="grid__box grid__box--size-min">
+                                                        <button type="button" class="button button--ctrl os-cancel-circled color-green-primary
                                                     font-size-18 color-red pt-2"
-                                                            (click)="removeCharacteristic(group, j)"></button>
-                                                </div>
-                                                <div class="grid__box grid__box--size-min">
-                                                    <button type="button"
-                                                            class="button button--ctrl font-size-20 color-blue"
-                                                            ngbPanelToggle
-                                                            [ngClass]="{'os-angle-circled-up': opened, 'os-angle-circled-down': !opened}"></button>
+                                                                (click)="removeCharacteristic(group, j)"></button>
+                                                    </div>
+                                                    <div class="grid__box grid__box--size-min">
+                                                        <button type="button"
+                                                                class="button button--ctrl font-size-20 color-blue"
+                                                                ngbPanelToggle
+                                                                [ngClass]="{'os-angle-circled-up': opened, 'os-angle-circled-down': !opened}"></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </ng-template>
-                                <ng-template ngbPanelContent>
-                                    <div class="grid">
-                                        <div class="grid__box grid__box--size-4">
-                                            <ui-field>
-                                                <label
-                                                    for="{{'characteristicName' + characteristic.value.id || characteristic.value.fakeId}}"><span
-                                                    class="field__label--required">Найменование</span></label>
-                                                <input type="text"
-                                                       id="{{'characteristicName' + characteristic.value.id || characteristic.value.fakeId}}"
-                                                       formControlName="name">
-                                            </ui-field>
+                                    </ng-template>
+                                    <ng-template ngbPanelContent>
+                                        <div class="grid">
+                                            <div class="grid__box grid__box--size-4">
+                                                <ui-field>
+                                                    <label
+                                                        for="{{'characteristicName' + characteristic.value.id || characteristic.value.fakeId}}"><span
+                                                        class="field__label--required">Найменование</span></label>
+                                                    <input type="text"
+                                                           id="{{'characteristicName' + characteristic.value.id || characteristic.value.fakeId}}"
+                                                           formControlName="name">
+                                                </ui-field>
+                                            </div>
+                                            <div class="grid__box grid__box--size-8">
+                                                <ui-field>
+                                                    <label
+                                                        for="{{'characteristicValue' + characteristic.value.id || characteristic.value.fakeId}}"><span
+                                                        class="field__label--required">Значение</span></label>
+                                                    <input type="text"
+                                                           id="{{'characteristicValue' + characteristic.value.id || characteristic.value.fakeId}}"
+                                                           formControlName="value">
+                                                </ui-field>
+                                            </div>
                                         </div>
-                                        <div class="grid__box grid__box--size-8">
-                                            <ui-field>
-                                                <label
-                                                    for="{{'characteristicValue' + characteristic.value.id || characteristic.value.fakeId}}"><span
-                                                    class="field__label--required">Значение</span></label>
-                                                <input type="text"
-                                                       id="{{'characteristicValue' + characteristic.value.id || characteristic.value.fakeId}}"
-                                                       formControlName="value">
-                                            </ui-field>
+                                        <div class="grid mt-8 mb-8">
+                                            <div class="grid__box grid__box--size-12">
+                                                <ui-field>
+                                                    <label
+                                                        for="{{'characteristicDescription' + characteristic.value.id || characteristic.value.fakeId}}">Доп.
+                                                        описание</label>
+                                                    <textarea name="productDescription"
+                                                              id="{{'characteristicDescription' + characteristic.value.id || characteristic.value.fakeId}}"
+                                                              cols="30" rows="7"
+                                                              formControlName="description"></textarea>
+                                                </ui-field>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="grid mt-8 mb-8">
-                                        <div class="grid__box grid__box--size-12">
-                                            <ui-field>
-                                                <label
-                                                    for="{{'characteristicDescription' + characteristic.value.id || characteristic.value.fakeId}}">Доп.
-                                                    описание</label>
-                                                <textarea name="productDescription"
-                                                          id="{{'characteristicDescription' + characteristic.value.id || characteristic.value.fakeId}}"
-                                                          cols="30" rows="7"
-                                                          formControlName="description"></textarea>
-                                            </ui-field>
-                                        </div>
-                                    </div>
-                                </ng-template>
-                            </ngb-panel>
-                        </ngb-accordion>
+                                    </ng-template>
+                                </ngb-panel>
+                            </ngb-accordion>
+                        </div>
                     </ng-template>
                 </ngb-panel>
             </ngb-accordion>

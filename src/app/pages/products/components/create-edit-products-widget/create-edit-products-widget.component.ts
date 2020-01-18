@@ -244,7 +244,12 @@ export class CreateEditProductsWidgetComponent implements OnInit {
 
         each(this.groupsCharacteristics, (group) => {
             if (group.is_main || group.isChecked) {
-                const cloneGroup = filter(groups, (gr) => gr.id === group.id);
+                const cloneGroup = filter(groups, (gr) => {
+                    if (gr.id === group.id) {
+                        group.sort_order = gr.sort_order;
+                        return gr;
+                    }
+                });
                 const groupLink = this.addGroupCharacteristic(group);
 
                 each(group.characteristics, (c) => {
@@ -272,6 +277,11 @@ export class CreateEditProductsWidgetComponent implements OnInit {
                 group.characteristics = [];
             }
         });
+
+        this.productCreateEditForm.controls['products_groups_description_options']
+            .setValue(this.productCreateEditForm.controls['products_groups_description_options'].value.sort((a, b) => {
+                return a.sort_order - b.sort_order;
+            }));
     }
 
     private addGroupCharacteristic(group: GroupCharacteristics) {
@@ -298,7 +308,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             fakeId: new FormControl(characteristic.fakeId),
             name: new FormControl(characteristic.name, Validators.required),
             value: new FormControl(characteristic.value, Validators.required),
-            description: new FormControl(characteristic.description, Validators.required),
+            description: new FormControl(characteristic.description),
             sort_order: new FormControl(characteristic.sort_order, Validators.required)
         }, [checkCharacteristicsValidator()]));
 

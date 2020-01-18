@@ -1,5 +1,12 @@
+@import "../../../../scss/core/colors";
+
 .badge__wrapper {
     max-width: 19px;
     width: 19px;
     display: inline-block;
+}
+
+.products__groups {
+    padding: 16px;
+    box-shadow: 0 0 5px $clr-gray-secondary;
 }
