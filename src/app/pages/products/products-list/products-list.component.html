@@ -1,9 +1,74 @@
 <h1>Продукты</h1>
 
 <div class="mt-32">
-    <div class="grid">
-        <div class="grid__box grid__box--size-min">
-            <a class="link" [routerLink]="['/' + productsPath.PRODUCT_CREATE]">Создание продукта</a>
+    <a class="link link--no-underline link--button" [routerLink]="['/' + productsPath.PRODUCT_CREATE]">
+        <button type="button" class="button button--orange">Создание продукта</button>
+    </a>
+</div>
+
+<div class="mt-32">
+    <div class="grid grid--va-middle">
+        <div class="grid__box grid__box--size-3">
+            <ui-field>
+                <input type="text" id="name" [(ngModel)]="productName" placeholder="Введите название продукта">
+            </ui-field>
         </div>
+        <div class="grid__box grid__box--size-3">
+            <ui-field>
+                <input type="text" id="code" [(ngModel)]="productCode" placeholder="Введите код продукта">
+            </ui-field>
+        </div>
+        <div class="grid__box grid__box--size-min">
+            <button class="button" type="button" (click)="onSearchProduct()">Найти</button>
+        </div>
+        <div class="grid__box grid__box--size-min">
+            <a class="link link--dashed" (click)="onResetSearchProduct()">Сбросить</a>
+        </div>
+    </div>
+</div>
+
+<div class="mt-32">
+    <div class="text-placeholder" *ngIf="!productsList && !productsSearchError">
+        Для поиска продукта(ов) введите название или код и нажмите найти.
+    </div>
+    <div class="text-placeholder" *ngIf="productsList && !productsList.length && !productsSearchError">
+        По заданным результатам поиска продукты не найдены.
+    </div>
+    <div class="color-red-primary" *ngIf="productsSearchError">
+        {{productsSearchError}}
+    </div>
+    <div class="mt-8">
+        <ng-container *ngIf="productsList && productsList.length">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Название продукта</th>
+                    <th>Код продукта</th>
+                    <th>Стоимость</th>
+                    <th>Количество</th>
+                    <th>Дата создания</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let product of productsList;">
+                    <td>
+                        {{product.pt_name}}
+                    </td>
+                    <td>
+                        {{product.pt_vendor_code}}
+                    </td>
+                    <td>
+                        {{product.pt_price}}
+                    </td>
+                    <td>
+                        {{product.pt_count}}
+                    </td>
+                    <td>
+                        {{product.pt_created_date | dateFormat:'DD MMMM YYYY г.'}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </ng-container>
     </div>
 </div>

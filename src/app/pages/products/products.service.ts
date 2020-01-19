@@ -4,9 +4,12 @@ import {Observable} from 'rxjs/index';
 
 import {CustomHttpResponse} from '../../classes/http';
 import {
-    GroupCategoryProduct, GroupSubCategoryProduct, CategoryProduct,
+    GroupCategoryProduct,
+    GroupSubCategoryProduct,
+    CategoryProduct,
     GroupCharacteristics
 } from '../../models/products';
+import {Product} from './products';
 
 @Injectable({
     providedIn: 'root'
@@ -79,5 +82,9 @@ export class ProductsService {
 
     createProduct(data): Observable<any> {
         return this.http.post(`/products/create`, data);
+    }
+
+    searchProducts(params): Observable<CustomHttpResponse<Product[]>> {
+        return this.http.get<CustomHttpResponse<Product[]>>(`/products/search`, {params: params});
     }
 }
