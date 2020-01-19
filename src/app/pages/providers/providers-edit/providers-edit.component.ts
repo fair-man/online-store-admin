@@ -10,7 +10,7 @@ import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.servic
     styleUrls: ['./providers-edit.component.scss']
 })
 export class ProvidersEditComponent implements OnInit {
-    breadcrumbs: Breadcrumb[] = [
+    public breadcrumbs: Breadcrumb[] = [
         {text: 'Поставщики', url: PROVIDERS_PATHS.providersList}, {text: 'Редактирование поставщика', url: null}
     ];
 

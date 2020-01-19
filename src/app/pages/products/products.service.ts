@@ -87,4 +87,8 @@ export class ProductsService {
     searchProducts(params): Observable<CustomHttpResponse<Product[]>> {
         return this.http.get<CustomHttpResponse<Product[]>>(`/products/search`, {params: params});
     }
+
+    getProduct(productId): Observable<any> {
+        return this.http.get<any>(`/products/${productId}`);
+    }
 }

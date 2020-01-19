@@ -41,32 +41,34 @@
         <ng-container *ngIf="productsList && productsList.length">
             <table class="table">
                 <thead>
-                <tr>
-                    <th>Название продукта</th>
-                    <th>Код продукта</th>
-                    <th>Стоимость</th>
-                    <th>Количество</th>
-                    <th>Дата создания</th>
-                </tr>
+                    <tr>
+                        <th>Название продукта</th>
+                        <th>Код продукта</th>
+                        <th>Стоимость</th>
+                        <th>Количество</th>
+                        <th>Дата создания</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let product of productsList;">
-                    <td>
-                        {{product.pt_name}}
-                    </td>
-                    <td>
-                        {{product.pt_vendor_code}}
-                    </td>
-                    <td>
-                        {{product.pt_price}}
-                    </td>
-                    <td>
-                        {{product.pt_count}}
-                    </td>
-                    <td>
-                        {{product.pt_created_date | dateFormat:'DD MMMM YYYY г.'}}
-                    </td>
-                </tr>
+                    <tr *ngFor="let product of productsList;">
+                        <td>
+                            <a class="link" [routerLink]="['/',productsPath.PRODUCTS, 'edit', product.pt_id]">
+                                {{product.pt_name}}
+                            </a>
+                        </td>
+                        <td>
+                            {{product.pt_vendor_code}}
+                        </td>
+                        <td>
+                            {{product.pt_price}}
+                        </td>
+                        <td>
+                            {{product.pt_count}}
+                        </td>
+                        <td>
+                            {{product.pt_created_date | dateFormat:'DD MMMM YYYY г.'}}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </ng-container>

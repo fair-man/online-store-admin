@@ -18,6 +18,7 @@ import {CreateEditCategoriesProductsComponent} from '../modals/create-edit-categ
 import {PRODUCTS_PATHS} from '../../products';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {checkCharacteristicsValidator} from './create-edit-products-widget.validators';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-create-edit-products-widget',
@@ -34,10 +35,12 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     public categoryProduct: CategoryProduct;
     public groupsCharacteristics: GroupCharacteristics[];
     public productsPath = PRODUCTS_PATHS;
+    public productId: number;
 
     constructor(private productsService: ProductsService,
                 private fb: FormBuilder,
-                public modalService: NgbModal) {
+                public modalService: NgbModal,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -51,10 +54,27 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             count: new FormControl('', Validators.required),
             products_groups_description_options: this.fb.array([])
         });
+
+        this.route.params.subscribe((params) => {
+            this.productId = +params.id;
+            this.getProductData();
+        });
     }
 
     get groups () {
         return this.productCreateEditForm.get('products_groups_description_options') as FormArray;
+    }
+
+    private getProductData() {
+        this.productsService.getProduct(this.productId)
+            .subscribe(
+                (response) => {
+                    console.log(response);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            )
     }
 
     private getGroupsCategories() {
