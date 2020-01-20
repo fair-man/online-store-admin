@@ -8,14 +8,21 @@
         <app-breadcrumbs></app-breadcrumbs>
     </div>
     <div class="grid__box grid__box--size-min grid__box--pull-right" *ngIf="userData">
-        <div class="grid grid--gap-32">
+        <div class="grid grid--gap-32 grid--va-middle">
             <div class="grid__box grid__box--size-min">
                 <!--<img src="{{userData.user_data.photo_src}}" alt="">-->
             </div>
             <div class="grid__box grid__box--size-min">
-                {{userData.user_data.first_name}}
-                {{userData.user_data.last_name}}
-                {{userData.user_data.patronymic_name}}
+                <div class="grid grid--gap-4 grid--va-middle">
+                    <div class="grid__box grid__box--size-min">
+                        <img class="topbar__user-image" src="https://res.cloudinary.com/app-diary/image/upload/v1572381665/online-store/users/user_2.webp">
+                    </div>
+                    <div class="grid__box grid__box--size-min">
+                        {{userData.user_data.first_name}}
+                        {{userData.user_data.last_name}}
+                        {{userData.user_data.patronymic_name}}
+                    </div>
+                </div>
             </div>
             <div class="grid__box"><a class="link" (click)="onLogout()">Выйти</a></div>
         </div>
