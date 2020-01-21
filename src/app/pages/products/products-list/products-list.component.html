@@ -1,9 +1,19 @@
 <h1>Продукты</h1>
 
 <div class="mt-32">
-    <a class="link link--no-underline link--button" [routerLink]="['/' + productsPath.PRODUCT_CREATE]">
-        <button type="button" class="button button--orange">Создание продукта</button>
-    </a>
+    <div class="grid">
+        <div class="grid__box grid__box--size-min">
+            <a class="link link--no-underline link--button" [routerLink]="['/' + productsPath.PRODUCT_CREATE]">
+                <button type="button" class="button button--orange">Создание продукта</button>
+            </a>
+        </div>
+        <div class="grid__box grid__box--size-min">
+            <a class="link link--no-underline link--button" [routerLink]="['/' + productsPath.PRODUCTS_NEW_INVOICE]">
+                <button type="button" class="button button--orange">Приемка продуктов</button>
+            </a>
+        </div>
+    </div>
+
 </div>
 
 <div class="mt-32">

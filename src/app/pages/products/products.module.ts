@@ -27,6 +27,7 @@ import {PipesModule} from '../../shared/pipes/pipes.module';
 import {CharacteristicGroupWidgetComponent} from './components/characteristic-group-widget/characteristic-group-widget.component';
 import {CharacteristicGroupProductsComponent} from './components/modals/characteristic-group-products/characteristic-group-products.component';
 import {GroupCharacteristicPopoverComponent} from './components/popovers/group-characteristic-popover/group-characteristic-popover.component';
+import { NewInvoiceComponent } from './new-invoice/new-invoice.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import {GroupCharacteristicPopoverComponent} from './components/popovers/group-c
         CharacteristicGroupManageComponent,
         CharacteristicGroupWidgetComponent,
         CharacteristicGroupProductsComponent,
-        GroupCharacteristicPopoverComponent
+        GroupCharacteristicPopoverComponent,
+        NewInvoiceComponent
     ],
     imports: [
         CommonModule,

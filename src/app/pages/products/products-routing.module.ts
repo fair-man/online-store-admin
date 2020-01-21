@@ -8,6 +8,7 @@ import {ProductsEditComponent} from './products-edit/products-edit.component';
 import {ProductsListComponent} from './products-list/products-list.component';
 import {CharacteristicGroupCreateComponent} from './characteristic-group-create/characteristic-group-create.component';
 import {CharacteristicGroupManageComponent} from './characteristic-group-manage/characteristic-group-manage.component';
+import {NewInvoiceComponent} from './new-invoice/new-invoice.component';
 
 const routes: Routes = [
     {path: PRODUCTS_PATHS.PRODUCTS, component: ProductsListComponent, canActivate: [AuthGuard]},
@@ -23,6 +24,11 @@ const routes: Routes = [
         component: CharacteristicGroupManageComponent,
         canActivate: [AuthGuard]
     },
+    {
+        path: PRODUCTS_PATHS.PRODUCTS_NEW_INVOICE,
+        component: NewInvoiceComponent,
+        canActivate: [AuthGuard]
+    }
 ];
 
 @NgModule({

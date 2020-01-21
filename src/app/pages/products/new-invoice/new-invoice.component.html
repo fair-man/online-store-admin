@@ -1,0 +1,90 @@
+<h1>Приемка товара</h1>
+
+<div class="mt-32">
+    <div class="mb-16">
+        <span class="sub-title">Основные данные счет-фактуры</span>
+    </div>
+    <div class="grid">
+        <div class="grid__box grid__box--size-3">
+            <ui-field>
+                <label for="comboboxProviders"><span
+                    class="field__label--required">Поставщик</span></label>
+                <ui-combobox
+                    [items]="providersList"
+                    (callback)="onChangeProvider($event)"
+                    [textKey]="'name'"
+                    [initBy]="providerSelected"
+                    [name]="'comboboxProviders'"
+                    [defaultText]="''"
+                    [isDisabled]="false"
+                ></ui-combobox>
+            </ui-field>
+        </div>
+        <div class="grid__box grid__box--size-3">
+            <ui-field>
+                <label for="invoiceNumber"><span
+                    class="field__label--required">Номер счет-фактуры</span></label>
+                <input type="text" id="invoiceNumber">
+            </ui-field>
+        </div>
+        <div class="grid__box grid__box--size-3">
+            <ui-field>
+                <label for="invoiceCost"><span
+                    class="field__label--required">Общая стоимость по счет-фактуре</span></label>
+                <input type="text" id="invoiceCost">
+            </ui-field>
+        </div>
+    </div>
+</div>
+
+<div class="mt-32">
+    <div class="mb-16">
+        <span class="sub-title">Список продуктов</span>
+    </div>
+    <div class="grid mb-16">
+        <div class="grid__box grid__box--size-3">
+            <ui-field>
+                <input type="text" id="productCode" placeholder="Введите код продукта">
+            </ui-field>
+        </div>
+        <div class="grid__box grid__box--size-3">
+            <button class="button" type="button" (click)="onSearchProduct()">Найти</button>
+        </div>
+    </div>
+    <table class="table">
+        <colgroup>
+            <col width="60%">
+            <col width="20%">
+            <col width="10%">
+            <col width="10%">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>Название продукта</th>
+            <th>Код продукта</th>
+            <th>
+                <span class="field__label--required">Стоимость(1шт.)</span>
+            </th>
+            <th>
+                <span class="field__label--required">Количество</span>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <ui-field>
+                    <input type="text">
+                </ui-field>
+            </td>
+            <td>
+                <ui-field>
+                    <input type="text">
+                </ui-field>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

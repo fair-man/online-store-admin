@@ -15,4 +15,5 @@ export const PRODUCTS_PATHS = {
     PRODUCT_EDIT: 'products/edit/:id',
     PRODUCT_CHARACTERISTIC_CREATE: 'products/characteristic/create',
     PRODUCT_CHARACTERISTIC_MANAGE: 'products/characteristic/manage',
+    PRODUCTS_NEW_INVOICE: 'products/new_invoice'
 };
