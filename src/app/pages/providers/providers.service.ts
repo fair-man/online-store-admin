@@ -39,6 +39,10 @@ export class ProvidersService {
         return this.http.get<CustomHttpResponse<Providers>>('/providers', {params: params});
     }
 
+    getProvidersNames(): Observable<CustomHttpResponse<Providers>> {
+        return this.http.get<CustomHttpResponse<Providers>>('/providers/names');
+    }
+
     createProvider(providerJson): Observable<CustomHttpResponse<ProviderFull>> {
         return this.http.post<CustomHttpResponse<ProviderFull>>(`/providers`, providerJson);
     }
