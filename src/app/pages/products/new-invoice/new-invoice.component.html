@@ -39,24 +39,44 @@
     </div>
 
     <div class="mt-32">
-        <div class="mb-16">
-            <span class="sub-title">Поиск продукта</span>
+        <div class="mb-2">
+            <span class="sub-title">Список продуктов счет-фактуры</span>
         </div>
-        <div class="grid mb-16">
+        <div class="mb-16">
+            <a class="link link--dashed" (click)="onToggleCreateProductBlock()">
+                Создать продукт
+            </a>
+        </div>
+        <div *ngIf="isShowCreateProductBlock" class="mb-16">
+            <ui-card>
+                <ui-card-content>
+                    <app-create-edit-products-widget></app-create-edit-products-widget>
+                </ui-card-content>
+            </ui-card>
+        </div>
+        <div class="grid grid--va-middle mb-16">
             <div class="grid__box grid__box--size-3">
                 <ui-field>
-                    <input type="text" id="productCode" placeholder="Введите код продукта" [(ngModel)]="productCode" [ngModelOptions]="{standalone: true}">
+                    <input type="text" id="productCode"
+                           placeholder="Введите код продукта"
+                           [(ngModel)]="productCode"
+                           [ngModelOptions]="{standalone: true}">
                 </ui-field>
             </div>
-            <div class="grid__box grid__box--size-3">
-                <button class="button" type="button" (click)="onSearchProduct()">Найти</button>
+            <div class="grid__box grid__box--size-min">
+                <button class="button" type="button" (click)="onSearchProduct()" [disabled]="!productCode">Найти</button>
             </div>
-        </div>
-    </div>
-
-    <div class="mt-32">
-        <div class="mb-16">
-            <span class="sub-title">Список продуктов</span>
+            <div class="grid__box grid__box--size-min ml-24">
+                <div *ngFor="let productSearch of productsSearchList" class="ta-left">
+                    <a class="link link--dashed link--green" title="Кликните, чтобы добавить продукт"
+                       (click)="onAddProductForInvoice(productSearch)">
+                        {{productSearch.pt_name}}
+                    </a>
+                </div>
+                <div *ngIf="productsSearchList && !productsSearchList.length" class="color-yellow">
+                    Продукт не найден в базе. Проверьте правильность введенного кода или создайте новый продукт
+                </div>
+            </div>
         </div>
         <table class="table">
             <colgroup>
@@ -66,32 +86,43 @@
                 <col width="10%">
             </colgroup>
             <thead>
-            <tr>
-                <th>Название продукта</th>
-                <th>Код продукта</th>
-                <th>
-                    <span class="field__label--required">Стоимость(1шт.)</span>
-                </th>
-                <th>
-                    <span class="field__label--required">Количество</span>
-                </th>
-            </tr>
+                <tr>
+                    <th>Название продукта</th>
+                    <th>Код продукта</th>
+                    <th>
+                        <span class="field__label--required">Стоимость(1шт.)</span>
+                    </th>
+                    <th>
+                        <span class="field__label--required">Количество</span>
+                    </th>
+                </tr>
             </thead>
             <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td>
-                    <ui-field>
-                        <input type="text">
-                    </ui-field>
-                </td>
-                <td>
-                    <ui-field>
-                        <input type="text">
-                    </ui-field>
-                </td>
-            </tr>
+                <ng-container *ngIf="invoiceForm.controls.products.controls.length" formArrayName="products">
+                    <tr *ngFor="let product of invoiceForm.controls.products.controls;let j = index;" [formGroupName]="j">
+                        <td>
+                            {{product.value.pt_name}}
+                        </td>
+                        <td>
+                            {{product.value.pt_vendor_code}}
+                        </td>
+                        <td>
+                            <ui-field>
+                                <input type="text" formControlName="pt_price">
+                            </ui-field>
+                        </td>
+                        <td>
+                            <ui-field>
+                                <input type="text" formControlName="pt_count">
+                            </ui-field>
+                        </td>
+                    </tr>
+                </ng-container>
+                <tr *ngIf="!invoiceForm.controls.products.controls.length">
+                    <td colspan="4" class="text-placeholder">
+                        Список продуктов пуст. Найдите и добавьте товар. Если продукт не найдет, пожалуйста, создайте новый продукт.
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

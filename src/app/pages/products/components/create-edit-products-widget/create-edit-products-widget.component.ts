@@ -66,6 +66,10 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     }
 
     private getProductData() {
+        if (!this.productId) {
+            return;
+        }
+
         this.productsService.getProduct(this.productId)
             .subscribe(
                 (response) => {
@@ -74,7 +78,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
                 (error) => {
                     console.log(error);
                 }
-            )
+            );
     }
 
     private getGroupsCategories() {

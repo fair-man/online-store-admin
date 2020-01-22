@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
+import {FormGroup, FormControl, Validators, FormArray, FormBuilder} from '@angular/forms';
+
+import {cloneDeep} from 'lodash';
 
 import {Product, PRODUCTS_PATHS} from '../products';
 import {Breadcrumb} from '../../../models/breadcrumbs';
@@ -20,7 +22,8 @@ export class NewInvoiceComponent implements OnInit {
     public productsSearchError: string | null;
     public providersList: Provider[];
     public providerSelected: Provider;
-    public productsSearchList: Product[];
+    public productsSearchList: Product[] | null;
+    public isShowCreateProductBlock: boolean;
 
     public invoiceForm: FormGroup = new FormGroup({
         provider: new FormControl('', Validators.required),
@@ -34,12 +37,14 @@ export class NewInvoiceComponent implements OnInit {
         {text: 'Приемка', url: null},
     ];
 
-    constructor(private breadcrumbsService: BreadcrumbsService,
+    constructor(private fb: FormBuilder,
+                private breadcrumbsService: BreadcrumbsService,
                 private providersService: ProvidersService,
                 private productsService: ProductsService) {
     }
 
     ngOnInit() {
+        this.isShowCreateProductBlock = false;
         this.breadcrumbsService.updateBreadcrumbs(this.breadcrumbs);
         this.getProvidersNames();
     }
@@ -69,7 +74,38 @@ export class NewInvoiceComponent implements OnInit {
             );
     }
 
+    onAddProductForInvoice(product: Product) {
+        const products = this.invoiceForm.get('products') as FormArray;
+        products.push(this.fb.group({
+            pt_id: new FormControl(product.pt_id, Validators.required),
+            pt_name: new FormControl(product.pt_name, Validators.required),
+            pt_vendor_code: new FormControl(product.pt_vendor_code, Validators.required),
+            pt_price: new FormControl(null, Validators.required),
+            pt_count: new FormControl(null, Validators.required)
+        }));
+        this.productCode = '';
+        this.productsSearchList = null;
+    }
+
+    onToggleCreateProductBlock() {
+        this.isShowCreateProductBlock = !this.isShowCreateProductBlock;
+    }
+
     onCreateInvoice() {
+        const requestObj = cloneDeep(this.invoiceForm.value);
+        requestObj.invoice_number = +requestObj.invoiceNumber;
+        requestObj.incoice_cost = +requestObj.invoiceCost;
+        requestObj.products = requestObj.products.map((product) => {
+            return {
+                pt_id: product.pt_id,
+                pt_count: +product.pt_count,
+                pt_price: +product.pt_price
+            };
+        });
+        delete requestObj.invoiceNumber;
+        delete requestObj.invoiceCost;
+
+        console.log(requestObj);
     }
 
 }
