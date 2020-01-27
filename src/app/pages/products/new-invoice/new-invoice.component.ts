@@ -10,6 +10,7 @@ import {ProvidersService} from '../../providers/providers.service';
 import {Provider} from '../../../models/provider';
 import {ProductsService} from '../products.service';
 import {Enums} from '../../../configs/Enums';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
     selector: 'app-new-invoice',
@@ -40,7 +41,8 @@ export class NewInvoiceComponent implements OnInit {
     constructor(private fb: FormBuilder,
                 private breadcrumbsService: BreadcrumbsService,
                 private providersService: ProvidersService,
-                private productsService: ProductsService) {
+                private productsService: ProductsService,
+                private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -93,6 +95,7 @@ export class NewInvoiceComponent implements OnInit {
 
     onCreateInvoice() {
         const requestObj = cloneDeep(this.invoiceForm.value);
+        requestObj.user_id = this.authService.userData.user_data.id;
         requestObj.invoice_number = +requestObj.invoiceNumber;
         requestObj.incoice_cost = +requestObj.invoiceCost;
         requestObj.products = requestObj.products.map((product) => {
@@ -105,7 +108,15 @@ export class NewInvoiceComponent implements OnInit {
         delete requestObj.invoiceNumber;
         delete requestObj.invoiceCost;
 
-        console.log(requestObj);
+        this.productsService.invoiceCreate(requestObj)
+            .subscribe(
+                (response) => {
+                    console.log(response);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
     }
 
 }

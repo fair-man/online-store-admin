@@ -91,4 +91,8 @@ export class ProductsService {
     getProduct(productId): Observable<any> {
         return this.http.get<any>(`/products/${productId}`);
     }
+
+    invoiceCreate(data): Observable<any> {
+        return this.http.post(`/products/invoice/create`, data);
+    }
 }
