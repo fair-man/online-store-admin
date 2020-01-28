@@ -80,8 +80,8 @@ export class ProductsService {
         return this.http.put<CustomHttpResponse<GroupCharacteristics>>(`/products/groups/characteristics/update`, data);
     }
 
-    createProduct(data): Observable<any> {
-        return this.http.post(`/products/create`, data);
+    createProduct(data): Observable<CustomHttpResponse<string>> {
+        return this.http.post<CustomHttpResponse<string>>(`/products/create`, data);
     }
 
     searchProducts(params): Observable<CustomHttpResponse<Product[]>> {
@@ -92,7 +92,7 @@ export class ProductsService {
         return this.http.get<any>(`/products/${productId}`);
     }
 
-    invoiceCreate(data): Observable<any> {
-        return this.http.post(`/products/invoice/create`, data);
+    invoiceCreate(data): Observable<CustomHttpResponse<string>> {
+        return this.http.post<CustomHttpResponse<string>>(`/products/invoice/create`, data);
     }
 }

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators, FormArray, FormBuilder} from '@angular/forms';
+import {Router} from '@angular/router';
 
 import {cloneDeep} from 'lodash';
 
@@ -25,6 +26,7 @@ export class NewInvoiceComponent implements OnInit {
     public providerSelected: Provider;
     public productsSearchList: Product[] | null;
     public isShowCreateProductBlock: boolean;
+    public isErrorInvoiceCreate: string | null;
 
     public invoiceForm: FormGroup = new FormGroup({
         provider: new FormControl('', Validators.required),
@@ -39,6 +41,7 @@ export class NewInvoiceComponent implements OnInit {
     ];
 
     constructor(private fb: FormBuilder,
+                private router: Router,
                 private breadcrumbsService: BreadcrumbsService,
                 private providersService: ProvidersService,
                 private productsService: ProductsService,
@@ -97,7 +100,7 @@ export class NewInvoiceComponent implements OnInit {
         const requestObj = cloneDeep(this.invoiceForm.value);
         requestObj.user_id = this.authService.userData.user_data.id;
         requestObj.invoice_number = +requestObj.invoiceNumber;
-        requestObj.incoice_cost = +requestObj.invoiceCost;
+        requestObj.invoice_cost = +requestObj.invoiceCost;
         requestObj.products = requestObj.products.map((product) => {
             return {
                 pt_id: product.pt_id,
@@ -111,10 +114,11 @@ export class NewInvoiceComponent implements OnInit {
         this.productsService.invoiceCreate(requestObj)
             .subscribe(
                 (response) => {
-                    console.log(response);
+                    this.router.navigate(['/', PRODUCTS_PATHS.PRODUCTS]);
+                    this.isErrorInvoiceCreate = null;
                 },
                 (error) => {
-                    console.log(error);
+                    this.isErrorInvoiceCreate = Enums.errorCodes[100000];
                 }
             );
     }
