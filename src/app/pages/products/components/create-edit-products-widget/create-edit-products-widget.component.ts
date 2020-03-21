@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {each, findIndex, filter, cloneDeep} from 'lodash';
+import {each, findIndex, filter, cloneDeep, sortBy} from 'lodash';
 
 import {ProductsService} from '../../products.service';
 import {
@@ -14,11 +15,14 @@ import {
 import {
     CreateEditGroupsSubcategoriesProductsComponent
 } from '../modals/create-edit-groups-subcategories-products/create-edit-groups-subcategories-products.component';
-import {CreateEditCategoriesProductsComponent} from '../modals/create-edit-categories-products/create-edit-categories-products.component';
+import {
+    CreateEditCategoriesProductsComponent
+} from '../modals/create-edit-categories-products/create-edit-categories-products.component';
 import {PRODUCTS_PATHS} from '../../products';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {checkCharacteristicsValidator} from './create-edit-products-widget.validators';
 import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-create-edit-products-widget',
@@ -36,6 +40,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     public groupsCharacteristics: GroupCharacteristics[];
     public productsPath = PRODUCTS_PATHS;
     public productId: number;
+    public productDataDefault: any;
 
     constructor(private productsService: ProductsService,
                 private fb: FormBuilder,
@@ -73,12 +78,87 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         this.productsService.getProduct(this.productId)
             .subscribe(
                 (response) => {
-                    console.log(response);
+                    this.productDataDefault = response.data;
+                    this.initExistsProduct(response.data);
                 },
                 (error) => {
                     console.log(error);
                 }
             );
+    }
+
+    private initExistsProduct(initData) {
+        const gc = this.getSelectedItem('id', initData.pt_gc_id, this.groupsCategoriesProducts);
+
+        if (gc) {
+            this.groupCategoryProduct = gc;
+            this.initSubGroupCategory(initData);
+        }
+
+        this.productCreateEditForm.updateValueAndValidity();
+    }
+
+    private initSubGroupCategory(initData) {
+        let gsc = null;
+        this.getSubCategories(this.groupCategoryProduct.id)
+            .subscribe(
+                () => {
+                    gsc = this.getSelectedItem('id', initData.pt_gs_id, this.groupsSubCategoriesProducts);
+
+                    if (gsc) {
+                        this.groupSubCategoryProduct = gsc;
+                        this.initCategory(initData);
+                    }
+                }
+            );
+    }
+
+    private initCategory(initData) {
+        let c = null;
+
+        this.getCategoriesProducts(this.groupSubCategoryProduct.id)
+            .subscribe(
+                () => {
+                    c = this.getSelectedItem('id', initData.pt_c_id, this.categoriesProducts);
+
+                    if (c) {
+                        this.onChangeCategoriesProductsItem(c);
+                    }
+
+                    this.initTypedFields(initData);
+                }
+            );
+    }
+
+    private initTypedFields(initData) {
+        this.productCreateEditForm.controls['name'].setValue(initData.pt_name);
+        this.productCreateEditForm.controls['description'].setValue(initData.pt_description);
+        this.productCreateEditForm.controls['vendor_code'].setValue(initData.pt_vendor_code);
+        this.productCreateEditForm.controls['price'].setValue(initData.pt_price);
+        this.productCreateEditForm.controls['count'].setValue(initData.pt_count);
+    }
+
+    initGroupsCharacteristics(initData) {
+        const groupsCharacteristics = initData.pt_groups_description_options;
+
+        each(groupsCharacteristics, (groupsCharacteristic) => {
+            const group = this.getSelectedItem('id', groupsCharacteristic.id, this.groupsCharacteristics);
+
+            group.isChecked = true;
+            group.characteristics = groupsCharacteristic.options;
+        });
+
+        this.onCloseGroupsCharacteristicPopover();
+    }
+
+    private getSelectedItem(itemKey: string, itemValue: any, items) {
+        const index = findIndex(items, (item) => item[itemKey] === itemValue);
+
+        if (index > -1) {
+            return items[index];
+        } else {
+            return null;
+        }
     }
 
     private getGroupsCategories() {
@@ -93,27 +173,31 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             );
     }
 
-    private getSubCategories(groupCategoryId: number) {
-        this.productsService.getGroupsSubCategoriesProducts({g_id: groupCategoryId})
-            .subscribe(
-                (response) => {
-                    this.groupsSubCategoriesProducts = response.data;
-                },
-                (error) => {
-                    console.log(error);
-                }
+    private getSubCategories(groupCategoryId: number): Observable<any> {
+        return this.productsService.getGroupsSubCategoriesProducts({g_id: groupCategoryId})
+            .pipe(
+                tap(
+                    (response) => {
+                        this.groupsSubCategoriesProducts = response.data;
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                )
             );
     }
 
-    private getCategoriesProducts(groupSubCategoryId: number) {
-        this.productsService.getCategories({g_id: groupSubCategoryId})
-            .subscribe(
-                (response) => {
-                    this.categoriesProducts = response.data;
-                },
-                (error) => {
-                    console.log(error);
-                }
+    private getCategoriesProducts(groupSubCategoryId: number): Observable<any> {
+        return this.productsService.getCategories({g_id: groupSubCategoryId})
+            .pipe(
+                tap(
+                    (response) => {
+                        this.categoriesProducts = response.data;
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                )
             );
     }
 
@@ -121,14 +205,19 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         this.productsService.getCategoriesGroups({c_id: categoryId})
             .subscribe(
                 (response) => {
-                    this.groupsCharacteristics = response.data.map((ch, index) => {
+                    const resp = sortBy(response.data, (item) => !item.is_main);
+                    this.groupsCharacteristics = resp.map((ch, index) => {
                         ch.sort_order = index + 1;
                         ch.isChecked = ch.is_main === 1;
                         ch.characteristics = [];
                         return ch;
                     });
 
-                    this.onCloseGroupsCharacteristicPopover();
+                    if (this.productId) {
+                        this.initGroupsCharacteristics(this.productDataDefault);
+                    } else {
+                        this.onCloseGroupsCharacteristicPopover();
+                    }
                 },
                 (error) => {
                     console.log(error);
@@ -143,7 +232,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         this.categoriesProducts = null;
         this.categoryProduct = null;
         this.groupsCharacteristics = null;
-        this.getSubCategories(groupCategoryProduct.id);
+        this.getSubCategories(groupCategoryProduct.id).subscribe((response) => { console.log(response); });
     }
 
     public onOpenGroupsCategoriesDialog() {
@@ -161,7 +250,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         this.categoriesProducts = null;
         this.categoryProduct = null;
         this.groupsCharacteristics = null;
-        this.getCategoriesProducts(groupSubCategoryProduct.id);
+        this.getCategoriesProducts(groupSubCategoryProduct.id).subscribe((response) => { console.log(response); });
     }
 
     public onOpenGroupsSubCategoriesDialog() {
@@ -454,7 +543,29 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             };
         });
 
+        console.log(requestObj);
+
+        if (this.productId) {
+            this.updateProduct(this.productId, requestObj);
+        } else {
+            this.createProduct(requestObj);
+        }
+    }
+
+    private createProduct(requestObj) {
         this.productsService.createProduct({product_json: requestObj})
+            .subscribe(
+                (response) => {
+                    console.log(response);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+    }
+
+    private updateProduct(productId: number, requestObj: any) {
+        this.productsService.updateProduct(productId, {product_json: requestObj})
             .subscribe(
                 (response) => {
                     console.log(response);

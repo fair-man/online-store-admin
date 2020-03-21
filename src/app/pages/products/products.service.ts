@@ -84,6 +84,10 @@ export class ProductsService {
         return this.http.post<CustomHttpResponse<string>>(`/products/create`, data);
     }
 
+    updateProduct(productId, data): Observable<CustomHttpResponse<string>> {
+        return this.http.post<CustomHttpResponse<string>>(`/products/update/${productId}`, data);
+    }
+
     searchProducts(params): Observable<CustomHttpResponse<Product[]>> {
         return this.http.get<CustomHttpResponse<Product[]>>(`/products/search`, {params: params});
     }

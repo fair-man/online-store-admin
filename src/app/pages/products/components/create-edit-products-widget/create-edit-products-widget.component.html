@@ -9,7 +9,7 @@
     </div>
     <div class="grid__box grid__box--size-min"></div>
 </div>
-<form [formGroup]="productCreateEditForm" (submit)="onSaveOrEditProduct()">
+<form [formGroup]="productCreateEditForm">
     <div class="grid grid--gap-32 mt-32">
         <div class="grid__box grid__box--size-4">
             <div>
@@ -93,14 +93,14 @@
                     <ui-field>
                         <label for="productName"><span
                             class="field__label--required">Найменование</span></label>
-                        <input type="text" id="productName" formControlName="name">
+                        <input type="text" id="productName" formControlName="name" maxlength="50">
                     </ui-field>
                 </div>
                 <div class="grid__box grid__box--size-3">
                     <ui-field>
                         <label for="productCode"><span
                             class="field__label--required">Код</span></label>
-                        <input type="text" id="productCode" formControlName="vendor_code">
+                        <input type="text" id="productCode" formControlName="vendor_code" maxlength="100">
                     </ui-field>
                 </div>
                 <div class="grid__box grid__box--size-1">
@@ -123,7 +123,7 @@
                     <ui-field>
                         <label for="productDescription"><span
                             class="field__label--required">Описание</span></label>
-                        <textarea name="productDescription" id="productDescription" rows="6"
+                        <textarea name="productDescription" id="productDescription" rows="6" maxlength="600"
                                   formControlName="description"></textarea>
                     </ui-field>
                 </div>
@@ -277,6 +277,9 @@
     </div>
 
     <div class="mt-32">
-        <button type="submit" class="button button--orange" [disabled]="productCreateEditForm.invalid">Создать</button>
+        <button type="button" class="button button--orange" [disabled]="productCreateEditForm.invalid" (click)="onSaveOrEditProduct()">
+            <span *ngIf="!productId">Создать продукт</span>
+            <span *ngIf="productId">Редактировать продукт</span>
+        </button>
     </div>
 </form>
