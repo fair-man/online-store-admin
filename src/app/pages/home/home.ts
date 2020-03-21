@@ -1,3 +1,3 @@
 export const HOME_PATHS = {
-    home: 'home'
+    dashboard: 'dashboard'
 };

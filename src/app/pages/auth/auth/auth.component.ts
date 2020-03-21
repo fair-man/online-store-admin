@@ -28,10 +28,10 @@ export class AuthComponent implements OnInit {
         this.breadcrumbsService.updateBreadcrumbs(this.breadcrumbs);
     }
 
-    onAuthSubmit() {
+    public onAuthSubmit(): void {
         this.authService.login(this.loginForm.value).subscribe(
             (response) => {
-                this.router.navigate(['/' + HOME_PATHS.home]);
+                this.router.navigate(['/' + HOME_PATHS.dashboard]);
             },
             (error) => {
                 console.log(error);
