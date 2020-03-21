@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import {BreadcrumbsService} from './breadcrumbs.service';
-import {Breadcrumb} from '../../models/breadcrumbs';
+import { BreadcrumbsService } from './breadcrumbs.service';
+import { Breadcrumb } from '../../models/breadcrumbs';
 
 @Component({
     selector: 'app-breadcrumbs',

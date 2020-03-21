@@ -1,5 +1,5 @@
-import {Injectable, Inject, InjectionToken, OnDestroy} from '@angular/core';
-import {DOCUMENT} from '@angular/common';
+import { Injectable, Inject, InjectionToken, OnDestroy } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 
 // usefulness (and default value) of delay documented in Material's CDK
@@ -7,6 +7,7 @@ import {DOCUMENT} from '@angular/common';
 export type ARIA_LIVE_DELAY_TYPE = number | null;
 export const ARIA_LIVE_DELAY = new InjectionToken<ARIA_LIVE_DELAY_TYPE>(
     'live announcer delay', {providedIn: 'root', factory: ARIA_LIVE_DELAY_FACTORY});
+
 export function ARIA_LIVE_DELAY_FACTORY(): number {
     return 100;
 }

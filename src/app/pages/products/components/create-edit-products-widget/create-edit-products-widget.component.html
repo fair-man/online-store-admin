@@ -146,8 +146,11 @@
             ></app-group-characteristic-popover>
         </div>
         <div class="mt-8">
-            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" formArrayName="products_groups_description_options">
-                <ngb-panel *ngFor="let group of productCreateEditForm.get('products_groups_description_options').controls;let i = index" id="{{group.value.id}}" [formGroupName]="i">
+            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0"
+                           formArrayName="products_groups_description_options">
+                <ngb-panel
+                    *ngFor="let group of productCreateEditForm.get('products_groups_description_options').controls;let i = index"
+                    id="{{group.value.id}}" [formGroupName]="i">
                     <ng-template ngbPanelHeader let-opened="opened">
                         <div class="grid">
                             <div class="grid__box grid__box--size-min">
@@ -191,12 +194,15 @@
                     </ng-template>
                     <ng-template ngbPanelContent>
                         <div class="products__groups">
-                            <div class="text-placeholder" *ngIf="!group.value.characteristics.length">Нет характеристик для
+                            <div class="text-placeholder" *ngIf="!group.value.characteristics.length">Нет характеристик
+                                для
                                 отображения
                             </div>
                             <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-1" formArrayName="characteristics">
-                                <ngb-panel *ngFor="let characteristic of group.get('characteristics').controls;let j = index;let first = first; let last = last"
-                                           id="{{'characteristicBlock_' + (characteristic.value.id || characteristic.value.fakeId)}}" [formGroupName]="j">
+                                <ngb-panel
+                                    *ngFor="let characteristic of group.get('characteristics').controls;let j = index;let first = first; let last = last"
+                                    id="{{'characteristicBlock_' + (characteristic.value.id || characteristic.value.fakeId)}}"
+                                    [formGroupName]="j">
                                     <ng-template ngbPanelHeader let-opened="opened">
                                         <div class="grid">
                                             <div class="grid__box grid__box--size-min">
@@ -205,7 +211,8 @@
                                             <div class="grid__box grid__box--size-min grid__box--pull-right">
                                                 <div class="grid grid--gap-4">
                                                     <div class="grid__box grid__box--size-min">
-                                                        <button type="button" class="button button--ctrl os-up-big font-size-20"
+                                                        <button type="button"
+                                                                class="button button--ctrl os-up-big font-size-20"
                                                                 [disabled]="first"
                                                                 (click)="sortOrderCharacteristics(group, characteristic, 'up', j)"></button>
                                                     </div>
@@ -277,7 +284,8 @@
     </div>
 
     <div class="mt-32">
-        <button type="button" class="button button--orange" [disabled]="productCreateEditForm.invalid" (click)="onSaveOrEditProduct()">
+        <button type="button" class="button button--orange" [disabled]="productCreateEditForm.invalid"
+                (click)="onSaveOrEditProduct()">
             <span *ngIf="!productId">Создать продукт</span>
             <span *ngIf="productId">Редактировать продукт</span>
         </button>

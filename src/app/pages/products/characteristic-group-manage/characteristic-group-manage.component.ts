@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {filter, findIndex} from 'lodash';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { filter, findIndex } from 'lodash';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {CategoryProduct, GroupCharacteristics} from '../../../models/products';
-import {ProductsService} from '../products.service';
+import { CategoryProduct, GroupCharacteristics } from '../../../models/products';
+import { ProductsService } from '../products.service';
 import {
     CharacteristicGroupProductsComponent
 } from '../components/modals/characteristic-group-products/characteristic-group-products.component';
-import {PRODUCTS_PATHS} from '../products';
-import {Breadcrumb} from '../../../models/breadcrumbs';
-import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
+import { PRODUCTS_PATHS } from '../products';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
 
 @Component({
     selector: 'app-characteristic-group-manage',

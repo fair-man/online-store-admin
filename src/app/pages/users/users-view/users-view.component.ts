@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {UsersService} from '../users.service';
-import {User} from '../../../models/user';
-import {Breadcrumb} from '../../../models/breadcrumbs';
-import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
-import {USERS_PATHS} from '../users';
+import { UsersService } from '../users.service';
+import { User } from '../../../models/user';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
+import { USERS_PATHS } from '../users';
 
 @Component({
     selector: 'app-users-view',

@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import {LoaderService} from './loader.service';
+import { LoaderService } from './loader.service';
 
 @Component({
     selector: 'ui-loader',

@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {findIndex} from 'lodash';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { findIndex } from 'lodash';
 
-import {GroupCategoryProduct} from '../../../../../models/products';
-import {ProductsService} from '../../../products.service';
+import { GroupCategoryProduct } from '../../../../../models/products';
+import { ProductsService } from '../../../products.service';
 
 export interface GroupModal {
     name: string;

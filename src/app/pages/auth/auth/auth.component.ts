@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import {AuthService} from '../auth.service';
-import {HOME_PATHS} from '../../home/home';
-import {Breadcrumb} from '../../../models/breadcrumbs';
-import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
+import { AuthService } from '../auth.service';
+import { HOME_PATHS } from '../../home/home';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
 
 @Component({
     selector: 'app-auth',

@@ -64,7 +64,8 @@
                 </ui-field>
             </div>
             <div class="grid__box grid__box--size-min">
-                <button class="button" type="button" (click)="onSearchProduct()" [disabled]="!productCode">Найти</button>
+                <button class="button" type="button" (click)="onSearchProduct()" [disabled]="!productCode">Найти
+                </button>
             </div>
             <div class="grid__box grid__box--size-min ml-24">
                 <div *ngFor="let productSearch of productsSearchList" class="ta-left">
@@ -86,43 +87,44 @@
                 <col width="10%">
             </colgroup>
             <thead>
-                <tr>
-                    <th>Название продукта</th>
-                    <th>Код продукта</th>
-                    <th>
-                        <span class="field__label--required">Стоимость(1шт.)</span>
-                    </th>
-                    <th>
-                        <span class="field__label--required">Количество</span>
-                    </th>
-                </tr>
+            <tr>
+                <th>Название продукта</th>
+                <th>Код продукта</th>
+                <th>
+                    <span class="field__label--required">Стоимость(1шт.)</span>
+                </th>
+                <th>
+                    <span class="field__label--required">Количество</span>
+                </th>
+            </tr>
             </thead>
             <tbody>
-                <ng-container *ngIf="invoiceForm.controls.products.controls.length" formArrayName="products">
-                    <tr *ngFor="let product of invoiceForm.controls.products.controls;let j = index;" [formGroupName]="j">
-                        <td>
-                            {{product.value.pt_name}}
-                        </td>
-                        <td>
-                            {{product.value.pt_vendor_code}}
-                        </td>
-                        <td>
-                            <ui-field>
-                                <input type="text" formControlName="pt_price">
-                            </ui-field>
-                        </td>
-                        <td>
-                            <ui-field>
-                                <input type="text" formControlName="pt_count">
-                            </ui-field>
-                        </td>
-                    </tr>
-                </ng-container>
-                <tr *ngIf="!invoiceForm.controls.products.controls.length">
-                    <td colspan="4" class="text-placeholder">
-                        Список продуктов пуст. Найдите и добавьте товар. Если продукт не найдет, пожалуйста, создайте новый продукт.
+            <ng-container *ngIf="invoiceForm.controls.products.controls.length" formArrayName="products">
+                <tr *ngFor="let product of invoiceForm.controls.products.controls;let j = index;" [formGroupName]="j">
+                    <td>
+                        {{product.value.pt_name}}
+                    </td>
+                    <td>
+                        {{product.value.pt_vendor_code}}
+                    </td>
+                    <td>
+                        <ui-field>
+                            <input type="text" formControlName="pt_price">
+                        </ui-field>
+                    </td>
+                    <td>
+                        <ui-field>
+                            <input type="text" formControlName="pt_count">
+                        </ui-field>
                     </td>
                 </tr>
+            </ng-container>
+            <tr *ngIf="!invoiceForm.controls.products.controls.length">
+                <td colspan="4" class="text-placeholder">
+                    Список продуктов пуст. Найдите и добавьте товар. Если продукт не найдет, пожалуйста, создайте новый
+                    продукт.
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

@@ -1,4 +1,4 @@
-import {UIDatePickerAdapter} from './date-picker.adapter';
+import { UIDatePickerAdapter } from './date-picker.adapter';
 
 export class UIDatePickerAdapterNative extends UIDatePickerAdapter<Date> {
     fromMilliseconds(milliseconds: number): Date {

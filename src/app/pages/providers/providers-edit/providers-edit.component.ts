@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {PROVIDERS_PATHS} from '../providers';
-import {Breadcrumb} from '../../../models/breadcrumbs';
-import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
+import { PROVIDERS_PATHS } from '../providers';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
 
 @Component({
     selector: 'app-providers-edit',

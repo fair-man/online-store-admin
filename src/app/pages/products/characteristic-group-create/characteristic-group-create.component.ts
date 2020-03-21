@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {PRODUCTS_PATHS} from '../products';
-import {Breadcrumb} from '../../../models/breadcrumbs';
-import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
+import { PRODUCTS_PATHS } from '../products';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
 
 @Component({
     selector: 'app-characteristic-group-create',

@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators, FormArray, FormBuilder} from '@angular/forms';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import {cloneDeep} from 'lodash';
+import { cloneDeep } from 'lodash';
 
-import {Product, PRODUCTS_PATHS} from '../products';
-import {Breadcrumb} from '../../../models/breadcrumbs';
-import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
-import {ProvidersService} from '../../providers/providers.service';
-import {Provider} from '../../../models/provider';
-import {ProductsService} from '../products.service';
-import {Enums} from '../../../configs/Enums';
-import {AuthService} from '../../auth/auth.service';
+import { PRODUCTS_PATHS } from '../products';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
+import { ProvidersService } from '../../providers/providers.service';
+import { Provider } from '../../../models/provider';
+import { ProductsService } from '../products.service';
+import { Enums } from '../../../configs/Enums';
+import { AuthService } from '../../auth/auth.service';
+import { Product } from '../../../models/products';
 
 @Component({
     selector: 'app-new-invoice',

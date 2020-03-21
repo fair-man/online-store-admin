@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import {PROVIDERS_PATHS} from '../../providers';
-import {StreetType} from '../../../../models/address';
-import {ProviderFull} from '../../../../models/provider';
-import {MaskReplace} from '../../../../utils/mask-replace';
-import {Enums} from '../../../../configs/Enums';
-import {ProvidersService} from '../../providers.service';
+import { PROVIDERS_PATHS } from '../../providers';
+import { StreetType } from '../../../../models/address';
+import { ProviderFull } from '../../../../models/provider';
+import { MaskReplace } from '../../../../utils/mask-replace';
+import { Enums } from '../../../../configs/Enums';
+import { ProvidersService } from '../../providers.service';
 
-import {cloneDeep} from 'lodash';
+import { cloneDeep } from 'lodash';
 
 @Component({
     selector: 'app-create-edit-providers-widget',

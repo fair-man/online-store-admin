@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {Product, PRODUCTS_PATHS} from '../products';
-import {Breadcrumb} from '../../../models/breadcrumbs';
-import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
-import {ProductsService} from '../products.service';
-import {Enums} from '../../../configs/Enums';
+import { PRODUCTS_PATHS } from '../products';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
+import { ProductsService } from '../products.service';
+import { Enums } from '../../../configs/Enums';
+import { Product } from '../../../models/products';
 
 @Component({
     selector: 'app-products-list',

@@ -1,8 +1,8 @@
-import {Injectable, NgZone, Inject} from '@angular/core';
-import {fromEvent, Observable, race} from 'rxjs';
-import {DOCUMENT} from '@angular/common';
-import {takeUntil, filter, delay, withLatestFrom, map} from 'rxjs/operators';
-import {Key} from './key';
+import { Injectable, NgZone, Inject } from '@angular/core';
+import { fromEvent, Observable, race } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+import { takeUntil, filter, delay, withLatestFrom, map } from 'rxjs/operators';
+import { Key } from './key';
 
 const isHTMLElementContainedIn = (element: HTMLElement, array?: HTMLElement[]) =>
     array ? array.some(item => item.contains(element)) : false;

@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import {PROVIDERS_PATHS} from '../providers';
-import {Breadcrumb} from '../../../models/breadcrumbs';
-import {ProviderFull} from '../../../models/provider';
-import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
-import {ProvidersService} from '../providers.service';
+import { PROVIDERS_PATHS } from '../providers';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { ProviderFull } from '../../../models/provider';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
+import { ProvidersService } from '../providers.service';
 
 @Component({
     selector: 'app-providers-view',

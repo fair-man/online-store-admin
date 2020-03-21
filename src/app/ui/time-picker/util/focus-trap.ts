@@ -1,7 +1,7 @@
-import {fromEvent, Observable} from 'rxjs';
-import {filter, map, takeUntil, withLatestFrom} from 'rxjs/operators';
+import { fromEvent, Observable } from 'rxjs';
+import { filter, map, takeUntil, withLatestFrom } from 'rxjs/operators';
 
-import {Key} from './key';
+import { Key } from './key';
 
 
 const FOCUSABLE_ELEMENTS_SELECTOR = [

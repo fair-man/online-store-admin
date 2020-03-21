@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {UsersService} from '../users.service';
-import {User} from '../../../models/user';
-import {USERS_PATHS} from '../users';
+import { UsersService } from '../users.service';
+import { User } from '../../../models/user';
+import { USERS_PATHS } from '../users';
 
-import {Breadcrumb} from '../../../models/breadcrumbs';
-import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
 
 const {forEach} = {forEach: require('lodash/forEach')};
 

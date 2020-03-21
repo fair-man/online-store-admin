@@ -1,15 +1,14 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/index';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/index';
 
-import {CustomHttpResponse} from '../../classes/http';
+import { CustomHttpResponse } from '../../classes/http';
 import {
     GroupCategoryProduct,
     GroupSubCategoryProduct,
     CategoryProduct,
-    GroupCharacteristics
+    GroupCharacteristics, Product
 } from '../../models/products';
-import {Product} from './products';
 
 @Injectable({
     providedIn: 'root'

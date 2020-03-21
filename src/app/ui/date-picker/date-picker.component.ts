@@ -11,18 +11,18 @@ import {
     SimpleChanges, ViewEncapsulation
 } from '@angular/core';
 
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {take} from 'rxjs/operators';
-import {DateButton, UIDatePickerModel} from './date-picker.model';
-import {UIModelProvider} from './date-picker.model-provider';
-import {UIDatePickerChange} from './date-picker.change';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { take } from 'rxjs/operators';
+import { DateButton, UIDatePickerModel } from './date-picker.model';
+import { UIModelProvider } from './date-picker.model-provider';
+import { UIDatePickerChange } from './date-picker.change';
 import * as _moment from 'moment';
-import {UIDatePickerAdapter} from './date-picker.adapter';
-import {UIYearModelProvider} from './date-picker.model-provider-year';
-import {UIMonthModelProvider} from './date-picker.model-provider-month';
-import {UIDayModelProvider} from './date-picker.model-provider-day';
-import {UIHourModelProvider} from './date-picker.model-provider-hour';
-import {UIMinuteModelProvider} from './date-picker.model-provider-minute';
+import { UIDatePickerAdapter } from './date-picker.adapter';
+import { UIYearModelProvider } from './date-picker.model-provider-year';
+import { UIMonthModelProvider } from './date-picker.model-provider-month';
+import { UIDayModelProvider } from './date-picker.model-provider-day';
+import { UIHourModelProvider } from './date-picker.model-provider-hour';
+import { UIMinuteModelProvider } from './date-picker.model-provider-minute';
 
 const moment = _moment;
 const keyCodeToModelProviderMethod = {

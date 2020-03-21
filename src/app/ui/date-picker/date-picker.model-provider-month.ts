@@ -1,6 +1,6 @@
-import {UIModelProvider} from './date-picker.model-provider';
-import {UIDatePickerModel} from './date-picker.model';
-import {SimpleChanges} from '@angular/core';
+import { UIModelProvider } from './date-picker.model-provider';
+import { UIDatePickerModel } from './date-picker.model';
+import { SimpleChanges } from '@angular/core';
 
 const moment = require('moment');
 

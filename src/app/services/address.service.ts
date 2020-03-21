@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/index';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/index';
 
-import {CustomHttpResponse} from '../classes/http';
-import {StreetTypes} from '../models/address';
+import { CustomHttpResponse } from '../classes/http';
+import { StreetTypes } from '../models/address';
 
 @Injectable({
     providedIn: 'root'

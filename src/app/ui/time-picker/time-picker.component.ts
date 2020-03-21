@@ -1,10 +1,10 @@
-import {Component, forwardRef, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { Component, forwardRef, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import {isInteger, isNumber, padNumber, toInteger} from './util/util';
-import {NgbTime} from './ngb-time';
-import {NgbTimepickerConfig} from './time-picker.config';
-import {NgbTimeAdapter} from './ngb-time-adapter';
+import { isInteger, isNumber, padNumber, toInteger } from './util/util';
+import { NgbTime } from './ngb-time';
+import { NgbTimepickerConfig } from './time-picker.config';
+import { NgbTimeAdapter } from './ngb-time-adapter';
 
 const NGB_TIMEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,

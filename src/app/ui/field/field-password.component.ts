@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'ui-field-password',

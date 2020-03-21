@@ -3,7 +3,7 @@ import {
     SimpleChanges, OnChanges
 } from '@angular/core';
 
-import {isEqual, cloneDeep, findIndex} from 'lodash';
+import { isEqual, cloneDeep, findIndex } from 'lodash';
 
 @Component({
     selector: 'ui-combobox',

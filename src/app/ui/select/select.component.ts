@@ -1,6 +1,6 @@
-import {Component, OnInit, Input, Output, ViewEncapsulation, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
 
-import {isEqual} from 'lodash';
+import { isEqual } from 'lodash';
 
 @Component({
     selector: 'ui-select',

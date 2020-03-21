@@ -1,6 +1,6 @@
-import {Address} from './address';
-import {Phone} from './phone';
-import {Contract} from './contract';
+import { Address } from './address';
+import { Phone } from './phone';
+import { Contract } from './contract';
 
 export interface Provider {
     id: number;

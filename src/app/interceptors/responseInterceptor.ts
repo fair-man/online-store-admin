@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
     HttpEvent,
     HttpInterceptor,
@@ -8,13 +8,13 @@ import {
     HttpErrorResponse
 } from '@angular/common/http';
 
-import {isDevMode} from '@angular/core';
+import { isDevMode } from '@angular/core';
 
-import {Observable, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/internal/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/internal/operators';
 
-import {AuthService} from '../pages/auth/auth.service';
-import {LoaderService} from '../ui/loader/loader.service';
+import { AuthService } from '../pages/auth/auth.service';
+import { LoaderService } from '../ui/loader/loader.service';
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {

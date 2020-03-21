@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import {cloneDeep} from 'lodash';
+import { cloneDeep } from 'lodash';
 
-import {Enums} from '../../../../configs/Enums';
-import {UsersService} from '../../users.service';
-import {Role} from '../../../../models/role';
-import {StreetType} from '../../../../models/address';
-import {DateTimePickerDateObj} from '../../../../models/moment';
-import {MaskReplace} from '../../../../utils/mask-replace';
-import {User} from '../../../../models/user';
-import {USERS_PATHS} from '../../users';
+import { Enums } from '../../../../configs/Enums';
+import { UsersService } from '../../users.service';
+import { Role } from '../../../../models/role';
+import { StreetType } from '../../../../models/address';
+import { DateTimePickerDateObj } from '../../../../models/moment';
+import { MaskReplace } from '../../../../utils/mask-replace';
+import { User } from '../../../../models/user';
+import { USERS_PATHS } from '../../users';
 
 @Component({
     selector: 'app-create-edit-users-widget',

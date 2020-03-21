@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {NgbTimeStruct} from './ngb-time-struct';
-import {isInteger} from './util/util';
+import { Injectable } from '@angular/core';
+import { NgbTimeStruct } from './ngb-time-struct';
+import { isInteger } from './util/util';
 
 export function NGB_DATEPICKER_TIME_ADAPTER_FACTORY() {
     return new NgbTimeStructAdapter();

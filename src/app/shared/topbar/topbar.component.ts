@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {AuthService} from '../../pages/auth/auth.service';
+import { AuthService } from '../../pages/auth/auth.service';
 
 @Component({
     selector: 'app-topbar',

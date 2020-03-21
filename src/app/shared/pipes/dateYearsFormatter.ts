@@ -1,4 +1,5 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
+
 const moment = require('moment');
 
 @Pipe({name: 'dateYearsFormat'})

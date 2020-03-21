@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import {ProductsService} from '../../products.service';
-import {GroupCharacteristics} from '../../../../models/products';
+import { ProductsService } from '../../products.service';
+import { GroupCharacteristics } from '../../../../models/products';
 
 @Component({
     selector: 'app-characteristic-group-widget',

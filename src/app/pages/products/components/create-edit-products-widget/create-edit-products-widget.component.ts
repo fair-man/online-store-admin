@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {each, findIndex, filter, cloneDeep, sortBy} from 'lodash';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { each, findIndex, filter, cloneDeep, sortBy } from 'lodash';
 
-import {ProductsService} from '../../products.service';
+import { ProductsService } from '../../products.service';
 import {
     CategoryProduct, Characteristic, GroupCategoryProduct, GroupCharacteristics,
-    GroupSubCategoryProduct
+    GroupSubCategoryProduct, Product
 } from '../../../../models/products';
 import {
     CreateEditGroupsProductsComponent
@@ -18,11 +18,12 @@ import {
 import {
     CreateEditCategoriesProductsComponent
 } from '../modals/create-edit-categories-products/create-edit-categories-products.component';
-import {PRODUCTS_PATHS} from '../../products';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {checkCharacteristicsValidator} from './create-edit-products-widget.validators';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
+import { PRODUCTS_PATHS } from '../../products';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { checkCharacteristicsValidator } from './create-edit-products-widget.validators';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { CustomHttpResponse } from '../../../../classes/http';
 
 @Component({
     selector: 'app-create-edit-products-widget',
@@ -49,7 +50,11 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getGroupsCategories();
+        this.initForm();
+        this.initData();
+    }
+
+    private initForm(): void {
         this.productCreateEditForm = this.fb.group({
             category_product_id: new FormControl('', Validators.required),
             name: new FormControl('', Validators.required),
@@ -59,18 +64,19 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             count: new FormControl('', Validators.required),
             products_groups_description_options: this.fb.array([])
         });
+    }
 
-        this.route.params.subscribe((params) => {
-            this.productId = +params.id;
+    private initData(): void {
+        if (this.route.snapshot.params['id']) {
+            this.productId = this.route.snapshot.params['id'];
             this.getProductData();
-        });
+        } else {
+            this.getGroupsCategories().subscribe(() => {
+            });
+        }
     }
 
-    get groups () {
-        return this.productCreateEditForm.get('products_groups_description_options') as FormArray;
-    }
-
-    private getProductData() {
+    private getProductData(): void {
         if (!this.productId) {
             return;
         }
@@ -79,7 +85,9 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             .subscribe(
                 (response) => {
                     this.productDataDefault = response.data;
-                    this.initExistsProduct(response.data);
+                    this.getGroupsCategories().subscribe(() => {
+                        this.initExistsProduct(response.data);
+                    });
                 },
                 (error) => {
                     console.log(error);
@@ -87,61 +95,62 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             );
     }
 
-    private initExistsProduct(initData) {
-        const gc = this.getSelectedItem('id', initData.pt_gc_id, this.groupsCategoriesProducts);
+    private initExistsProduct(product: Product): void {
+        const gc = this.getSelectedItem('id', product.pt_gc_id, this.groupsCategoriesProducts);
 
         if (gc) {
             this.groupCategoryProduct = gc;
-            this.initSubGroupCategory(initData);
+            this.initSubGroupCategory(product);
         }
 
         this.productCreateEditForm.updateValueAndValidity();
     }
 
-    private initSubGroupCategory(initData) {
+    private initSubGroupCategory(product: Product): void {
         let gsc = null;
+
         this.getSubCategories(this.groupCategoryProduct.id)
             .subscribe(
                 () => {
-                    gsc = this.getSelectedItem('id', initData.pt_gs_id, this.groupsSubCategoriesProducts);
+                    gsc = this.getSelectedItem('id', product.pt_gs_id, this.groupsSubCategoriesProducts);
 
                     if (gsc) {
                         this.groupSubCategoryProduct = gsc;
-                        this.initCategory(initData);
+                        this.initCategory(product);
                     }
                 }
             );
     }
 
-    private initCategory(initData) {
+    private initCategory(product: Product): void {
         let c = null;
 
         this.getCategoriesProducts(this.groupSubCategoryProduct.id)
             .subscribe(
                 () => {
-                    c = this.getSelectedItem('id', initData.pt_c_id, this.categoriesProducts);
+                    c = this.getSelectedItem('id', product.pt_c_id, this.categoriesProducts);
 
                     if (c) {
                         this.onChangeCategoriesProductsItem(c);
                     }
 
-                    this.initTypedFields(initData);
+                    this.initTypedFields(product);
                 }
             );
     }
 
-    private initTypedFields(initData) {
-        this.productCreateEditForm.controls['name'].setValue(initData.pt_name);
-        this.productCreateEditForm.controls['description'].setValue(initData.pt_description);
-        this.productCreateEditForm.controls['vendor_code'].setValue(initData.pt_vendor_code);
-        this.productCreateEditForm.controls['price'].setValue(initData.pt_price);
-        this.productCreateEditForm.controls['count'].setValue(initData.pt_count);
+    private initTypedFields(product: Product): void {
+        this.productCreateEditForm.controls['name'].setValue(product.pt_name);
+        this.productCreateEditForm.controls['description'].setValue(product.pt_description);
+        this.productCreateEditForm.controls['vendor_code'].setValue(product.pt_vendor_code);
+        this.productCreateEditForm.controls['price'].setValue(product.pt_price);
+        this.productCreateEditForm.controls['count'].setValue(product.pt_count);
     }
 
-    initGroupsCharacteristics(initData) {
-        const groupsCharacteristics = initData.pt_groups_description_options;
+    private initGroupsCharacteristics(product: Product): void {
+        const groupsCharacteristics = product.pt_groups_description_options;
 
-        each(groupsCharacteristics, (groupsCharacteristic) => {
+        each(groupsCharacteristics, (groupsCharacteristic: GroupCharacteristics) => {
             const group = this.getSelectedItem('id', groupsCharacteristic.id, this.groupsCharacteristics);
 
             group.isChecked = true;
@@ -151,7 +160,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         this.onCloseGroupsCharacteristicPopover();
     }
 
-    private getSelectedItem(itemKey: string, itemValue: any, items) {
+    private getSelectedItem<T>(itemKey: string, itemValue: number, items: T[]): T | null {
         const index = findIndex(items, (item) => item[itemKey] === itemValue);
 
         if (index > -1) {
@@ -161,19 +170,21 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         }
     }
 
-    private getGroupsCategories() {
-        this.productsService.getGroupsCategoriesProducts()
-            .subscribe(
-                (response) => {
-                    this.groupsCategoriesProducts = response.data;
-                },
-                (error) => {
-                    console.log(error);
-                }
+    private getGroupsCategories(): Observable<CustomHttpResponse<GroupCategoryProduct[]>> {
+        return this.productsService.getGroupsCategoriesProducts()
+            .pipe(
+                tap(
+                    (response) => {
+                        this.groupsCategoriesProducts = response.data;
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                )
             );
     }
 
-    private getSubCategories(groupCategoryId: number): Observable<any> {
+    private getSubCategories(groupCategoryId: number): Observable<CustomHttpResponse<GroupSubCategoryProduct[]>> {
         return this.productsService.getGroupsSubCategoriesProducts({g_id: groupCategoryId})
             .pipe(
                 tap(
@@ -187,7 +198,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             );
     }
 
-    private getCategoriesProducts(groupSubCategoryId: number): Observable<any> {
+    private getCategoriesProducts(groupSubCategoryId: number): Observable<CustomHttpResponse<CategoryProduct[]>> {
         return this.productsService.getCategories({g_id: groupSubCategoryId})
             .pipe(
                 tap(
@@ -201,7 +212,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             );
     }
 
-    private getCategoriesGroupsProducts(categoryId: number) {
+    private getCategoriesGroupsProducts(categoryId: number): void {
         this.productsService.getCategoriesGroups({c_id: categoryId})
             .subscribe(
                 (response) => {
@@ -225,17 +236,18 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             );
     }
 
-    public onChangeGroupsCategoriesProductsItem(groupCategoryProduct: GroupCategoryProduct) {
+    public onChangeGroupsCategoriesProductsItem(groupCategoryProduct: GroupCategoryProduct): void {
         this.groupCategoryProduct = groupCategoryProduct;
         this.groupsSubCategoriesProducts = null;
         this.groupSubCategoryProduct = null;
         this.categoriesProducts = null;
         this.categoryProduct = null;
         this.groupsCharacteristics = null;
-        this.getSubCategories(groupCategoryProduct.id).subscribe((response) => { console.log(response); });
+        this.getSubCategories(groupCategoryProduct.id).subscribe(() => {
+        });
     }
 
-    public onOpenGroupsCategoriesDialog() {
+    public onOpenGroupsCategoriesDialog(): void {
         const groupCategoriesModal = this.modalService.open(CreateEditGroupsProductsComponent, {
             ariaLabelledBy: 'modal-basic-title',
             windowClass: 'modal-wrapper',
@@ -245,15 +257,16 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         groupCategoriesModal.componentInstance.groupsCategoriesProducts = this.groupsCategoriesProducts;
     }
 
-    public onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct) {
+    public onChangeGroupsSubCategoriesProductsItem(groupSubCategoryProduct: GroupSubCategoryProduct): void {
         this.groupSubCategoryProduct = groupSubCategoryProduct;
         this.categoriesProducts = null;
         this.categoryProduct = null;
         this.groupsCharacteristics = null;
-        this.getCategoriesProducts(groupSubCategoryProduct.id).subscribe((response) => { console.log(response); });
+        this.getCategoriesProducts(groupSubCategoryProduct.id).subscribe(() => {
+        });
     }
 
-    public onOpenGroupsSubCategoriesDialog() {
+    public onOpenGroupsSubCategoriesDialog(): void {
         const groupSubCategoriesModal = this.modalService.open(CreateEditGroupsSubcategoriesProductsComponent, {
             ariaLabelledBy: 'modal-basic-title',
             windowClass: 'modal-wrapper',
@@ -291,21 +304,18 @@ export class CreateEditProductsWidgetComponent implements OnInit {
                         this.groupSubCategoryProduct = null;
                     }
                 }
-            },
-            (dismissedData) => {
-                console.log('Dismissed', dismissedData);
             }
         );
     }
 
-    public onChangeCategoriesProductsItem(categoryProduct: CategoryProduct) {
+    public onChangeCategoriesProductsItem(categoryProduct: CategoryProduct): void {
         this.categoryProduct = categoryProduct;
         this.groupsCharacteristics = null;
         this.getCategoriesGroupsProducts(categoryProduct.id);
         this.productCreateEditForm.controls['category_product_id'].setValue(categoryProduct.id);
     }
 
-    public onOpenCategoriesProductsDialog() {
+    public onOpenCategoriesProductsDialog(): void {
         const categoriesModal = this.modalService.open(CreateEditCategoriesProductsComponent, {
             ariaLabelledBy: 'modal-basic-title',
             windowClass: 'modal-wrapper',
@@ -343,14 +353,11 @@ export class CreateEditProductsWidgetComponent implements OnInit {
                         this.categoryProduct = null;
                     }
                 }
-            },
-            (dismissedData) => {
-                console.log('Dismissed', dismissedData);
             }
         );
     }
 
-    public onCloseGroupsCharacteristicPopover() {
+    public onCloseGroupsCharacteristicPopover(): void {
         const groups = cloneDeep(this.productCreateEditForm.value.products_groups_description_options);
         this.productCreateEditForm.removeControl('products_groups_description_options');
         this.productCreateEditForm.setControl('products_groups_description_options', this.fb.array([]));
@@ -397,7 +404,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             }));
     }
 
-    private addGroupCharacteristic(group: GroupCharacteristics) {
+    private addGroupCharacteristic(group: GroupCharacteristics): FormGroup {
         const opts = this.productCreateEditForm.get('products_groups_description_options') as FormArray;
         const formGroup = new FormGroup({
             id: new FormControl(group.id, Validators.required),
@@ -414,7 +421,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         return formGroup;
     }
 
-    private addCharacteristic(group: FormGroup, characteristic: Characteristic) {
+    private addCharacteristic(group: FormGroup, characteristic: Characteristic): void {
         const groupIndex = findIndex(this.groupsCharacteristics, (g) => g.id === group.value.id);
         const characteristics = group.get('characteristics') as FormArray;
         characteristics.push(this.fb.group({
@@ -435,7 +442,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         }
     }
 
-    public onMakeCharacteristic(group: FormGroup) {
+    public onMakeCharacteristic(group: FormGroup): void {
         const characteristics = group.get('characteristics') as FormArray;
         const count = characteristics.controls.length ?
             characteristics.controls[characteristics.controls.length - 1].value.sort_order + 1 : 1;
@@ -450,7 +457,7 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         this.addCharacteristic(group, characteristic);
     }
 
-    sortOrderGroupsCharacteristics(item, type, index) {
+    public sortOrderGroupsCharacteristics(item: FormGroup, type: string, index: number): void {
         let sortItem;
         let itemSortOrder;
         const descriptionOptions = this.productCreateEditForm.controls['products_groups_description_options'];
@@ -478,15 +485,16 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         itemSortOrder = item.get('sort_order').value;
         item.controls['sort_order'].setValue(sortItem.get('sort_order').value);
         sortItem.controls['sort_order'].setValue(itemSortOrder);
-        descriptionOptions.setValue(descriptionOptions.value.sort((a, b) => {
-            return a.sort_order - b.sort_order;
-        }));
+        descriptionOptions.setValue(descriptionOptions.value.sort(
+            (a: GroupCharacteristics, b: GroupCharacteristics) => {
+                return a.sort_order - b.sort_order;
+            }));
     }
 
-    sortOrderCharacteristics(items, item, type, index) {
+    public sortOrderCharacteristics(items: FormGroup, item: FormGroup, type: string, index: number): void {
         let sortItem;
         let charactericticSortOrder;
-        const characteristicsControls = items.controls.characteristics.controls;
+        const characteristicsControls = items.controls.characteristics['controls'];
         const characteristics = items.controls.characteristics;
 
         switch (type) {
@@ -511,12 +519,12 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         charactericticSortOrder = item.get('sort_order').value;
         item.controls['sort_order'].setValue(sortItem.get('sort_order').value);
         sortItem.controls['sort_order'].setValue(charactericticSortOrder);
-        characteristics.setValue(characteristics.value.sort((a, b) => {
+        characteristics.setValue(characteristics.value.sort((a: Characteristic, b: Characteristic) => {
             return a.sort_order - b.sort_order;
         }));
     }
 
-    removeCharacteristic(group, index) {
+    public removeCharacteristic(group: any, index: number): void {
         const grp = this.groupsCharacteristics.filter((g) => g.id === group.value.id);
 
         if (grp && grp.length) {
@@ -526,8 +534,9 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         group.controls['characteristics'].removeAt(index);
     }
 
-    public onSaveOrEditProduct() {
+    public onSaveOrEditProduct(): void {
         const requestObj = this.productCreateEditForm.value;
+
         requestObj.products_groups_description_options = requestObj.products_groups_description_options.map((group) => {
             return {
                 id: group.id,
@@ -543,8 +552,6 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             };
         });
 
-        console.log(requestObj);
-
         if (this.productId) {
             this.updateProduct(this.productId, requestObj);
         } else {
@@ -552,8 +559,8 @@ export class CreateEditProductsWidgetComponent implements OnInit {
         }
     }
 
-    private createProduct(requestObj) {
-        this.productsService.createProduct({product_json: requestObj})
+    private createProduct(product: Product): void {
+        this.productsService.createProduct({product_json: product})
             .subscribe(
                 (response) => {
                     console.log(response);
@@ -564,8 +571,8 @@ export class CreateEditProductsWidgetComponent implements OnInit {
             );
     }
 
-    private updateProduct(productId: number, requestObj: any) {
-        this.productsService.updateProduct(productId, {product_json: requestObj})
+    private updateProduct(productId: number, product: Product): void {
+        this.productsService.updateProduct(productId, {product_json: product})
             .subscribe(
                 (response) => {
                     console.log(response);

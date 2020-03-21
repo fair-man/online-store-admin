@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {forkJoin, Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { forkJoin, Observable } from 'rxjs';
 
-import {Roles} from '../../models/role';
-import {StreetTypes} from '../../models/address';
-import {User, Users} from '../../models/user';
+import { Roles } from '../../models/role';
+import { StreetTypes } from '../../models/address';
+import { User, Users } from '../../models/user';
 
-import {CustomHttpResponse} from '../../classes/http';
-import {AddressService} from '../../services/address.service';
+import { CustomHttpResponse } from '../../classes/http';
+import { AddressService } from '../../services/address.service';
 
 @Injectable({
     providedIn: 'root'

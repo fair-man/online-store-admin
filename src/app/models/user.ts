@@ -1,6 +1,6 @@
-import {Address} from './address';
-import {Role} from './role';
-import {Phone} from './phone';
+import { Address } from './address';
+import { Role } from './role';
+import { Phone } from './phone';
 
 export interface User {
     id: number;

@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {PROVIDERS_PATHS} from '../providers';
-import {ProvidersService} from '../providers.service';
-import {Provider} from '../../../models/provider';
-import {Breadcrumb} from '../../../models/breadcrumbs';
-import {BreadcrumbsService} from '../../../shared/breadcrumbs/breadcrumbs.service';
+import { PROVIDERS_PATHS } from '../providers';
+import { ProvidersService } from '../providers.service';
+import { Provider } from '../../../models/provider';
+import { Breadcrumb } from '../../../models/breadcrumbs';
+import { BreadcrumbsService } from '../../../shared/breadcrumbs/breadcrumbs.service';
 
 export interface SearchProvider {
     name: string;
