@@ -10,3 +10,137 @@
     padding: 16px;
     box-shadow: 0 0 5px $clr-gray-secondary;
 }
+
+.product__photo-drag-block {
+    border: 2px dashed $clr-gray-secondary;
+    border-radius: 8px;
+    padding: 32px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--highlight {
+        border-color: $clr-yellow-secondary
+    }
+
+    .link {
+        line-height: 16px;
+    }
+}
+
+.product__photo-block {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+
+.photo-block__preview {
+    width: 150px;
+    height: 150px;
+    margin-left: 13.7px;
+    margin-right: 14px;
+    border: 1px solid $clr-gray-secondary;
+    flex: 0 0 150px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        max-width: 100%;
+        height: 100%;
+    }
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &:hover {
+        .preview__remove {
+            display: block;
+        }
+
+        .preview__make-title {
+            display: flex;
+        }
+    }
+
+    &--title {
+        .preview__title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            background-color: $clr-green-secondary;
+            color: $clr-white;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+        }
+    }
+}
+
+.preview__remove,
+.preview__make-title,
+.preview__title {
+    display: none;
+}
+
+.preview__remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    background-color: $clr-white;
+
+    &:after {
+        content: '\2716';
+        color: $clr-red-secondary;
+        cursor: pointer;
+        width: 12px;
+        height: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.preview__make-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    background-color: $clr-blue-secondary;
+    color: $clr-white;
+    cursor: pointer;
+}
+
+
+#photo-drag-block__input {
+    display: none;
+    height: 0;
+    width: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.photo-drag-block__placeholder {
+    margin-right: 4px;
+}

@@ -131,6 +131,27 @@
         </div>
     </div>
 
+    <div class="mt-32 product__photo-block" *ngIf="filesList">
+        <div *ngFor="let file of filesList" class="photo-block__preview"
+             [ngClass]="{'photo-block__preview--title': file.isFileTitle}">
+            <div class="preview__remove" (click)="onRemoveFile(file)"></div>
+
+            <img src="{{file.previewSrc}}">
+
+            <div class="preview__make-title" (click)="onMakeTitle(file)" *ngIf="!file.isFileTitle">
+                Сделать титульной
+            </div>
+            <div class="preview__title" *ngIf="file.isFileTitle">
+                Титульная
+            </div>
+        </div>
+    </div>
+    <div class="mt-32 product__photo-drag-block" #productDragBlock>
+        <span class="photo-drag-block__placeholder">Перетащите файлы или</span>
+        <label for="photo-drag-block__input" class="link link--dashed link--green">добавьте</label>
+        <input id="photo-drag-block__input" type="file" multiple accept="image/*" (change)="onAddFiles($event)">
+    </div>
+
     <div class="mt-32" *ngIf="!groupsCharacteristics">
     <span
         class="text-placeholder">Для отображения блока характеристик, заполните поля блока "Расположение продукта"</span>

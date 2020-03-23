@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { each, findIndex, filter, cloneDeep, sortBy } from 'lodash';
+import { each, findIndex, filter, forEach, cloneDeep, sortBy } from 'lodash';
 
 import { ProductsService } from '../../products.service';
 import {
@@ -24,13 +24,14 @@ import { checkCharacteristicsValidator } from './create-edit-products-widget.val
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CustomHttpResponse } from '../../../../classes/http';
+import { FileCustom } from '../../../../models/file';
 
 @Component({
     selector: 'app-create-edit-products-widget',
     templateUrl: './create-edit-products-widget.component.html',
     styleUrls: ['./create-edit-products-widget.component.scss']
 })
-export class CreateEditProductsWidgetComponent implements OnInit {
+export class CreateEditProductsWidgetComponent implements OnInit, AfterViewInit {
     public productCreateEditForm: FormGroup;
     public groupsCategoriesProducts: GroupCategoryProduct[];
     public groupCategoryProduct: GroupCategoryProduct;
@@ -43,6 +44,10 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     public productId: number;
     public productDataDefault: any;
 
+    private filesList: File[] = [];
+
+    @ViewChild('productDragBlock', {static: false}) productDragBlockElement: ElementRef;
+
     constructor(private productsService: ProductsService,
                 private fb: FormBuilder,
                 public modalService: NgbModal,
@@ -52,6 +57,70 @@ export class CreateEditProductsWidgetComponent implements OnInit {
     ngOnInit() {
         this.initForm();
         this.initData();
+    }
+
+    ngAfterViewInit() {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            this.productDragBlockElement.nativeElement.addEventListener(eventName, preventDefaults, false);
+        });
+        function preventDefaults (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            this.productDragBlockElement.nativeElement.addEventListener(eventName, this.toggleHighlight.bind(this, true), false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            this.productDragBlockElement.nativeElement.addEventListener(eventName, this.toggleHighlight.bind(this, false), false);
+
+            if (eventName === 'drop') {
+                this.productDragBlockElement.nativeElement.addEventListener(eventName, this.onAddFiles.bind(this), false);
+            }
+        });
+    }
+
+    private toggleHighlight(isHighlight) {
+        if (isHighlight) {
+            this.productDragBlockElement.nativeElement.classList.add('product__photo-drag-block--highlight');
+        } else {
+            this.productDragBlockElement.nativeElement.classList.remove('product__photo-drag-block--highlight');
+        }
+    }
+
+    public onAddFiles(event) {
+        const files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+
+        forEach(files, (file) => {
+            const fileSearch = this.getSelectedItem('name', file.name, this.filesList);
+
+            if ((!fileSearch) || (fileSearch && fileSearch.type !== file.type)) {
+                this.addPreviewFile(file);
+                this.filesList.push(file);
+            }
+        });
+    }
+
+    public onRemoveFile(file) {
+        const fileSearchIndex = findIndex(this.filesList, (f) => f.name === file.name);
+
+        if (fileSearchIndex > -1) {
+            this.filesList.splice(fileSearchIndex, 1);
+        }
+    }
+
+    public onMakeTitle(file: FileCustom) {
+        forEach(this.filesList, (f: FileCustom) => {
+            f.isFileTitle = f.name === file.name;
+        });
+    }
+
+    private addPreviewFile(file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function() {
+            file.previewSrc = reader.result;
+        };
     }
 
     private initForm(): void {

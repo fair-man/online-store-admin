@@ -71,6 +71,7 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
             email: new FormControl(providerData.email),
             phone_house: new FormControl(''),
             phone_mobile: new FormControl(this.providerData.provider_data_phones[0].phone, Validators.required),
+            status: new FormControl(!!providerData.status),
             provider_data_address_registration: new FormGroup({
                 region: new FormControl(providerDataAddressRegistration.region, Validators.required),
                 district: new FormControl(providerDataAddressRegistration.district, Validators.required),
@@ -128,6 +129,7 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
             email: new FormControl(''),
             phone_house: new FormControl(''),
             phone_mobile: new FormControl('', Validators.required),
+            status: new FormControl(''),
             provider_data_address_registration: new FormGroup({
                 region: new FormControl('', Validators.required),
                 district: new FormControl('', Validators.required),
@@ -212,7 +214,7 @@ export class CreateEditProvidersWidgetComponent implements OnInit {
                     id: +this.providerId || null,
                     name: form.name,
                     email: form.email,
-                    status: 1,
+                    status: +form.status,
                     actual_registration_address: +this.isActualLegal
                 },
                 provider_data_address_registration: form.provider_data_address_registration,
