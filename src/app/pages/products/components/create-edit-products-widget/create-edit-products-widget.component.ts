@@ -604,7 +604,7 @@ export class CreateEditProductsWidgetComponent implements OnInit, AfterViewInit 
     }
 
     public onSaveOrEditProduct(): void {
-        const requestObj = this.productCreateEditForm.value;
+        const requestObj = cloneDeep(this.productCreateEditForm.value);
 
         requestObj.products_groups_description_options = requestObj.products_groups_description_options.map((group) => {
             return {
@@ -644,12 +644,40 @@ export class CreateEditProductsWidgetComponent implements OnInit, AfterViewInit 
         this.productsService.updateProduct(productId, {product_json: product})
             .subscribe(
                 (response) => {
-                    console.log(response);
+                    if (this.filesList && this.filesList.length) {
+                        this.imagesUpload(productId);
+                    }
                 },
                 (error) => {
                     console.log(error);
                 }
             );
+    }
+
+    private imagesUpload(productId: number) {
+        const formData = new FormData();
+        const filesClone = cloneDeep(this.filesList);
+        const files = sortBy(filesClone, (file: FileCustom) => {
+            return !file.isFileTitle;
+        }).map((file: FileCustom) => {
+            delete file.previewSrc;
+            delete file.isFileTitle;
+
+            return file;
+        });
+
+        forEach(files, (file) => {
+            formData.append('files', file);
+        });
+
+        this.productsService.imagesUpload(productId, formData).subscribe(
+            (response) => {
+                console.log(response);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
     }
 
 }
