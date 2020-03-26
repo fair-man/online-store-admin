@@ -44,7 +44,7 @@ export class CreateEditProductsWidgetComponent implements OnInit, AfterViewInit 
     public productId: number;
     public productDataDefault: any;
 
-    private filesList: File[] = [];
+    public filesList: File[] = [];
 
     @ViewChild('productDragBlock', {static: false}) productDragBlockElement: ElementRef;
 

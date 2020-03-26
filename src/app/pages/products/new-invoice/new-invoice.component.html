@@ -99,8 +99,8 @@
             </tr>
             </thead>
             <tbody>
-            <ng-container *ngIf="invoiceForm.controls.products.controls.length" formArrayName="products">
-                <tr *ngFor="let product of invoiceForm.controls.products.controls;let j = index;" [formGroupName]="j">
+            <ng-container *ngIf="invoiceForm.controls.products['controls'].length" formArrayName="products">
+                <tr *ngFor="let product of invoiceForm.controls.products['controls'];let j = index;" [formGroupName]="j">
                     <td>
                         {{product.value.pt_name}}
                     </td>
@@ -119,7 +119,7 @@
                     </td>
                 </tr>
             </ng-container>
-            <tr *ngIf="!invoiceForm.controls.products.controls.length">
+            <tr *ngIf="!invoiceForm.controls.products['controls'].length">
                 <td colspan="4" class="text-placeholder">
                     Список продуктов пуст. Найдите и добавьте товар. Если продукт не найдет, пожалуйста, создайте новый
                     продукт.
