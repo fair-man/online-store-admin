@@ -29,7 +29,6 @@ export class ResponseInterceptor implements HttpInterceptor {
                 headers: request.headers
                     .set('X-CSRFToken', this.authService.getCSRFToken())
                     .set('Cache-Control', 'no-cache')
-                    .set('Pragma', 'no-cache')
             });
         }
         if (isDevMode()) {
