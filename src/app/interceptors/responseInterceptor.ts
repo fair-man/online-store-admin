@@ -28,7 +28,6 @@ export class ResponseInterceptor implements HttpInterceptor {
             request = request.clone({
                 headers: request.headers
                     .set('X-CSRFToken', this.authService.getCSRFToken())
-                    .set('Cache-Control', 'no-cache')
             });
         }
         if (isDevMode()) {
